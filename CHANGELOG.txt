@@ -1,4 +1,13 @@
+todolist
+1. 微信登录
+
 master
+
+v0.1.6
+1. 替换error page
+Whitelabel Error Page出自Spring Boot中的WebMvcAutoConfiguration,
+在BasicErrorController中通过RequestMapping判定输出json还是html,
+所以在templates下增加error.ftl可以满足基本要求.
 
 v0.1.5 2016/6/26
 1. 通过@Value(project.version)获取application.properties
