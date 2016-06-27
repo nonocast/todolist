@@ -3,6 +3,9 @@ todolist
 
 master
 
+v0.1.7
+1. 去掉TodolistApplicationConfiguration中的403 handler.
+
 v0.1.6
 1. 替换error page
 Whitelabel Error Page出自Spring Boot中的WebMvcAutoConfiguration,

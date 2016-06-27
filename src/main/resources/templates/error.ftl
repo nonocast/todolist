@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>${error}</title>
+	<title>${error!}</title>
 	<style>
 		body {
 			background-color: #f1f1f1;
@@ -52,16 +52,16 @@
 </head>
 <body>
 <div class="container">
-	<h1>${status}</h1>
-	<p><strong>${error}</strong></p>
+	<h1>${status!}</h1>
+	<p><strong>${error!}</strong></p>
 
 	<p>
 		您的请求发生了错误, 请再次尝试.
 	</p>
 
 	<div class="exception">
-        ${exception}
-	</divs>
+      ${exception!}
+	</div>
 
 </body>
 </html>
