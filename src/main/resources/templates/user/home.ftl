@@ -9,6 +9,12 @@
 <body>
     <h1>home</h1>
     <p>${auth.username}</p>
-    <p>${auth.admin?then("i'm admin", "i'm not admin")}</p>
+    <h2>all users</h2>
+
+    <ul>
+    <#list users as user>
+        <li>${user.name} - ${user.mail}</li>
+    </#list>
+    </ul>
 </body>
 </html>

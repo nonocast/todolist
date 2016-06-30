@@ -3,6 +3,13 @@ todolist
 
 master
 
+v0.1.8
+1. 增加todolist数据库schema
+2. 增加jpa
+3. 支持User/UserRepository
+4. 增加CustomUserService注入Spring Security
+5. 增加BCryptPasswordEncoder
+
 v0.1.7
 1. 去掉TodolistApplicationConfiguration中的403 handler.
 

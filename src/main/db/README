@@ -1,0 +1,4 @@
+database version: 0.1.0
+
+mysql todolist -uroot -p < schema.sql
+mysql todolist -uroot -p < data.sql
