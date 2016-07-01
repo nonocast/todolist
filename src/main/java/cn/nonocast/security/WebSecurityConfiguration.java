@@ -41,7 +41,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/admin/login").permitAll()
                 .anyRequest().hasRole("ADMIN").and()
-                .formLogin().loginPage("/admin/login").defaultSuccessUrl("/admin/console").permitAll().and()
+                .formLogin().loginPage("/admin/login").defaultSuccessUrl("/admin/users").permitAll().and()
                 .logout().logoutSuccessUrl("/").permitAll().and()
                 .rememberMe().tokenValiditySeconds(2419200).key("blackapr0n");
         }

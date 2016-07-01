@@ -166,3 +166,6 @@ body {
 .modal-body {
     font-size: 14px;
 }
+.subtitle {
+    margin: 10px 0 20px 20px;
+}

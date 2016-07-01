@@ -1,7 +1,11 @@
 todolist
 1. 微信登录
+2. pageable
 
 master
+
+v0.1.9
+1. freemarker template
 
 v0.1.8
 1. 增加todolist数据库schema
