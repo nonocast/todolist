@@ -1,14 +1,26 @@
 todolist
 1. 微信登录
-2. pageable
+2. 分页
+3. 排序
+4. 增加用户登录错误提示
 
 master
 
+v0.1.10
+1. "mail"改为"email"
+2. freemarker增加spring.ftl
+3. 增加用户验证, Valid/Errors
+4. admin创建用户,显示错误,返回创建成功页面
+
 v0.1.9
 1. freemarker template
+2. 增加create_user
 
 v0.1.8
 1. 增加todolist数据库schema
+    User p = userRepository.findByEmail("nonocast@gmail.com");
+    p.setPassword(passwordEncoder.encode("123456"));
+    userRepository.save(p);
 2. 增加jpa
 3. 支持User/UserRepository
 4. 增加CustomUserService注入Spring Security

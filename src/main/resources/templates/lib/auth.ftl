@@ -2,5 +2,3 @@
 <#assign username=username()>
 <#assign admin="cn.nonocast.tag.IsAdminMethod"?new()>
 <#assign admin=admin()>
-
-

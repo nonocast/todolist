@@ -1,3 +1,4 @@
+<#import "/spring.ftl" as spring>
 <#macro page title="admin" sidebar="users">
 <!DOCTYPE html>
 <html lang="en">
@@ -65,10 +66,10 @@
 	<div id="sidebar-wrapper">
 		<ul class="sidebar-nav">
 			<li>
-				<a href="users">用户管理</a>
+				<a href="/admin/users">用户管理</a>
 			</li>
 			<li>
-				<a href="create_user">新建用户</a>
+				<a href="/admin/create_user">新建用户</a>
 			</li>
 		</ul>
 	</div>

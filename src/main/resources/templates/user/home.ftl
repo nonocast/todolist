@@ -13,7 +13,7 @@
 
     <ul>
     <#list users as user>
-        <li>${user.name} - ${user.mail}</li>
+        <li>${user.name} - ${user.email}</li>
     </#list>
     </ul>
 </body>

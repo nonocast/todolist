@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.*;
 import cn.nonocast.model.User;
 import cn.nonocast.repository.UserRepository;
+import org.springframework.web.servlet.DispatcherServlet;
 
 @Controller
 @SpringBootApplication
@@ -29,14 +30,8 @@ public class TodolistApplication {
 
     @RequestMapping("/")
     public String welcome(Model model) {
+        DispatcherServlet p;
         model.addAttribute("version", this.version);
-
-        User p = userRepository.findByMail("nonocast@gmail.com");
-        String d = passwordEncoder.encode("123456");
-        logger.info(d);
-        p.setPassword(passwordEncoder.encode("123456"));
-        userRepository.save(p);
-
         return "index";
     }
 

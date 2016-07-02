@@ -20,7 +20,7 @@
           <#list users as user>
 					<tr>
 						<td class="visible-sm visible-md visible-lg">${user.id}</td>
-						<td class="visible-xs visible-sm visible-md visible-lg">${user.mail}</td>
+						<td class="visible-xs visible-sm visible-md visible-lg">${user.email}</td>
 						<td class="visible-lg">${user.name}</td>
 						<td class="visible-lg">${user.admin?then("管理员", "普通用户")}</td>
 						<td class="text-center td-btn"><a class="btn-table" href="project-info.html" title="编辑"><i class="fa fa-cog" aria-hidden="true"></a></td>

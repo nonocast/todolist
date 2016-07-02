@@ -46,6 +46,7 @@ dependencies {
     compile "org.webjars:font-awesome:4.6.3"
     compile "org.webjars:jquery:2.2.4"
     compile 'org.webjars:coffee-script:1.10.0'
+    compile group: 'com.google.guava', name: 'guava', version: '19.0'
     testCompile "org.springframework.boot:spring-boot-starter-test"
     runtime 'mysql:mysql-connector-java'
 }

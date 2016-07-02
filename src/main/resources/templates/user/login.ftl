@@ -14,10 +14,10 @@
 		<h2>Login</h2>
 		<hr />
 		<div class="form-group">
-			<input type="text" name="username" class="form-control" placeholder="mail address" />
+			<input type="text" name="username" class="form-control" placeholder="Email" />
 		</div>
 		<div class="form-group">
-			<input type="password" name="password" class="form-control" placeholder="password" />
+			<input type="password" name="password" class="form-control" placeholder="Password" />
 		</div>
 		<div class="checkbox">
 			<label>

@@ -169,3 +169,7 @@ body {
 .subtitle {
     margin: 10px 0 20px 20px;
 }
+.error {
+    margin: 4px 0 2px 2px;
+    color: #a94442;
+}

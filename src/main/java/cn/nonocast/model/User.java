@@ -7,22 +7,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 @Entity
 public class User implements UserDetails {
+    public interface WithoutPasswordView {};
+    public interface WithPasswordView extends WithoutPasswordView {};
+
     @Id
     @GeneratedValue
     private Long id;
 
-    private String mail;
+    private String email;
     private String name;
     private String password;
     private Boolean admin;
     private Boolean enabled;
-
 
     public long getId() {
         return id;
@@ -40,12 +43,12 @@ public class User implements UserDetails {
         this.name = username;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Boolean getAdmin() {
@@ -77,13 +80,14 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> result = new ArrayList<>();
-        result.add(new SimpleGrantedAuthority(this.admin ? "ROLE_ADMIN" : "ROLE_USER"));
+        result.add(new SimpleGrantedAuthority("ROLE_USER"));
+        if(this.admin) result.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         return result;
     }
 
     @Override
     public String getUsername() {
-        return this.mail;
+        return this.email;
     }
 
     @Override
@@ -102,11 +106,15 @@ public class User implements UserDetails {
     }
 
     public User() {
+        this.id = 0L;
+        this.admin = false;
+        this.enabled = true;
     }
 
-    public User(String mail, String name) {
+    public User(String email, String name, String password) {
         this();
-        this.mail = mail;
+        this.email = email;
         this.name = name;
+        this.password = password;
     }
 }
