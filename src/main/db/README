@@ -1,4 +1,10 @@
 database version: 0.1.0
 
-mysql todolist -uroot -p < schema.sql
-mysql todolist -uroot -p < data.sql
+CREATE USER username IDENTIFIED BY 'password';
+GRANT privileges ON todolist.* TO username;
+
+select user from mysql.user;
+
+mysql todolist -uusername -p < schema.sql
+mysql todolist -uusername -p < data.sql
+

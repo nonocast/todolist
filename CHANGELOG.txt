@@ -1,10 +1,48 @@
 todolist
-1. 微信登录
 2. 分页
 3. 排序
 4. 增加用户登录错误提示
+5. jar main读取jar内sql
+6. mysql 中文乱码
 
 master
+
+v0.1.13
+1. 模拟用户登录
+    UserDetails user = userDetailsManager.loadUserByUsername("linda@yahoo.com");
+    Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(auth);
+    rememberMeServices.loginSuccess(request, response ,auth);
+这是因为wechat login需要单独使用rememberMeServices,所以需要在WebSecurityConfiguration中单独注入rememberMeServices
+
+2. fix logout, 不可以直接使用request.logout(), 这个logout不能清理cookie.
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            rememberMeServices.logout(request, response, auth);
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+
+        SecurityContextHolder.getContext().setAuthentication(null);
+        SecurityContextHolder.clearContext();
+
+        return "redirect:/login?logout";
+    }
+
+v0.1.12
+1. 外部配置, 增加dev, prod profile.
+    System variable: $ java -Dspring.profiles.active='prod' -jar myapp.jar
+    Command line argument: $ java -jar myapp.jar --spring.profiles.active='prod'
+2. Spring Boot 日志
+    logging.path=/var/log/todolist
+3. 微信登录, 增加/wechat/callback回调,显示code
+4. 增加service
+    sudo systemctl daemon-reload
+
+v0.1.11
+fix linux systemd service failed. 貌似要去掉devtools.
+还需要再验证.
 
 v0.1.10
 1. "mail"改为"email"
