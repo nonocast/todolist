@@ -72,8 +72,8 @@ public class UserController {
             if(info == null) throw new IllegalArgumentException();
             redirectAttributes.addFlashAttribute("unionid", info.get("unionid"));
             redirectAttributes.addFlashAttribute("nickname", info.get("nickname"));
-            redirectAttributes.addFlashAttribute("avator", info.get("headimgurl"));
-            result = "rediect:/register";
+            redirectAttributes.addFlashAttribute("avatar", info.get("headimgurl"));
+            result = "redirect:/register";
         } else {
             // existed
             result = "redirect:/login";

@@ -26,11 +26,10 @@
     <section class="data-table">
         <div class="container-fluid">
 	        <form style="margin:20px 10px;" action="/register" method="post">
-          <#if form.avatar>
-		        <img style="width:200px;height:200px;" src="${form.avatar}">
-          </#if>
-          <@spring.bind "form.email" />
-		        <div class="form-group ${spring.status.error?then("has-error", "has-success")}">
+            <@spring.bind "form.avatar" />
+			        <img style="width:50px;height:50px;margin-bottom:20px;" src="${spring.status.value?default("/resources/misc/avatar.png")}">
+            <@spring.bind "form.email" />
+			        <div class="form-group ${spring.status.error?then("has-error", "has-success")}">
 			        <label for="email">邮箱地址</label>
 			        <input type="email" name="${spring.status.expression}" class="form-control" placeholder="Email" value="${spring.status.value?default("")}">
 			        <p class="error"><@spring.showErrors "" /></p>

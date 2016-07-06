@@ -5,8 +5,11 @@ todolist
 
 master
 
+v0.1.16
+fix wechat access
+
 v0.1.15
-1. 完成wechat接入
+1. 初步完成wechat接入
 
 v0.1.14
 1. fix mysql 中文乱码
