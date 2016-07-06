@@ -24,6 +24,8 @@ public class User implements UserDetails {
     private String email;
     private String name;
     private String password;
+    private String wechatid;
+    private String avatar;
     private Boolean admin;
     private Boolean enabled;
 
@@ -49,6 +51,22 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getWechatid() {
+        return wechatid;
+    }
+
+    public void setWechatid(String wechatid) {
+        this.wechatid = wechatid;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public Boolean getAdmin() {

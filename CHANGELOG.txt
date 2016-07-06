@@ -9,6 +9,9 @@ master
     扫码后得到unionid, 如果user中已有则直接登录,如果没有跳转到/register
     如果填写的邮箱没有则新增用户,如果已有转换为绑定.
 
+v0.1.18
+增加了wechatid判定
+
 v0.1.16
 fix wechat access
 

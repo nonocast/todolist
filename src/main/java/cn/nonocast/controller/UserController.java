@@ -56,8 +56,12 @@ public class UserController {
     }
 
     @RequestMapping("/wechat/callback")
-    public String wechatCallback(@RequestParam("code") String code, Model model, RedirectAttributes redirectAttributes) {
-        String result = "";
+    public String wechatCallback(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 @RequestParam("code") String code,
+                                 Model model,
+                                 RedirectAttributes redirectAttributes) {
+        String result;
 
         // TODO: 判定exists unionid
         String unionid = wechat.getUnionid(code);
@@ -66,7 +70,14 @@ public class UserController {
         model.addAttribute("unionid", unionid);
         model.addAttribute("code", code);
 
-        if(true) {
+        User target = userRepository.findByWechatid(unionid);
+        if(target != null) {
+            // existed
+            Authentication auth = new UsernamePasswordAuthenticationToken(target, null, target.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(auth);
+            rememberMeServices.loginSuccess(request, response ,auth);
+            result = "redirect:/home";
+        } else {
             // new user
             Map<String,String> info = wechat.getInfo();
             if(info == null) throw new IllegalArgumentException();
@@ -74,37 +85,9 @@ public class UserController {
             redirectAttributes.addFlashAttribute("nickname", info.get("nickname"));
             redirectAttributes.addFlashAttribute("avatar", info.get("headimgurl"));
             result = "redirect:/register";
-        } else {
-            // existed
-            result = "redirect:/login";
         }
 
         return result;
-    }
-
-    @RequestMapping("/wechat/pp")
-    public String mockLogin(HttpServletRequest request, HttpServletResponse response) {
-        String name = "linda@yahoo.com";
-        UserDetails user = userDetailsManager.loadUserByUsername(name);
-        Authentication auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(auth);
-        rememberMeServices.loginSuccess(request, response ,auth);
-        return "redirect:/home";
-    }
-
-    @RequestMapping("/wechat/info")
-    @ResponseBody
-    public String wechatinfo(@RequestParam String code, Model model) {
-        String unionid = wechat.getUnionid(code);
-        if(unionid == null) throw new IllegalArgumentException();
-
-        Map<String,String> info = wechat.getInfo();
-
-        model.addAttribute("nickname", info.get("nickname"));
-        model.addAttribute("avatar", info.get("headimgurl"));
-        model.addAttribute("unionid", unionid);
-        model.addAttribute("code", code);
-        return model.toString();
     }
 
     @RequestMapping("/register")
