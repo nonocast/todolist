@@ -1,14 +1,26 @@
-Todolist Application
-====================
-Todolist是一个Spring MVC的实践项目,产品有如下特性:
-- 微信登录
-- 提供长期, 短期和当前3个列表
+Spring Todolist Application
+===========================
+todolist is a simple todolist system implemented with Spring Boot.
+You can get it from http://todo.nonocast.cn.
+if you have any question or suggestion, mail me (nonocast@gmail.com).
 
-
-采用如下技术:
+It integrated the following framework:
 - Spring Boot
 - Spring MVC
 - Spring Security
 - Freemarker
+- WebJars
 - Spring Data JPA
 - Mysql
+- Wechat
+
+## Contribution
+- Hui Cao (nonocast@gmail.com)
+- Xiaodong Ge (gexi7n@gmail.com)
+
+## Changelog
+Details changes for each release are documented in the [release notes](https://github.com/nonocast/todolist/blob/master/CHANGELOG.txt).
+
+## License
+MIT license. Copyright (c) 2015, Hui Cao (nonocast).
+
