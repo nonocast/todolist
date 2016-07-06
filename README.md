@@ -1,10 +1,11 @@
 Spring Todolist Application
 ===========================
-todolist is a simple todolist system implemented with Spring Boot.
-You can get it from http://todo.nonocast.cn.
+http://todo.nonocast.cn
+
+This is a simple todolist system implemented with Spring Boot.
 if you have any question or suggestion, mail me (nonocast@gmail.com).
 
-It integrated the following framework:
+It integrated the following framework and third-party project:
 - Spring Boot
 - Spring MVC
 - Spring Security
@@ -24,4 +25,3 @@ Details changes for each release are documented in the [release notes](https://g
 
 ## License
 MIT license. Copyright (c) 2015, Hui Cao (nonocast).
-
