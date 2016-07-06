@@ -1,0 +1,21 @@
+v0.1.2
+增加用户数据,适配wechat
+
+v0.1.1
+中文乱码
+1. spring.datasource.url=jdbc:mysql://localhost/todolist?useSSL=false
+2. ALTER DATABASE todolist CHARACTER SET utf8;
+3. ALTER TABLE user CONVERT TO CHARACTER SET utf8;
+
+v0.1.0
+mysql -uroot -p
+CREATE DATABASE todolist;
+
+CREATE USER username IDENTIFIED BY 'password';
+GRANT privileges ON todolist.* TO username;
+select user from mysql.user;
+
+mysql todolist -uusername -p < schema.sql
+mysql todolist -uusername -p < data.sql
+
+

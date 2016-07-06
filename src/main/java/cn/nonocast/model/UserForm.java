@@ -7,9 +7,12 @@ public class UserForm {
     private String email;
     @Size(min=6, max=30, message="密码不少于6位")
     private String password;
-    @Size(min=4, max=30, message="用户名不少于4个字符")
+    @Size(min=2, max=30, message="用户名不少于2个字符")
     private String name;
     private Boolean admin;
+
+    private String wechatid;
+    private String avatar;
 
     public String getName() {
         return name;
@@ -39,8 +42,24 @@ public class UserForm {
         return admin;
     }
 
+    public String getWechatid() {
+        return wechatid;
+    }
+
+    public void setWechatid(String wechatid) {
+        this.wechatid = wechatid;
+    }
+
     public void setAdmin(Boolean admin) {
         this.admin = admin;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public UserForm() {

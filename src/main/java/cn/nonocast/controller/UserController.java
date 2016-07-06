@@ -3,24 +3,32 @@ package cn.nonocast.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
+
 import java.security.Principal;
+import java.util.Map;
+
 import cn.nonocast.repository.UserRepository;
-import org.springframework.web.bind.annotation.RequestParam;
+import cn.nonocast.model.*;
+import cn.nonocast.social.*;
 import cn.nonocast.security.CustomUserService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/")
@@ -36,15 +44,42 @@ public class UserController {
     @Autowired
     private TokenBasedRememberMeServices rememberMeServices;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private Wechat wechat;
+
     @RequestMapping("/login")
     public String login() {
         return "user/login";
     }
 
     @RequestMapping("/wechat/callback")
-    public String wechatCallback(@RequestParam("code") String code, Model model) {
+    public String wechatCallback(@RequestParam("code") String code, Model model, RedirectAttributes redirectAttributes) {
+        String result = "";
+
+        // TODO: 判定exists unionid
+        String unionid = wechat.getUnionid(code);
+        if(unionid == null) throw new IllegalArgumentException();
+
+        model.addAttribute("unionid", unionid);
         model.addAttribute("code", code);
-        return "user/wechat";
+
+        if(true) {
+            // new user
+            Map<String,String> info = wechat.getInfo();
+            if(info == null) throw new IllegalArgumentException();
+            redirectAttributes.addFlashAttribute("unionid", info.get("unionid"));
+            redirectAttributes.addFlashAttribute("nickname", info.get("nickname"));
+            redirectAttributes.addFlashAttribute("avator", info.get("headimgurl"));
+            result = "rediect:/register";
+        } else {
+            // existed
+            result = "redirect:/login";
+        }
+
+        return result;
     }
 
     @RequestMapping("/wechat/pp")
@@ -55,6 +90,47 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(auth);
         rememberMeServices.loginSuccess(request, response ,auth);
         return "redirect:/home";
+    }
+
+    @RequestMapping("/wechat/info")
+    @ResponseBody
+    public String wechatinfo(@RequestParam String code, Model model) {
+        String unionid = wechat.getUnionid(code);
+        if(unionid == null) throw new IllegalArgumentException();
+
+        Map<String,String> info = wechat.getInfo();
+
+        model.addAttribute("nickname", info.get("nickname"));
+        model.addAttribute("avatar", info.get("headimgurl"));
+        model.addAttribute("unionid", unionid);
+        model.addAttribute("code", code);
+        return model.toString();
+    }
+
+    @RequestMapping("/register")
+    public String registerForm(@ModelAttribute("form") UserForm form, Model model) {
+        if(model.containsAttribute("unionid")) {
+            form.setName(model.asMap().get("nickname").toString());
+            form.setAvatar(model.asMap().get("avatar").toString());
+        }
+        return "user/register";
+    }
+
+    @RequestMapping(value="/register", method=RequestMethod.POST)
+    public String registerSubmit(Principal principal, @Valid @ModelAttribute("form") UserForm form, Errors errors, Model model, RedirectAttributes redirectAttributes) {
+        if (errors.hasErrors()) {
+            return "user/register";
+        }
+
+        User user = new User(form.getEmail(), form.getName(), passwordEncoder.encode(form.getPassword()));
+        userRepository.save(user);
+        redirectAttributes.addFlashAttribute("user", user);
+        return "redirect:/register/result";
+    }
+
+    @RequestMapping("/register/result")
+    public String registerResult(Model model) {
+        return "user/register_result";
     }
 
     @RequestMapping("/home")

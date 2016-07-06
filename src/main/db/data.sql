@@ -1,3 +1,0 @@
-INSERT INTO user (email, name, password, admin) VALUES("nonocast@gmail.com", "Hui", "$2a$10$NvR/yNovADZ2OQiipGUS7On7G0mKDknKzh5oWqGznv.qUIKitN/SC", TRUE);
-INSERT INTO user (email, name, password) VALUES("fyx@gmail.com", "fangyx", "$2a$10$NvR/yNovADZ2OQiipGUS7On7G0mKDknKzh5oWqGznv.qUIKitN/SC");
-INSERT INTO user (email, name, password, admin) VALUES("gexi7n@gmail.com", "Ge", "$2a$10$NvR/yNovADZ2OQiipGUS7On7G0mKDknKzh5oWqGznv.qUIKitN/SC", TRUE);

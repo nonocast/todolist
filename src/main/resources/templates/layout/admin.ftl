@@ -32,6 +32,7 @@
         items = {}
         items['users'] = p[0];
         items['create_user'] = p[1];
+        items['dba'] = p[2];
         $(items['${sidebar}']).addClass('act')
     $ ->
 	    menu()
@@ -65,12 +66,9 @@
 	<!-- Sidebar -->
 	<div id="sidebar-wrapper">
 		<ul class="sidebar-nav">
-			<li>
-				<a href="/admin/users">用户管理</a>
-			</li>
-			<li>
-				<a href="/admin/create_user">新建用户</a>
-			</li>
+			<li><a href="/admin/users">用户管理</a></li>
+			<li><a href="/admin/create_user">新建用户</a></li>
+            <li><a href="/admin/dba">数据库管理</a></li>
 		</ul>
 	</div>
 	<!-- /#sidebar-wrapper -->

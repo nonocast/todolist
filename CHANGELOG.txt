@@ -1,11 +1,38 @@
 todolist
 2. 分页
 3. 排序
-4. 增加用户登录错误提示
-5. jar main读取jar内sql
-6. mysql 中文乱码
+4. 增加用户登录错误提示, 重名判断
 
 master
+
+v0.1.15
+1. 完成wechat接入
+
+v0.1.14
+1. fix mysql 中文乱码
+2. 增加注册
+3. Application获取context
+    @Autowired
+    private ApplicationContext appContext;
+4. 将wechat.json配置放在/etc/todolist/下,读取外部文件进行配置
+    Path p = Paths.get(path, "wechat.json");
+    String content = new String(Files.readAllBytes(p));
+5. 解析外部json
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    TypeReference<HashMap<String, String>> typeRef = new TypeReference<HashMap<String, String>>() {};
+    Map<String,String> settings = objectMapper.readValue(content, typeRef);
+6. 增加DBA, 配置数据库, --不合适取消了.
+    java -cp build/libs/todoapp-0.1.13-SNAPSHOT.jar cn.nonocast.DBA
+
+    查看jar包中的文件:
+    unzip -q -c todoapp-0.1.13-SNAPSHOT.jar META-INF/MANIFEST.MF
+    单独extract一个文件:
+    unzip -q todoapp-0.1.13-SNAPSHOT.jar META-INF/MANIFEST.MF
+
+unzip -q -c todoapp-x.y.z-SNAPSHOT.jar db/schema.sql
+unzip -q -c todoapp-x.y.z-SNAPSHOT.jar db/data.sql
 
 v0.1.13
 1. 模拟用户登录

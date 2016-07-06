@@ -11,33 +11,40 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'application'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 
-jar {
-	baseName = 'todoapp'
-
-  def properties = new Properties()
-  def propertiesFile = new File('src/main/resources/application.properties')
-  propertiesFile.withInputStream {
-      properties.load(it)
-  }
-
-  println properties['project.version']
-	version = properties['project.version']
-}
+mainClassName='cn.nonocast.TodolistApplication'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-repositories {
-	mavenCentral()
+def getProjectVersion() {
+    // 获取application.properties中的project.verion
+    def properties = new Properties()
+    def propertiesFile = new File('src/main/resources/application.properties')
+    propertiesFile.withInputStream {
+        properties.load(it)
+    }
+
+    return properties['project.version']
 }
 
+def projectVersion = getProjectVersion()
+
+jar {
+    baseName = 'todoapp'
+    version = projectVersion
+}
+
+repositories {
+    mavenCentral()
+}
 
 dependencies {
-	compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-web'
     compile "org.springframework.boot:spring-boot-starter-security"
     compile "org.springframework.boot:spring-boot-devtools"
     compile "org.springframework.boot:spring-boot-starter-freemarker"
@@ -51,10 +58,18 @@ dependencies {
     runtime 'mysql:mysql-connector-java'
 }
 
+// gradle -Paction=xxx dba
+// default: rebuild
+task dba << {
+    def command = "java -cp build/libs/todoapp-${projectVersion}.jar cn.nonocast.DBA"
+    print command.execute().text
+}
+
+dba.dependsOn build
 
 eclipse {
-	classpath {
-		 containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
-		 containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
-	}
+    classpath {
+        containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+        containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+    }
 }

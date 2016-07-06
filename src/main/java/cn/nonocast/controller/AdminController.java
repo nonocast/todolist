@@ -60,4 +60,15 @@ public class AdminController {
     public String userCreateResult(Model model) {
         return "admin/create_user_result";
     }
+
+    @RequestMapping("/dba")
+    public String dba() {
+        return "admin/dba";
+    }
+
+    @RequestMapping(value="/dba_rebuild", method=RequestMethod.POST)
+    public String rebuildDatabase() {
+        // 如果数据库有问题都看不到这个页面...
+        return "redirect:/dba";
+    }
 }
