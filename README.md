@@ -3,7 +3,8 @@ Spring Todolist Application
 http://todo.nonocast.cn
 
 This is a simple todolist system implemented with Spring Boot.
-  if you have any question or suggestion, mail me (nonocast@gmail.com).
+
+If you have any question or suggestion, mail me (nonocast@gmail.com).
 
 It integrated the following framework and third-party project:
 - Spring Boot
