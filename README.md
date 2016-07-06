@@ -8,6 +8,7 @@ It integrated the following framework:
 - Spring Boot
 - Spring MVC
 - Spring Security
+- Gradle
 - Freemarker
 - WebJars
 - Spring Data JPA
