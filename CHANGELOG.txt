@@ -1,11 +1,16 @@
 todolist
-2. 分页
-3. 排序
-4. 增加用户登录错误提示, 重名判断
+1. 分页
+2. 排序
+3. 增加用户登录错误提示, 重名判断
+4. 用户编辑
 5. refactor exception
 
 master
-1. 微信套路:
+
+v0.1.19
+1. 服务器出现DataAccessResourceFailureException,网上说需要在connection string增加autoReconnect=true, 需要观察
+
+2. 微信套路:
     扫码后得到unionid, 如果user中已有则直接登录,如果没有跳转到/register
     如果填写的邮箱没有则新增用户,如果已有转换为绑定.
 
@@ -83,7 +88,7 @@ fix linux systemd service failed. 貌似要去掉devtools.
 
 v0.1.10
 1. "mail"改为"email"
-2. freemarker增加spring.ftl
+2. freemarker增加spring.ftl, 完成spring binding
 3. 增加用户验证, Valid/Errors
 4. admin创建用户,显示错误,返回创建成功页面
 

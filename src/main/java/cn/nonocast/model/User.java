@@ -23,6 +23,8 @@ public class User implements UserDetails {
 
     private String email;
     private String name;
+    private String mobile;
+    private String location;
     private String password;
     private String wechatid;
     private String avatar;
@@ -51,6 +53,22 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getWechatid() {

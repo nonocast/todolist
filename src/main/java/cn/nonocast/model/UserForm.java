@@ -9,10 +9,13 @@ public class UserForm {
     private String password;
     @Size(min=2, max=30, message="用户名不少于2个字符")
     private String name;
-    private Boolean admin;
-
     private String wechatid;
     private String avatar;
+    @Size(min=6, max=30, message="不少于6位")
+    private String mobile;
+    @Size(min=2, max=30, message="不少于2个字符")
+    private String location;
+    private Boolean admin;
 
     public String getName() {
         return name;
@@ -36,6 +39,22 @@ public class UserForm {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public Boolean getAdmin() {
