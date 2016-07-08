@@ -9,11 +9,11 @@
 <body>
     <h1>home</h1>
     <p>${auth.username}</p>
-    <h2>all users</h2>
+    <h2>tasks</h2>
 
     <ul>
-    <#list users as user>
-        <li>${user.name} - ${user.email}</li>
+    <#list tasks as task>
+        <li>${task.content}</li>
     </#list>
     </ul>
 </body>

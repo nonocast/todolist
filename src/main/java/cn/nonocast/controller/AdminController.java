@@ -1,5 +1,6 @@
 package cn.nonocast.controller;
 
+import cn.nonocast.form.UserForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +10,14 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
-import cn.nonocast.repository.UserRepository;
+import cn.nonocast.repository.*;
 import org.springframework.web.bind.annotation.RequestMethod;
 import cn.nonocast.model.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,6 +26,9 @@ public class AdminController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private TaskRepository taskRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -64,6 +69,13 @@ public class AdminController {
     @RequestMapping("/dba")
     public String dba() {
         return "admin/dba";
+    }
+
+    @RequestMapping("/tasks")
+    public String tasks(Model model) {
+        List<Task> tasks = taskRepository.findAll();
+        model.addAttribute("tasks", tasks);
+        return "admin/tasks";
     }
 
     @RequestMapping(value="/dba_rebuild", method=RequestMethod.POST)

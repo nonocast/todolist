@@ -1,4 +1,4 @@
-package cn.nonocast.model;
+package cn.nonocast.form;
 
 import javax.validation.constraints.Size;
 
@@ -57,10 +57,6 @@ public class UserForm {
         this.mobile = mobile;
     }
 
-    public Boolean getAdmin() {
-        return admin;
-    }
-
     public String getWechatid() {
         return wechatid;
     }
@@ -69,16 +65,20 @@ public class UserForm {
         this.wechatid = wechatid;
     }
 
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
-    }
-
     public String getAvatar() {
         return avatar;
     }
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 
     public UserForm() {

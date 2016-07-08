@@ -16,6 +16,7 @@
                 <th class="visible-lg">区域</th>
                 <th class="visible-lg">微信</th>
                 <th class="visible-lg">权限</th>
+                <th class="visible-lg">创建时间</th>
 				<th class="text-center td-btn">操作</th>
 			</tr>
 			</thead>
@@ -29,6 +30,7 @@
                         <td class="visible-lg">${user.location}</td>
                         <td class="visible-lg">${user.wechatid}</td>
                         <td class="visible-lg">${user.admin?then("管理员", "普通用户")}</td>
+                        <td class="visible-lg">${user.createdAt}</td>
 						<td class="text-center td-btn"><a class="btn-table" href="project-info.html" title="编辑"><i class="fa fa-cog" aria-hidden="true"></a></td>
 					</tr>
           </#list>

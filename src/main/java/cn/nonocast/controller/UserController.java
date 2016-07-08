@@ -1,13 +1,12 @@
 package cn.nonocast.controller;
 
+import cn.nonocast.form.UserForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
@@ -15,14 +14,12 @@ import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
 import java.security.Principal;
 import java.util.Map;
-
-import cn.nonocast.repository.UserRepository;
+import cn.nonocast.repository.*;
 import cn.nonocast.model.*;
+import cn.nonocast.service.*;
 import cn.nonocast.social.*;
-import cn.nonocast.security.CustomUserService;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
@@ -39,7 +36,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
-    private CustomUserService userDetailsManager;
+    private TaskService taskService;
 
     @Autowired
     private TokenBasedRememberMeServices rememberMeServices;
@@ -116,13 +113,6 @@ public class UserController {
         return "user/register_result";
     }
 
-    @RequestMapping("/home")
-    public String home(Model model, Principal principal) {
-        model.addAttribute("username", principal.getName());
-        model.addAttribute("users", userRepository.findAll());
-        return "user/home";
-    }
-
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -135,5 +125,11 @@ public class UserController {
         SecurityContextHolder.clearContext();
 
         return "redirect:/login?logout";
+    }
+
+    @RequestMapping("/home")
+    public String home(Model model, Principal principal) {
+        model.addAttribute("tasks", taskService.findByUser((User)principal));
+        return "user/home";
     }
 }

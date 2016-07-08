@@ -4,8 +4,13 @@ todolist
 3. 增加用户登录错误提示, 重名判断
 4. 用户编辑
 5. refactor exception
+6. Cacheable - redis
 
 master
+
+v0.1.20
+1. 增加Task
+2. 增加ModelBase
 
 v0.1.19
 1. 服务器出现DataAccessResourceFailureException,网上说需要在connection string增加autoReconnect=true, 需要观察

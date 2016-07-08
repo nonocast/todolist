@@ -56,6 +56,7 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '19.0'
     testCompile "org.springframework.boot:spring-boot-starter-test"
     runtime 'mysql:mysql-connector-java'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 }
 
 // gradle -Paction=xxx dba

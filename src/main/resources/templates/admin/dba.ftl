@@ -8,8 +8,9 @@
 
 <section class="data-table">
 <div class="container-fluid">
+    <p>TODO: 数据库管理</p>
 	<form action="/admin/dba_rebuild" method="post">
-		<button style="margin-left:10px;" class="btn btn-default" type="submit">Rebuild database</button>
+		<#--<button style="margin-left:10px;" class="btn btn-default" type="submit">Rebuild database</button>-->
 	</form>
 </div>
 </section>
