@@ -4,6 +4,7 @@ import cn.nonocast.form.UserForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.*;
 import org.springframework.validation.Errors;
@@ -55,9 +56,14 @@ public class AdminController {
             return "admin/create_user";
         }
 
-        User user = new User(form.getEmail(), form.getName(), passwordEncoder.encode(form.getPassword()));
-        userRepository.save(user);
-        redirectAttributes.addFlashAttribute("user", user);
+        try {
+            User user = new User(form.getEmail(), form.getName(), passwordEncoder.encode(form.getPassword()));
+            userRepository.save(user);
+            redirectAttributes.addFlashAttribute("user", user);
+        }catch(DataAccessException ex) {
+            return "admin/create_user";
+        }
+
         return "redirect:/admin/create_user/result";
     }
 

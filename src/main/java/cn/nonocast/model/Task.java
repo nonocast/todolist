@@ -2,11 +2,15 @@ package cn.nonocast.model;
 
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Entity
 public class Task extends ModelBase {
-    private Long belongsTo;
+    @ManyToOne
+    @JoinColumn(name="belongs_to")
+    private User belongsTo;
     private String content;
     private int category;
     private int status;
@@ -15,11 +19,11 @@ public class Task extends ModelBase {
     private Date topmostedAt;
     private Date closedAt;
 
-    public Long getBelongsTo() {
+    public User getBelongsTo() {
         return belongsTo;
     }
 
-    public void setBelongsTo(Long belongsTo) {
+    public void setBelongsTo(User belongsTo) {
         this.belongsTo = belongsTo;
     }
 
