@@ -8,6 +8,10 @@ todolist
 
 master
 
+
+v0.1.22
+fix
+
 v0.1.21
 1. 增加Task-User relation
 2. 通过@AuthenticationPrincipal返回login user

@@ -8,12 +8,11 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.*;
-import cn.nonocast.repository.UserRepository;
+import cn.nonocast.repository.*;
 import cn.nonocast.social.*;
 
 @Controller
@@ -28,11 +27,7 @@ public class TodolistApplication implements ApplicationRunner {
     private WechatLoader wechatLoader;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Autowired
-    private UserRepository userRepository;
+    private TaskRepository taskRepository;
 
     @Value("${project.version}")
     private String version;
@@ -57,5 +52,7 @@ public class TodolistApplication implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         wechatLoader.load(wechatPath);
+
+
     }
 }

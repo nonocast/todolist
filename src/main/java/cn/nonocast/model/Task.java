@@ -4,6 +4,7 @@ package cn.nonocast.model;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -11,6 +12,7 @@ public class Task extends ModelBase {
     @ManyToOne
     @JoinColumn(name="belongs_to")
     private User belongsTo;
+    @NotNull
     private String content;
     private int category;
     private int status;

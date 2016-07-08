@@ -5,6 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 @Entity
@@ -12,6 +13,7 @@ public class User extends ModelBase implements UserDetails {
     public interface WithoutPasswordView {};
     public interface WithPasswordView extends WithoutPasswordView {};
 
+    @NotNull
     private String email;
     private String name;
     private String mobile;
