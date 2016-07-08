@@ -8,6 +8,11 @@ todolist
 
 master
 
+v0.1.21
+1. 增加Task-User relation
+2. 通过@AuthenticationPrincipal返回login user
+    public String home(@AuthenticationPrincipal User user)
+
 v0.1.20
 1. 增加Task
 2. 增加ModelBase

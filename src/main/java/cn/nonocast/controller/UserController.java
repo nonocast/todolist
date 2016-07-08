@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -128,8 +129,8 @@ public class UserController {
     }
 
     @RequestMapping("/home")
-    public String home(Model model, Principal principal) {
-        model.addAttribute("tasks", taskService.findByUser((User)principal));
+    public String home(Model model, @AuthenticationPrincipal User user) {
+        model.addAttribute("tasks", taskService.findByUser(user));
         return "user/home";
     }
 }

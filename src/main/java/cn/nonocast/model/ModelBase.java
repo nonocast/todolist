@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import cn.nonocast.misc.*;
 
 @MappedSuperclass
 public abstract class ModelBase implements Comparable<ModelBase>, Serializable {
@@ -22,6 +23,7 @@ public abstract class ModelBase implements Comparable<ModelBase>, Serializable {
 
     @PrePersist
     public void prePersist(){
+        PrePersistUtil.pre(this);
         createdAt = updatedAt = new Date();
     }
 
