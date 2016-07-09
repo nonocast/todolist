@@ -5,9 +5,17 @@ todolist
 4. 用户编辑
 5. refactor exception
 6. Cacheable - redis
+7. rest api
+8. vue.js
 
 master
 
+v0.1.23
+再次出现 org.springframework.dao.DataAccessResourceFailureException
+说明v0.1.19没有解决此问题
+    spring.datasource.test-on-borrow=true
+    spring.datasource.validation-query=SELECT 1
+ref: http://tomaszdziurko.pl/2010/06/solving-com-mysql-jdbc-exceptions-jdbc4-communicationsexception-in-spring-jdbc-based-application/
 
 v0.1.22
 fix
