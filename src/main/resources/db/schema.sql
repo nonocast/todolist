@@ -1,5 +1,5 @@
 # v0.1.3
-USE todolist;
+USE todolist
 
 DROP TABLE IF EXISTS user;
 
