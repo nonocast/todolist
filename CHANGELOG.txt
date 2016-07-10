@@ -16,6 +16,12 @@ todolist
 
 master
 
+v0.1.27
+1. 增加todolist-update
+    sudo ln -s /home/nonocast/.sdkman/candidates/gradle/current/bin/gradle /usr/bin/gradle
+2. 通过ssh nonocast.cn -t todolist-update
+    -t是需要模拟tty,用来sudo输入密码
+
 v0.1.26
 add task:publish
 

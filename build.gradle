@@ -62,6 +62,10 @@ task publish(dependsOn: build) << {
     ["cp", "build/libs/todoapp-${version}.jar", "../todoapp"].execute()
 }
 
+task push << {
+    ["ssh", "nonocast.cn", "-t", "todolist-update"].execute()
+}
+
 eclipse {
     classpath {
         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
