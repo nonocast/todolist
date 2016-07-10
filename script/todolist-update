@@ -1,0 +1,6 @@
+#!/bin/sh
+cd /var/www/todo/todolist
+git pull
+gradle publish
+sudo systemctl daemon-reload
+sudo service todolist restart
