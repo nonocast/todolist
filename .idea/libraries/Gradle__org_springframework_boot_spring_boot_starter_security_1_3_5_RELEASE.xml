@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.boot:spring-boot-starter-security:1.3.5.RELEASE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-security/1.3.5.RELEASE/3a7e37b757f3d23fc62a576a74b5e5be2061fc69/spring-boot-starter-security-1.3.5.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-security/1.3.5.RELEASE/6791e5e144e04cfbc01cc1bbf36a0340611dcb8f/spring-boot-starter-security-1.3.5.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
