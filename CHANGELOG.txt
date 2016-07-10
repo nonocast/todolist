@@ -16,7 +16,8 @@ todolist
 
 master
 
-v0.1.25
+v0.1.26
+add task:publish
 
 v0.1.23
 再次出现 org.springframework.dao.DataAccessResourceFailureException

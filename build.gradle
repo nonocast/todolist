@@ -59,9 +59,7 @@ dependencies {
 }
 
 task publish(dependsOn: build) << {
-    ["rm", "-f", "../todoapp.jar"].execute()
-    ["cp", "build/libs/todoapp-${version}.jar", ".."].execute()
-    ["ln", "-s", "../todoapp-${version}.jar", "../todoapp"].execute()
+    ["cp", "build/libs/todoapp-${version}.jar", "todoapp"].execute()
 }
 
 eclipse {
