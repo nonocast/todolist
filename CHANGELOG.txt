@@ -1,3 +1,11 @@
+system env:
+vagrant init debian/jessie64
+vagrant up
+
+database env:
+todo unzip -q todoapp-xxx-SNAPSHOT.jar db/schema.sql
+todo unzip -q todoapp-xxx-SNAPSHOT.jar db/rebuild.sh
+
 todolist
 1. 分页
 2. 排序
@@ -8,6 +16,15 @@ todolist
 
 master
 
+v0.1.25
+
+v0.1.23
+再次出现 org.springframework.dao.DataAccessResourceFailureException
+说明v0.1.19没有解决此问题
+    spring.datasource.test-on-borrow=true
+    spring.datasource.validation-query=SELECT 1
+ref: http://tomaszdziurko.pl/2010/06/solving-com-mysql-jdbc-exceptions-jdbc4-communicationsexception-in-spring-jdbc-based-application/
+mysql升级到5.7直接解决问题!
 
 v0.1.22
 fix

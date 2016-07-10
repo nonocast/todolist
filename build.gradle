@@ -32,11 +32,10 @@ def getProjectVersion() {
     return properties['project.version']
 }
 
-def projectVersion = getProjectVersion()
+version = getProjectVersion()
 
 jar {
     baseName = 'todoapp'
-    version = projectVersion
 }
 
 repositories {
@@ -59,14 +58,11 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 }
 
-// gradle -Paction=xxx dba
-// default: rebuild
-task dba << {
-    def command = "java -cp build/libs/todoapp-${projectVersion}.jar cn.nonocast.DBA"
-    print command.execute().text
+task publish(dependsOn: build) << {
+    ["rm", "-f", "../todoapp.jar"].execute()
+    ["cp", "build/libs/todoapp-${version}.jar", ".."].execute()
+    ["ln", "-s", "../todoapp-${version}.jar", "../todoapp"].execute()
 }
-
-dba.dependsOn build
 
 eclipse {
     classpath {
