@@ -16,6 +16,9 @@ todolist
 
 master
 
+v0.1.28
+server.address=127.0.0.1
+
 v0.1.27
 1. 增加todolist-update
     sudo ln -s /home/nonocast/.sdkman/candidates/gradle/current/bin/gradle /usr/bin/gradle
