@@ -6,6 +6,9 @@ database env:
 todo unzip -q todoapp-xxx-SNAPSHOT.jar db/schema.sql
 todo unzip -q todoapp-xxx-SNAPSHOT.jar db/rebuild.sh
 
+update service:
+ssh nonocast.cn -t todolist-update
+
 todolist
 1. 分页
 2. 排序
