@@ -9,8 +9,8 @@
 	<title>register</title>
 	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/4.6.3/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="/resources/css/console.css">
-	<link rel="stylesheet" type="text/css" href="/resources/css/simple-sidebar.css">
+	<link rel="stylesheet" type="text/css" href="/public/css/console.css">
+	<link rel="stylesheet" type="text/css" href="/public/css/simple-sidebar.css">
 	<script src="/webjars/jquery/2.2.4/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="/webjars/coffee-script/1.10.0/coffee-script.min.js"></script>
@@ -27,7 +27,7 @@
         <div class="container-fluid">
 	        <form style="margin:20px 10px;" action="/register" method="post">
             <@spring.bind "form.avatar" />
-			        <img style="width:50px;height:50px;margin-bottom:20px;" src="${spring.status.value?default("/resources/misc/avatar.png")}">
+			        <img style="width:50px;height:50px;margin-bottom:20px;" src="${spring.status.value?default("/public/misc/avatar.png")}">
             <@spring.bind "form.email" />
 			        <div class="form-group ${spring.status.error?then("has-error", "has-success")}">
 			        <label for="email">邮箱地址</label>

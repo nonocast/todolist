@@ -1,7 +1,7 @@
 <#import "/spring.ftl" as spring>
 <#include "/layout/admin.ftl">
 
-<@page title="dba" sidebar="dba">
+<@view title="dba" sidebar="dba">
 <section class="subtitle">
 	<h2>数据库管理</h2>
 </section>
@@ -14,4 +14,4 @@
 	</form>
 </div>
 </section>
-</@page>
+</@view>

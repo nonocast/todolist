@@ -5,7 +5,7 @@
 	<title>Users Sign in</title>
 	<link href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
 	<link href="/webjars/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet" media="screen"/>
-	<link href="/resources/css/login.css" rel="stylesheet" media="screen"/>
+	<link href="/public/css/login.css" rel="stylesheet" media="screen"/>
 	<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.js"></script>
 </head>
 <body class="blue-bg">

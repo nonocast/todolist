@@ -1,6 +1,6 @@
 <#include "/layout/admin.ftl">
 
-<@page title="user" sidebar="users">
+<@view title="user" sidebar="tasks">
 <section class="subtitle">
 	<h2>任务列表</h2>
 </section>
@@ -17,7 +17,7 @@
 			</tr>
 			</thead>
 			<tbody>
-          <#list tasks as task>
+          <#list page.content as task>
           <tr>
 	          <td class="visible-sm visible-md visible-lg">${task.id}</td>
 	          <td class="visible-xs visible-sm visible-md visible-lg">${task.content}</td>
@@ -30,29 +30,6 @@
 		</table>
 	</div>
 </section>
-<!--
-<section class="paginations">
-	<div class="container-fluid">
-		<small class="pull-left pagination-text visible-sm visible-md visible-lg">现在是第1页，共1页，总共15条数据</small>
-		<ul class="pagination pull-right">
-			<li>
-				<a href="#" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				</a>
-			</li>
-			<li class="active"><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li>
-				<a href="#" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				</a>
-			</li>
-		</ul>
-	</div>
-</section>
--->
+<@pagination.section page />
 </div>
-</@page>
+</@view>

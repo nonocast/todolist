@@ -1,5 +1,8 @@
 <#import "/spring.ftl" as spring>
-<#macro page title="admin" sidebar="users">
+<#import "/lib/auth.ftl" as auth>
+<#import "/lib/pagination.ftl" as pagination>
+
+<#macro view title="admin" sidebar="users">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,36 +12,16 @@
 	<title>console - ${title}</title>
 	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/4.6.3/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="/resources/css/console.css">
-	<link rel="stylesheet" type="text/css" href="/resources/css/simple-sidebar.css">
+	<link rel="stylesheet" type="text/css" href="/public/css/console.css">
+	<link rel="stylesheet" type="text/css" href="/public/css/simple-sidebar.css">
 	<script src="/webjars/jquery/2.2.4/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="/webjars/coffee-script/1.10.0/coffee-script.min.js"></script>
+	<script src="/webjars/coffee-script/1.10.0/coffee-script.min.js"></script>
 	<script type="text/coffeescript">
-    menu = ->
-        $("#menu-toggle").click (e) ->
-            e.preventDefault()
-            $('#wrapper').toggleClass('toggled')
-            $('#menu-toggle').toggleClass('folded')
-            if $("#menu-toggle").hasClass('folded')
-                $("#menu-toggle>i").removeClass('fa-angle-double-left')
-                $("#menu-toggle>i").addClass('fa-angle-double-right')
-            else
-                $("#menu-toggle>i").addClass('fa-angle-double-left')
-                $("#menu-toggle>i").removeClass('fa-angle-double-right')
-
-    sidebar = ->
-        p = $(".sidebar-nav").find("li a")
-        items = {}
-        items['users'] = p[0];
-        items['create_user'] = p[1];
-	    items['tasks'] = p[2];
-        items['dba'] = p[3];
-        $(items['${sidebar}']).addClass('act')
-    $ ->
-	    menu()
-	    sidebar()
-    </script>
+		$.app = {}
+		$.app.page = '${sidebar}'
+	</script>
+	<script type="text/coffeescript" src="/private/script/admin.coffee"></script>
 </head>
 <body>
 <div class="navbar navbar-default navbar-custom">
@@ -51,7 +34,7 @@
 			<ul class="nav navbar-nav">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle avater" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<img src="/resources/misc/avatar.png" class="img-responsive circle" alt="Responsive image">
+						<img src="/public/misc/avatar.png" class="img-responsive circle" alt="Responsive image">
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="#">修改密码</a></li>
@@ -69,15 +52,14 @@
 		<ul class="sidebar-nav">
 			<li><a href="/admin/users">用户管理</a></li>
 			<li><a href="/admin/create_user">新建用户</a></li>
-            <li><a href="/admin/tasks">任务管理</a></li>
-            <li><a href="/admin/dba">数据库管理</a></li>
+			<li><a href="/admin/tasks">任务管理</a></li>
 		</ul>
 	</div>
 	<!-- /#sidebar-wrapper -->
 	<!-- Page Content -->
 	<div id="page-content-wrapper">
 		<a href="#menu-toggle" id="menu-toggle" class="sidebar-menu"><i class="fa fa-angle-double-left"></i></a>
-        <#nested>
+      <#nested>
 	</div>
 	<!-- /#page-content-wrapper -->
 </div>

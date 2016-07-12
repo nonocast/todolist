@@ -5,6 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.*;
 import org.springframework.validation.Errors;
@@ -40,8 +43,8 @@ public class AdminController {
     }
 
     @RequestMapping("/users")
-    public String users(Model model) {
-        model.addAttribute("users", userRepository.findAll());
+    public String users(Model model, Pageable pageable) {
+        model.addAttribute("page", userRepository.findAll(pageable));
         return "admin/users";
     }
 
@@ -72,16 +75,15 @@ public class AdminController {
         return "admin/create_user_result";
     }
 
+    @RequestMapping("/tasks")
+    public String tasks(Model model, Pageable pageable) {
+        model.addAttribute("page", taskRepository.findAll(pageable));
+        return "admin/tasks";
+    }
+
     @RequestMapping("/dba")
     public String dba() {
         return "admin/dba";
-    }
-
-    @RequestMapping("/tasks")
-    public String tasks(Model model) {
-        List<Task> tasks = taskRepository.findAll();
-        model.addAttribute("tasks", tasks);
-        return "admin/tasks";
     }
 
     @RequestMapping(value="/dba_rebuild", method=RequestMethod.POST)
