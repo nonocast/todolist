@@ -16,6 +16,9 @@ todolist
 
 master
 
+v0.1.29
+还是DAOAccessException, MySQL 5.7还是有这个问题, 重新增加borrow和validate-query
+
 v0.1.28
 server.address=127.0.0.1
 
