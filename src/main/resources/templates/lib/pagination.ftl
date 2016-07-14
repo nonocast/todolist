@@ -16,7 +16,7 @@ window.page = (index) ->
 		<small class="pull-left pagination-text visible-sm visible-md visible-lg">现在是第${page.number+1}页，共${page.totalPages}页，总共${page.totalElements}条数据</small>
 		<ul class="pagination pull-right">
             <#-- first page -->
-			<li ${(0==page.number)?then("class=\"disabled\"","")}>
+			<li ${page.first?then("class=\"disabled\"","")}>
 				<a href="javascript:page(${page.number})" aria-label="Previous">
 					<span aria-hidden="true">&laquo; 上一页</span>
 				</a>
@@ -27,7 +27,7 @@ window.page = (index) ->
     <#--<li><a href="#">4</a></li>-->
     <#--<li><a href="#">5</a></li>-->
             <#-- last page -->
-            <li ${(page.number>=page.totalPages-1)?then("class=\"disabled\"","")}>
+            <li ${page.last?then("class=\"disabled\"","")}>
 				<a href="javascript:page(${page.number+2})" aria-label="Next">
 					<span aria-hidden="true">下一页 &raquo;</span>
 				</a>

@@ -2,7 +2,7 @@
 <#import "/lib/auth.ftl" as auth>
 <#import "/lib/pagination.ftl" as pagination>
 
-<#macro view title="admin" sidebar="users">
+<#macro view title="admin" sidebar="users" header="">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,11 +17,13 @@
 	<script src="/webjars/jquery/2.2.4/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="/webjars/coffee-script/1.10.0/coffee-script.min.js"></script>
+	<script type="text/coffeescript" src="/public/script/common.coffee"></script>
 	<script type="text/coffeescript">
-		$.app = {}
+		$.app = $.app or {}
 		$.app.page = '${sidebar}'
 	</script>
 	<script type="text/coffeescript" src="/private/script/admin.coffee"></script>
+    ${header}
 </head>
 <body>
 <div class="navbar navbar-default navbar-custom">
@@ -59,7 +61,7 @@
 	<!-- Page Content -->
 	<div id="page-content-wrapper">
 		<a href="#menu-toggle" id="menu-toggle" class="sidebar-menu"><i class="fa fa-angle-double-left"></i></a>
-      <#nested>
+        <#nested>
 	</div>
 	<!-- /#page-content-wrapper -->
 </div>

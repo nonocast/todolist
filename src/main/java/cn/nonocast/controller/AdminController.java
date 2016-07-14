@@ -1,13 +1,14 @@
 package cn.nonocast.controller;
 
 import cn.nonocast.form.UserForm;
+import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.*;
 import org.springframework.validation.Errors;
@@ -17,11 +18,13 @@ import org.springframework.ui.Model;
 import cn.nonocast.repository.*;
 import org.springframework.web.bind.annotation.RequestMethod;
 import cn.nonocast.model.*;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.List;
+import java.util.ArrayList;
+
+import cn.nonocast.service.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -30,6 +33,9 @@ public class AdminController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private TaskRepository taskRepository;
@@ -43,8 +49,22 @@ public class AdminController {
     }
 
     @RequestMapping("/users")
-    public String users(Model model, Pageable pageable) {
-        model.addAttribute("page", userRepository.findAll(pageable));
+    public String users(Model model,
+                        @RequestParam(required=false) String role,
+                        @RequestParam(required=false) String q,
+                        Pageable pageable) {
+        Page<User> page = new PageImpl<User>(new ArrayList<>(), pageable, 0);
+        if(!Strings.isNullOrEmpty(q)) {
+            page = userRepository.findByKeyword(q, pageable);
+        }else if(!Strings.isNullOrEmpty(role)) {
+            User.Role r = User.Role.valueOf(role.toUpperCase());
+            if(r != null) {
+                page = userRepository.findByRole(r, pageable);
+            }
+        } else {
+            page = userRepository.findAll(pageable);
+        }
+        model.addAttribute("page", page);
         return "admin/users";
     }
 

@@ -9,7 +9,6 @@ import cn.nonocast.misc.*;
 
 @MappedSuperclass
 public abstract class ModelBase implements Comparable<ModelBase>, Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

@@ -21,8 +21,11 @@ public class User extends ModelBase implements UserDetails {
     private String password;
     private String wechatid;
     private String avatar;
-    private Boolean admin;
-    private Boolean enabled;
+    private Boolean enabled = true;
+
+
+    @Enumerated(EnumType.ORDINAL)
+    private Role role;
 
     public String getName() {
         return name;
@@ -72,12 +75,12 @@ public class User extends ModelBase implements UserDetails {
         this.avatar = avatar;
     }
 
-    public Boolean getAdmin() {
-        return this.admin;
+    public Role getRole() {
+        return role;
     }
 
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -102,7 +105,7 @@ public class User extends ModelBase implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> result = new ArrayList<>();
         result.add(new SimpleGrantedAuthority("ROLE_USER"));
-        if(this.admin) result.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        if(Role.ADMIN.equals(this.role)) result.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         return result;
     }
 
@@ -127,8 +130,6 @@ public class User extends ModelBase implements UserDetails {
     }
 
     public User() {
-        this.admin = false;
-        this.enabled = true;
     }
 
     public User(String email, String name, String password) {
@@ -136,5 +137,29 @@ public class User extends ModelBase implements UserDetails {
         this.email = email;
         this.name = name;
         this.password = password;
+    }
+
+    public enum Role {
+        USER("普通用户"),
+        ADMIN("管理员");
+
+        private String name;
+
+        Role(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 }
