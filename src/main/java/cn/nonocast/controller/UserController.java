@@ -4,6 +4,7 @@ import cn.nonocast.form.UserForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,6 +22,7 @@ import cn.nonocast.repository.*;
 import cn.nonocast.model.*;
 import cn.nonocast.service.*;
 import cn.nonocast.social.*;
+import cn.nonocast.form.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
@@ -48,9 +50,20 @@ public class UserController {
     @Autowired
     private Wechat wechat;
 
+    @Value("${project.version}")
+    private String version;
+
+    @Value("${spring.profiles.active}")
+    private String profile;
+
     @RequestMapping("/login")
     public String login() {
         return "user/login";
+    }
+
+    @RequestMapping("/wechat/login")
+    public String wechat() {
+        return "user/wechat";
     }
 
     @RequestMapping("/wechat/callback")
@@ -130,6 +143,8 @@ public class UserController {
 
     @RequestMapping("/home")
     public String home(Model model, @AuthenticationPrincipal User user) {
+        model.addAttribute("version", this.version);
+        model.addAttribute("profile", this.profile);
         model.addAttribute("tasks", taskService.findByUser(user));
         return "user/home";
     }

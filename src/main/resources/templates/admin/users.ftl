@@ -23,14 +23,14 @@
                 <button type="button" class="btn btn-default btn-sm">管理员</button>
 			</div>
 		</div>
-		<div class="col-md-4">
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search for...">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">搜索</button>
-      </span>
+			<div class="col-md-4">
+				<div id="search-panel" class="input-group">
+					<input type="text" class="form-control" placeholder="">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">搜索</button>
+                    </span>
+				</div>
 			</div>
-		</div>
 	</div>
 </section>
 

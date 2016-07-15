@@ -48,6 +48,9 @@ public class AdminController {
         return "admin/login";
     }
 
+    @RequestMapping("/console")
+    public String console() { return "admin/console"; }
+
     @RequestMapping("/users")
     public String users(Model model,
                         @RequestParam(required=false) String role,

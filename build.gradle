@@ -53,6 +53,7 @@ dependencies {
     compile "org.webjars:jquery:2.2.4"
     compile 'org.webjars:coffee-script:1.10.0'
     compile 'org.webjars:lodash:4.0.0'
+    compile 'org.webjars:highcharts:4.2.5'
     compile group: 'com.google.guava', name: 'guava', version: '19.0'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     runtime 'mysql:mysql-connector-java'

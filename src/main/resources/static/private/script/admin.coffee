@@ -14,20 +14,12 @@ sidebar = ->
 	p = $(".sidebar-nav").find("li a")
 
 	items = {}
-	['users', 'create_user', 'tasks'].forEach (x, i) -> items[x] = p[i]
+	['console', 'users', 'create_user', 'tasks'].forEach (x, i) -> items[x] = p[i]
 	console.log $.page
 	console.log items[$.page]
 	$(items[$.app.page]).addClass('act')
 
-window.page = (index) ->
-	p = window.location.href
-	[base, paramString] = p.split '?'
-	paramString = "" unless paramString?
-	params = paramString.split '&'
-	params = params.filter (x) -> x.match(/^page=\d+/) == null
-	params.push "page=#{index}"
-	result = "#{base}?#{params.join('&').replace(/^&/, "")}"
-	document.location.href = result
+window.page = (index) -> $.app.params.set('page', index).go()
 
 $ ->
 	menu()

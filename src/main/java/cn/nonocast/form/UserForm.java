@@ -15,7 +15,7 @@ public class UserForm {
     private String mobile;
     @Size(min=2, max=30, message="不少于2个字符")
     private String location;
-    private Boolean admin;
+    private Boolean admin = false;
 
     public String getName() {
         return name;
@@ -82,6 +82,6 @@ public class UserForm {
     }
 
     public UserForm() {
-        this.admin = false;
+
     }
 }

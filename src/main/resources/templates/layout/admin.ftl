@@ -41,7 +41,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="#">修改密码</a></li>
 						<li role="separator" class="divider"></li>
-						<li><a href="#">退出登录</a></li>
+						<li><a href="/logout">退出登录</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -52,7 +52,8 @@
 	<!-- Sidebar -->
 	<div id="sidebar-wrapper">
 		<ul class="sidebar-nav">
-			<li><a href="/admin/users">用户管理</a></li>
+			<li><a href="/admin/console">控制台</a></li>
+            <li><a href="/admin/users">用户管理</a></li>
 			<li><a href="/admin/create_user">新建用户</a></li>
 			<li><a href="/admin/tasks">任务管理</a></li>
 		</ul>

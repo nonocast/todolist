@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
@@ -42,7 +43,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/admin/login").permitAll()
                 .anyRequest().hasRole("ADMIN").and()
-                .formLogin().loginPage("/admin/login").defaultSuccessUrl("/admin/users").permitAll().and()
+                .formLogin().loginPage("/admin/login").defaultSuccessUrl("/admin/console").permitAll().and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
         }
     }
@@ -54,11 +55,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         @Autowired
         private UserDetailsService service;
 
+        @Autowired
+        private AuthenticationFailureHandler authenticationFailureHandler;
+
         @Bean
         public RememberMeServices rememberMeServices() throws Exception {
             TokenBasedRememberMeServices result = new TokenBasedRememberMeServices("hell0w0r1d", service);
             result.setTokenValiditySeconds(2419200);
             return result;
+        }
+
+        @Bean
+        public AuthenticationFailureHandler authenticationFailureHandler() {
+            return new UserNameCachingAuthenticationFailureHandler();
         }
 
         @Override
@@ -71,7 +80,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             http.authorizeRequests()
                 .antMatchers("/", "/error", "/register", "/register/**", "/wechat/**").permitAll()
                 .anyRequest().authenticated().and()
-                .formLogin().loginPage("/login").defaultSuccessUrl("/home").permitAll().and()
+                .formLogin().loginPage("/login").defaultSuccessUrl("/home").failureHandler(authenticationFailureHandler()).permitAll().and()
                 .rememberMe().rememberMeServices(rememberMeServices()).tokenValiditySeconds(2419200).key("hell0w0r1d").and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
         }

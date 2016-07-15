@@ -10,9 +10,7 @@ update service:
 ssh nonocast.cn -t todolist-update
 
 todolist
-1. keyword search
 2. new & edit
-3. 增加用户登录错误提示, 重名判断
 4. refactor exception
 5. cacheable - redis
 6. highcharts
@@ -20,10 +18,18 @@ todolist
 
 master
 
+v0.1.32
+1. add user search
+2. 调整登录界面
+    spring security - cache last name
+    http://stackoverflow.com/questions/15052860/spring-security-authentication-get-username-without-spring-security-last-userna
+    Spring boot: failureHandler(...)
+
 v0.1.31
 1. 将task中的status和category改为enum
 2. 增加sort & filter
 3. admin -> role db:v0.1.4
+4. 增加$.app.params分析requst-url / coffee-script
 
 v0.1.30
 1. refactor resource => public, private

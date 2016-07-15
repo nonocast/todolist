@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.*;
 import cn.nonocast.repository.*;
 import cn.nonocast.social.*;
+import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.support.RequestContext;
 
 @Controller
 @SpringBootApplication
@@ -40,12 +42,12 @@ public class TodolistApplication implements ApplicationRunner {
 
     @RequestMapping("/")
     public String welcome(Model model) {
-        model.addAttribute("version", this.version);
-        model.addAttribute("profile", this.profile);
-        return "index";
+        return "redirect:/home";
     }
 
     public static void main(String[] args) {
+        DispatcherServlet p;
+        RequestContext x;
         SpringApplication.run(TodolistApplication.class, args);
     }
 

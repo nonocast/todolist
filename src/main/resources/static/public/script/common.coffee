@@ -17,14 +17,18 @@ class RequestParams
 
 	has: (key) -> key of @params
 
-	get: (key) -> @params[key]
+	get: (key) -> decodeURIComponent @params[key]
 
 	set: (key, value) ->
 		@params[key] = value
 		this
 
-	remove: (key) ->
-		delete @params[key]
+	remove: (keys...) ->
+		delete @params[key] for key in keys
+		this
+
+	clear: ->
+		@params = {}
 		this
 
 	build: ->
