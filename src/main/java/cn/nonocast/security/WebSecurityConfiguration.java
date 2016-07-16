@@ -43,8 +43,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/admin/login").permitAll()
                 .anyRequest().hasRole("ADMIN").and()
-                .formLogin().loginPage("/admin/login").defaultSuccessUrl("/admin/console").permitAll().and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
+                .formLogin().loginPage("/admin/login").defaultSuccessUrl("/admin/console").and()
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true).and()
+                .csrf().disable();
         }
     }
 
@@ -82,7 +83,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated().and()
                 .formLogin().loginPage("/login").defaultSuccessUrl("/home").failureHandler(authenticationFailureHandler()).permitAll().and()
                 .rememberMe().rememberMeServices(rememberMeServices()).tokenValiditySeconds(2419200).key("hell0w0r1d").and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true).and()
+                .csrf().disable();
         }
     }
 }

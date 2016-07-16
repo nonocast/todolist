@@ -1,21 +1,36 @@
 package cn.nonocast.form;
 
+import cn.nonocast.model.User;
+import com.google.common.base.Strings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import javax.validation.constraints.Size;
 
+// new everytime request if needed
 public class UserForm {
+    private static final Logger logger = LoggerFactory.getLogger(UserForm.class);
+
+    private String op = "create";
+
+    public Boolean op_create() {return "create" == op; }
+
+    private Long id = 0L;
     @Size(min=5, max=30, message="邮箱地址不正确")
     private String email;
-    @Size(min=6, max=30, message="密码不少于6位")
     private String password;
     @Size(min=2, max=30, message="用户名不少于2个字符")
     private String name;
     private String wechatid;
     private String avatar;
-    @Size(min=6, max=30, message="不少于6位")
     private String mobile;
-    @Size(min=2, max=30, message="不少于2个字符")
     private String location;
-    private Boolean admin = false;
+    private User.Role role = User.Role.USER;
+
+    public Long getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -69,19 +84,47 @@ public class UserForm {
         return avatar;
     }
 
+    public User.Role getRole() {
+        return role;
+    }
+
+    public void setRole(User.Role role) {
+        this.role = role;
+    }
+
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
-    public Boolean getAdmin() {
-        return admin;
+    public void pull() { this.op = "edit"; }
+
+    public void pull(User user) {
+        this.pull();
+
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.name = user.getName();
+        this.role = user.getRole();
+        this.mobile = user.getMobile();
+        this.wechatid = user.getWechatid();
+        this.location = user.getLocation();
     }
 
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
+    public User push(User user, PasswordEncoder encoder) {
+        user.setEmail(this.email);
+        user.setName(this.name);
+        user.setRole(this.role);
+        user.setMobile(this.mobile);
+        user.setWechatid(this.wechatid);
+        user.setLocation(this.location);
+
+        if(!Strings.isNullOrEmpty(this.password)) {
+            user.setPassword(encoder.encode(this.password));
+        }
+        return user;
     }
 
-    public UserForm() {
-
+    public User build(PasswordEncoder encoder) {
+        return push(new User(), encoder);
     }
 }

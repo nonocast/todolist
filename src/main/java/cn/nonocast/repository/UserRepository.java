@@ -19,6 +19,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT p FROM User p WHERE LOWER(p.email) LIKE LOWER(concat('%',:q,'%')) OR LOWER(p.name) LIKE LOWER(concat('%',:q,'%'))")
     Page<User> findByKeyword(@Param("q") String q, Pageable pageable);
 
+    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM User p WHERE LOWER(p.email) = LOWER(:email)")
+    Boolean existsByEmail(@Param("email") String email);
+
 //    Page<User> findByNameIgnoreCaseContaining(String q, Pageable pageable);
 
 //    @Query("SELECT p FROM User p WHERE p.role = :role AND (p.email LIKE %:q% OR p.name LIKE %:q%)")

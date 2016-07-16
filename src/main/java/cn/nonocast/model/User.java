@@ -1,5 +1,7 @@
 package cn.nonocast.model;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,22 +12,30 @@ import java.util.*;
 
 @Entity
 public class User extends ModelBase implements UserDetails {
-    public interface WithoutPasswordView {};
+    public interface WithoutPasswordView extends ModelBase.JsonViewBase {};
     public interface WithPasswordView extends WithoutPasswordView {};
 
     @NotNull
+    @JsonView(WithoutPasswordView.class)
     private String email;
+    @JsonView(WithoutPasswordView.class)
     private String name;
+    @JsonView(WithoutPasswordView.class)
     private String mobile;
+    @JsonView(WithoutPasswordView.class)
     private String location;
+    @JsonView(WithPasswordView.class)
     private String password;
+    @JsonView(WithoutPasswordView.class)
     private String wechatid;
+    @JsonView(WithoutPasswordView.class)
     private String avatar;
+    @JsonView(WithoutPasswordView.class)
     private Boolean enabled = true;
 
 
     @Enumerated(EnumType.ORDINAL)
-    private Role role;
+    private Role role = Role.USER;
 
     public String getName() {
         return name;

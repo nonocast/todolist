@@ -10,13 +10,24 @@ update service:
 ssh nonocast.cn -t todolist-update
 
 todolist
-2. new & edit
+x. message
+1. restful api
 4. refactor exception
 5. cacheable - redis
 6. highcharts
 7. querydsl
+0. createdAt,desc
 
 master
+
+
+v0.1.33
+1. 通过@ControllerAdvice将freemarker method加入model
+   http://blog.codeleak.pl/2013/11/controlleradvice-improvements-in-spring.html
+   http://blog.csdn.net/a67474506/article/details/46362783
+2. 增加user create & edit
+3. refactor admin controllers
+
 
 v0.1.32
 1. add user search

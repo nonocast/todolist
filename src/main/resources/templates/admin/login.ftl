@@ -31,7 +31,7 @@
 				<input type="checkbox" name="remember-me" class="checkbox-login"/> Remember me
 			</label>
 		</div>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <#--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
 		<button type="submit" class="btn btn-info btn-login">Sign in</button>
 	</form>
 </div>

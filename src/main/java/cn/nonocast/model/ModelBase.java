@@ -1,5 +1,6 @@
 package cn.nonocast.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
@@ -9,9 +10,12 @@ import cn.nonocast.misc.*;
 
 @MappedSuperclass
 public abstract class ModelBase implements Comparable<ModelBase>, Serializable {
+    public interface JsonViewBase {};
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonView(JsonViewBase.class)
     private Long id;
 
     @Column(nullable = false)

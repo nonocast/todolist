@@ -22,15 +22,13 @@ import cn.nonocast.repository.*;
 import cn.nonocast.model.*;
 import cn.nonocast.service.*;
 import cn.nonocast.social.*;
-import cn.nonocast.form.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-@Controller
+@Controller("userController")
 @RequestMapping("/")
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -127,22 +125,22 @@ public class UserController {
         return "user/register_result";
     }
 
-    @RequestMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
-            rememberMeServices.logout(request, response, auth);
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-
-        SecurityContextHolder.getContext().setAuthentication(null);
-        SecurityContextHolder.clearContext();
-
-        return "redirect:/login?logout";
-    }
+//    @RequestMapping("/logout")
+//    public String logout(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        if (auth != null){
+//            rememberMeServices.logout(request, response, auth);
+//            new SecurityContextLogoutHandler().logout(request, response, auth);
+//        }
+//
+//        SecurityContextHolder.getContext().setAuthentication(null);
+//        SecurityContextHolder.clearContext();
+//
+//        return "redirect:/login?logout";
+//    }
 
     @RequestMapping("/home")
-    public String home(Model model, @AuthenticationPrincipal User user) {
+    public String home(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("version", this.version);
         model.addAttribute("profile", this.profile);
         model.addAttribute("tasks", taskService.findByUser(user));

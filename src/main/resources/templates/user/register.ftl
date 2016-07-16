@@ -49,7 +49,7 @@
 			        <p class="error"><@spring.showErrors "" /></p>
 		        </div>
 		        <div class="checkbox">
-			        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			        <#--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
 			        <button type="submit" class="btn btn-default">注册用户</button>
 	        </form>
         </div>
