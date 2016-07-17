@@ -10,7 +10,7 @@ update service:
 ssh nonocast.cn -t todolist-update
 
 todolist
-x. message
+x. task new & edit
 1. restful api
 4. refactor exception
 5. cacheable - redis
@@ -20,6 +20,8 @@ x. message
 
 master
 
+v0.1.34
+fix edit page bugs
 
 v0.1.33
 1. 通过@ControllerAdvice将freemarker method加入model
@@ -27,6 +29,7 @@ v0.1.33
    http://blog.csdn.net/a67474506/article/details/46362783
 2. 增加user create & edit
 3. refactor admin controllers
+4. fix Spring Security config
 
 
 v0.1.32

@@ -96,12 +96,11 @@ public class UserForm {
         this.avatar = avatar;
     }
 
-    public void pull() { this.op = "edit"; }
+    public void pull(Long id) { this.op = "edit"; this.id = id; }
 
     public void pull(User user) {
-        this.pull();
+        this.pull(user.getId());
 
-        this.id = user.getId();
         this.email = user.getEmail();
         this.name = user.getName();
         this.role = user.getRole();

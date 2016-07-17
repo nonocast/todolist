@@ -6,7 +6,7 @@
 
 <@view title="user" sidebar="${(form.op_create())?then('create_user', 'users')}" header=header>
 <section class="form-title">
-    <h2>${(form.op_create())?then("创建用户", "修改用户信息")}</h2>
+    <h2>${(form.op_create())?then("创建用户", "修改用户信息: "+form.id)}</h2>
 </section>
 
 <form action="/admin/users${(form.op_create())?then("", "/"+form.id)}" method="post">
