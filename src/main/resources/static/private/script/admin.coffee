@@ -14,7 +14,7 @@ sidebar = ->
 	p = $(".sidebar-nav").find("li a")
 
 	items = {}
-	['console', 'users', 'create_user', 'tasks'].forEach (x, i) -> items[x] = p[i]
+	['console', 'users', 'create_user', 'tasks', 'create_task'].forEach (x, i) -> items[x] = p[i]
 	console.log $.page
 	console.log items[$.page]
 	$(items[$.app.page]).addClass('act')

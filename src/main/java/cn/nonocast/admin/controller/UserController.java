@@ -80,7 +80,6 @@ public class UserController {
         try {
             user = new User();
             userRepository.save(form.push(user, passwordEncoder));
-            redirectAttributes.addFlashAttribute("user", user);
         } catch (DataAccessException ex) {
             return "admin/user/edit";
         }
@@ -89,9 +88,7 @@ public class UserController {
     }
 
     @RequestMapping(value="/{id:[0-9]+}")
-    public String update(@PathVariable("id") Long id, @Valid @ModelAttribute("form") UserForm form, Errors errors, RedirectAttributes redirectAttributes) {
-        form.pull(id);
-
+    public String update(@PathVariable("id") Long id, @Valid @ModelAttribute("form") UserForm form, Errors errors) {
         if(!Strings.isNullOrEmpty(form.getPassword())) {
             if(form.getPassword().length() < 6) {
                 errors.rejectValue("password", "Size", "密码不少于6个字符");

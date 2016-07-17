@@ -54,10 +54,10 @@
               <#list page.content as user>
               <tr>
 	              <td class="visible-sm visible-md visible-lg">${user.id}</td>
-	              <td class="visible-xs visible-sm visible-md visible-lg">${user.email}</td>
-	              <td class="visible-lg">${user.name}</td>
-	              <td class="visible-lg">${user.mobile}</td>
-	              <td class="visible-lg">${user.location}</td>
+	              <td class="visible-xs visible-sm visible-md visible-lg">${user.email?html}</td>
+	              <td class="visible-lg">${user.name?html}</td>
+	              <td class="visible-lg">${user.mobile?html}</td>
+	              <td class="visible-lg">${user.location?html}</td>
 	              <td class="visible-lg">${shorten(user.wechatid)}</td>
 	              <td class="visible-lg">${user.role}</td>
 	              <td class="visible-lg">${user.createdAt}</td>

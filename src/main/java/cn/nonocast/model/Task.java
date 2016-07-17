@@ -21,7 +21,7 @@ public class Task extends ModelBase {
     private TaskStatus status;
 
     private int zindex;
-    private Boolean topmost;
+    private Boolean topmost = false;
     private Date topmostedAt;
     private Date closedAt;
 

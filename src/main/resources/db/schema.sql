@@ -66,7 +66,7 @@ INSERT INTO task (belongs_to, status, category, content) VALUES(@user, 0, 0, "�
 INSERT INTO task (belongs_to, status, category, content) VALUES(@user, 0, 0, "我问了她连个问题.");
 
 INSERT INTO task (belongs_to, status, category, content) VALUES(@user, 0, 0, "<h1>TEST HTML</h1>");
-INSERT INTO task (belongs_to, status, category, content) VALUES(@user, 0, 0, "alert('test javascript');");
+INSERT INTO task (belongs_to, status, category, content) VALUES(@user, 0, 0, "<script>alert('test javascript');</script>");
 
 
 DELIMITER ;;

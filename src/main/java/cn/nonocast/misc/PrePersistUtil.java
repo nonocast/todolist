@@ -20,7 +20,7 @@ public class PrePersistUtil {
                     field.set(object,"");
                 }else if (field.getType().getName().equals("java.util.Date")
                         && field.get(object) == null){
-                    field.set(object,sdf.parse("1900-01-01"));
+                    field.set(object,sdf.parse("2000-01-01"));
                 }else if (field.getType().getName().equals("java.lang.Double")
                         && field.get(object) == null){
                     field.set(object,0.0d);

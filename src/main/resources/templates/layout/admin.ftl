@@ -58,6 +58,7 @@
             <li><a href="/admin/users">用户管理</a></li>
 			<li><a href="/admin/users/create">新建用户</a></li>
 			<li><a href="/admin/tasks">任务管理</a></li>
+            <li><a href="/admin/tasks/create">新建任务</a></li>
 		</ul>
 	</div>
 	<!-- /#sidebar-wrapper -->

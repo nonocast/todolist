@@ -8,15 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.Size;
 
-// new everytime request if needed
-public class UserForm {
+public class UserForm extends FormBase {
     private static final Logger logger = LoggerFactory.getLogger(UserForm.class);
 
-    private String op = "create";
-
-    public Boolean op_create() {return "create" == op; }
-
-    private Long id = 0L;
+    private Long id;
     @Size(min=5, max=30, message="邮箱地址不正确")
     private String email;
     private String password;
@@ -30,6 +25,10 @@ public class UserForm {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -96,11 +95,9 @@ public class UserForm {
         this.avatar = avatar;
     }
 
-    public void pull(Long id) { this.op = "edit"; this.id = id; }
-
     public void pull(User user) {
-        this.pull(user.getId());
-
+        this.op = "edit";
+        this.id = user.getId();
         this.email = user.getEmail();
         this.name = user.getName();
         this.role = user.getRole();

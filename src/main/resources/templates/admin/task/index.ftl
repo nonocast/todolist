@@ -24,10 +24,10 @@
 	          <td class="visible-sm visible-md visible-lg">${task.id}</td>
 	          <td class="visible-lg">${task.category}</td>
 	          <td class="visible-lg">${task.status}</td>
-	          <td class="visible-xs visible-sm visible-md visible-lg">${task.content}</td>
+	          <td class="visible-xs visible-sm visible-md visible-lg">${task.content?html}</td>
 	          <td class="visible-lg">${task.belongsTo.name}</td>
 	          <td class="visible-lg">${task.createdAt}</td>
-	          <td class="text-center td-btn"><a class="btn-table" href="project-info.html" title="编辑"><i class="fa fa-cog" aria-hidden="true"></a></td>
+	          <td class="text-center td-btn"><a class="btn-table" href="/admin/tasks/${task.id}/edit" title="编辑"><i class="fa fa-cog" aria-hidden="true"></a></td>
           </tr>
           </#list>
 			<tbody>
