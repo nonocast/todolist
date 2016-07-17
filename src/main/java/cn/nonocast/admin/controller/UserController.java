@@ -90,10 +90,13 @@ public class UserController {
 
     @RequestMapping(value="/{id:[0-9]+}")
     public String update(@PathVariable("id") Long id, @Valid @ModelAttribute("form") UserForm form, Errors errors, RedirectAttributes redirectAttributes) {
-        form.pull();
+        form.pull(id);
 
-        if(userRepository.existsByEmail(form.getEmail())) {
-            errors.rejectValue("email", "Duplication", "邮箱地址已被使用");
+        if(!Strings.isNullOrEmpty(form.getPassword())) {
+            if(form.getPassword().length() < 6) {
+                errors.rejectValue("password", "Size", "密码不少于6个字符");
+                return "admin/user/edit";
+            }
         }
 
         if (errors.hasErrors()) {
@@ -103,6 +106,14 @@ public class UserController {
         User user = null;
         try {
             user = userRepository.getOne(id);
+
+            if(!user.getEmail().equals(form.getEmail())) {
+                if (userRepository.existsByEmail(form.getEmail())) {
+                    errors.rejectValue("email", "Duplication", "邮箱地址已被使用");
+                    return "admin/user/edit";
+                }
+            }
+
             form.push(user, passwordEncoder);
             userRepository.save(user);
         } catch (DataAccessException ex) {
@@ -110,10 +121,5 @@ public class UserController {
         }
 
         return "redirect:/admin/users?q=" + user.getName();
-    }
-
-    @RequestMapping("/result")
-    public String userCreateResult(Model model) {
-        return "admin/user/result";
     }
 }
