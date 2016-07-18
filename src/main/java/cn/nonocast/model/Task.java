@@ -11,6 +11,9 @@ public class Task extends ModelBase {
     @ManyToOne
     @JoinColumn(name="belongs_to")
     private User belongsTo;
+
+    private String belongsToName;
+
     @NotNull
     private String content;
 
@@ -87,6 +90,14 @@ public class Task extends ModelBase {
 
     public void setTopmostedAt(Date topmostedAt) {
         this.topmostedAt = topmostedAt;
+    }
+
+    public String getBelongsToName() {
+        return belongsToName;
+    }
+
+    public void setBelongsToName(String belongsToName) {
+        this.belongsToName = belongsToName;
     }
 
     public Task() {

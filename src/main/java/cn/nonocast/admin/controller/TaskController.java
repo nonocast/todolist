@@ -55,7 +55,9 @@ public class TaskController {
         Task task = null;
         try {
             task = new Task();
-            task.setBelongsTo(userRepository.findOne(1L));
+            User user = userRepository.findOne(1L);
+            task.setBelongsTo(user);
+            task.setBelongsToName(user.getName());
             taskRepository.save(form.push(task));
         } catch (DataAccessException ex) {
             errors.rejectValue("error", "DataAccessException", ex.getMessage());
@@ -76,6 +78,7 @@ public class TaskController {
         try {
             task = taskRepository.getOne(id);
             form.push(task);
+            task.setBelongsToName(task.getBelongsTo().getName());
             taskRepository.save(task);
         } catch (DataAccessException ex) {
             return "admin/task/edit";

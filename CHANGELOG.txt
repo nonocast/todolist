@@ -23,6 +23,9 @@ x. null or size (validator annotation)
 
 master
 
+v0.1.36
+1. fix task new & edit
+
 v0.1.35
 1. add form.error message
 2. extract FormBase
