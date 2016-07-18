@@ -28,19 +28,21 @@ CREATE TABLE task (
   belongs_to_name VARCHAR(60) NOT NULL,
   # status:
   # 0: open
-  # 9: close
+  # 1: close
   status INTEGER NOT NULL DEFAULT 0,
   # category
   # 0: Your Daily To-Do List
-  # 5: The Weekly/Monthly Project List (short-term 30 days)
-  # 9: The Master Goal List (long-term, 90-180 days)
+  # 1: The Weekly/Monthly Project List (short-term 30 days)
+  # 2: The Master Goal List (long-term, 90-180 days)
   category INTEGER NOT NULL DEFAULT 0,
   content VARCHAR (200) NOT NULL DEFAULT "",
-  zindex INTEGER NOT NULL DEFAULT 0,
-  topmost BOOLEAN NOT NULL DEFAULT FALSE,
+  # 3: highest
+  # 2: higher
+  # 1: normal
+  # 0: low
+  priority INTEGER NOT NULL DEFAULT 1,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  topmosted_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   closed_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 

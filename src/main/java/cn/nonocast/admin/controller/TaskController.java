@@ -1,22 +1,25 @@
 package cn.nonocast.admin.controller;
 
+import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import cn.nonocast.repository.*;
 import cn.nonocast.form.*;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import cn.nonocast.model.*;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller("adminTaskController")
 @RequestMapping("/admin/tasks")
@@ -29,9 +32,37 @@ public class TaskController {
     @Autowired
     private UserRepository userRepository;
 
+    private Pattern searchIdPattern  = Pattern.compile("^id\\s*:\\s*(\\d+)$", Pattern.CASE_INSENSITIVE);
+    private Pattern searchBelongsToPattern  = Pattern.compile("^belongs\\s*:\\s*(.+)$", Pattern.CASE_INSENSITIVE);
+
     @RequestMapping("")
-    public String tasks(Model model, Pageable pageable) {
-        model.addAttribute("page", taskRepository.findAll(pageable));
+    public String tasks(Model model,
+                        @RequestParam(required = false) String q,
+                        Pageable pageable) {
+        Page<Task> page = null;
+        if (!Strings.isNullOrEmpty(q)) {
+            Matcher m1 = searchIdPattern.matcher(q);
+            if(m1.matches()) {
+                String ret = m1.group(1);
+                page = taskRepository.findByKeyword(Long.valueOf(ret), pageable);
+            }
+
+            Matcher m2 = searchBelongsToPattern.matcher(q);
+            if(m2.matches()) {
+                String ret = m2.group(1);
+                User user = userRepository.findByEmailOrName(ret);
+                if(user != null) {
+                    page = taskRepository.findByBelongsTo(user, pageable);
+                }
+            }
+
+            if(page == null) {
+                page = taskRepository.findByKeyword(q, pageable);
+            }
+        } else {
+            page = taskRepository.findAll(pageable);
+        }
+        model.addAttribute("page", page);
         return "admin/task/index";
     }
 
@@ -64,7 +95,7 @@ public class TaskController {
             return "admin/task/edit";
         }
 
-        return "redirect:/admin/tasks";
+        return "redirect:/admin/tasks?q=id:" + task.getId();
     }
 
 
@@ -84,6 +115,6 @@ public class TaskController {
             return "admin/task/edit";
         }
 
-        return "redirect:/admin/tasks";
+        return "redirect:/admin/tasks?q=id:" + task.getId();
     }
 }

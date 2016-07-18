@@ -19,9 +19,17 @@ x. null or size (validator annotation)
 5. cacheable - redis
 6. highcharts
 7. querydsl
-0. createdAt,desc
+8. createdAt,desc
+9. fontawesome
+10. task: 需要支持@who, #tag#
 
 master
+
+v0.1.37
+1. search: add clear button
+    Clear Button in Bootstrap Input Group Component
+    https://www.thewebflash.com/clear-button-in-bootstrap-input-group-component/
+2. task: 去掉topmost和zindex, 改为priority
 
 v0.1.36
 1. fix task new & edit

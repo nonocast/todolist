@@ -13,6 +13,7 @@ public class TaskForm extends FormBase {
 
     private Task.TaskStatus status = Task.TaskStatus.OPEN;
     private Task.TaskCategory category = Task.TaskCategory.DAILY;
+    private Task.TaskPriority priority = Task.TaskPriority.NORMAL;
     private String belongsTo;
 
     public Long getId() {
@@ -47,6 +48,14 @@ public class TaskForm extends FormBase {
         this.category = category;
     }
 
+    public Task.TaskPriority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Task.TaskPriority priority) {
+        this.priority = priority;
+    }
+
     public String getBelongsTo() {
         return belongsTo;
     }
@@ -57,6 +66,7 @@ public class TaskForm extends FormBase {
         this.content = task.getContent();
         this.category = task.getCategory();
         this.status = task.getStatus();
+        this.priority = task.getPriority();
         if(task.getBelongsTo()!=null) {
             this.belongsTo = task.getBelongsTo().getEmail();
         }
@@ -66,6 +76,7 @@ public class TaskForm extends FormBase {
         task.setCategory(this.category);
         task.setStatus(this.status);
         task.setContent(this.content);
+        task.setPriority(this.priority);
         return task;
     }
 }

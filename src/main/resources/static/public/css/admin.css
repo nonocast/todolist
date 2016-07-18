@@ -201,3 +201,14 @@ body {
     padding-bottom: .6em;
     display: block;
 }
+
+/* bootstrap clear button */
+::-ms-clear {
+    display: none;
+}
+
+.form-control-clear {
+    z-index: 10;
+    pointer-events: auto;
+    cursor: pointer;
+}

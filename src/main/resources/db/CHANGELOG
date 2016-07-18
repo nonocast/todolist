@@ -1,5 +1,10 @@
 master
 
+v0.1.6
+task -zindex
+task -topmost
+task +priority
+
 v0.1.5
 task +belongsToName
 

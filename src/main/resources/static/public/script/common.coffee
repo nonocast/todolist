@@ -15,7 +15,7 @@ class RequestParams
 			q = each.split '='
 			@params[q[0]] = q[1]
 
-	has: (key) -> key of @params
+	has: (key) -> key of @params && @params[key].length > 0
 
 	get: (key) -> decodeURIComponent @params[key]
 

@@ -24,12 +24,15 @@
 			</div>
 		</div>
 			<div class="col-md-4">
-				<div id="search-panel" class="input-group">
-					<input type="text" class="form-control" placeholder="">
+                <div id="search-panel" class="input-group">
+                    <div class="form-group has-feedback has-clear">
+                        <input type="text" class="form-control" id="exampleInput1" placeholder="">
+                        <span style="color:#bec0c2;" class="form-control-clear glyphicon glyphicon-remove form-control-feedback hidden"></span>
+                    </div>
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">搜索</button>
+                        <button type="button" class="btn btn-default" id="exampleButton1">搜索</button>
                     </span>
-				</div>
+                </div>
 			</div>
 	</div>
 </section>

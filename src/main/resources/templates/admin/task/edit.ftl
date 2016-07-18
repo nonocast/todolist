@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="/public/css/form.css">
 </#assign>
 
-<@view title="user" sidebar="${(form.op_create())?then('create_task', 'tasks')}" header=header>
+<@view title="task" sidebar="${(form.op_create())?then('create_task', 'tasks')}" header=header>
 <section class="form-title">
 	<h2>${(form.op_create())?then("创建任务", "修改任务信息")}</h2>
 </section>
@@ -54,6 +54,21 @@
 					</div>
 				</div>
 		</section>
+
+
+        <section class="form-row">
+            <div class="container-fluid">
+                <div class="row">
+          <@spring.bind "form.priority" />
+                    <div class="item-title col-md-3">优先级</div>
+                    <div class="col-md-9">
+                        <div class="form-group form-inline ${spring.status.error?then("has-error", "")}">
+                            <input type="text" name="${spring.status.expression}" class="form-control" value="${spring.status.value?default("")}">
+                            <span class="help-block"><@spring.showErrors "" /></span>
+                        </div>
+                    </div>
+                </div>
+        </section>
 
 		<section class="form-row">
 			<div class="container-fluid">

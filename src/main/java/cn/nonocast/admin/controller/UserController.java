@@ -9,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.method.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.*;
 import org.springframework.validation.Errors;
@@ -19,6 +20,8 @@ import cn.nonocast.model.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller("adminUserController")
 @RequestMapping("/admin/users")
@@ -31,14 +34,22 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private Pattern searchIdPattern  = Pattern.compile("^id:(\\d+)$", Pattern.CASE_INSENSITIVE);
+
     @RequestMapping("")
     public String users(Model model,
                         @RequestParam(required = false) String role,
                         @RequestParam(required = false) String q,
                         Pageable pageable) {
-        Page<User> page = new PageImpl<User>(new ArrayList<>(), pageable, 0);
+        Page<User> page = null;
         if (!Strings.isNullOrEmpty(q)) {
-            page = userRepository.findByKeyword(q, pageable);
+            Matcher m = searchIdPattern.matcher(q);
+            if(m.matches()) {
+                String ret = m.group(1);
+                page = userRepository.findByKeyword(Long.valueOf(ret), pageable);
+            }else {
+                page = userRepository.findByKeyword(q, pageable);
+            }
         } else if (!Strings.isNullOrEmpty(role)) {
             User.Role r = User.Role.valueOf(role.toUpperCase());
             if (r != null) {

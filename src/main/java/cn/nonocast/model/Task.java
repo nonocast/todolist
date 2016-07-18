@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity
 @Table(name="task")
 public class Task extends ModelBase {
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="belongs_to")
     private User belongsTo;
 
@@ -23,9 +23,9 @@ public class Task extends ModelBase {
     @Enumerated(EnumType.ORDINAL)
     private TaskStatus status;
 
-    private int zindex;
-    private Boolean topmost = false;
-    private Date topmostedAt;
+    @Enumerated(EnumType.ORDINAL)
+    private TaskPriority priority;
+
     private Date closedAt;
 
     public User getBelongsTo() {
@@ -60,20 +60,12 @@ public class Task extends ModelBase {
         this.content = content;
     }
 
-    public int getZindex() {
-        return zindex;
+    public TaskPriority getPriority() {
+        return priority;
     }
 
-    public void setZindex(int zindex) {
-        this.zindex = zindex;
-    }
-
-    public Boolean getTopmost() {
-        return topmost;
-    }
-
-    public void setTopmost(Boolean topmost) {
-        this.topmost = topmost;
+    public void setPriority(TaskPriority priority) {
+        this.priority = priority;
     }
 
     public Date getClosedAt() {
@@ -82,14 +74,6 @@ public class Task extends ModelBase {
 
     public void setClosedAt(Date closedAt) {
         this.closedAt = closedAt;
-    }
-
-    public Date getTopmostedAt() {
-        return topmostedAt;
-    }
-
-    public void setTopmostedAt(Date topmostedAt) {
-        this.topmostedAt = topmostedAt;
     }
 
     public String getBelongsToName() {
@@ -110,9 +94,9 @@ public class Task extends ModelBase {
     }
 
     public enum TaskCategory {
-        LONGTERM("长期目标"),
-        SHORTTERM("短期目标"),
-        DAILY("当日目标");
+        DAILY("当日目标"),          // 0
+        SHORTTERM("短期目标"),      // 1
+        LONGTERM("长期目标");       // 2
 
         private String name;
 
@@ -135,12 +119,38 @@ public class Task extends ModelBase {
     }
 
     public enum TaskStatus {
-        OPEN("活动"),
-        CLOSE("关闭");
+        OPEN("活动"),             // 0
+        CLOSE("关闭");            // 1
 
         private String name;
 
         TaskStatus(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+
+    public enum TaskPriority {
+        LOW("低"), // 0
+        NORMAL("标准"), // 1
+        HIGHER("高"), // 2
+        HIGHEST("最高"); // 3
+
+        private String name;
+
+        TaskPriority(String name) {
             this.name = name;
         }
 
