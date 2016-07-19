@@ -4,6 +4,7 @@ import cn.nonocast.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -14,6 +15,8 @@ import java.util.List;
 @Repository
 @Transactional
 public interface TaskRepository extends JpaRepository<Task, Long> {
+    @Query("SELECT p FROM Task p WHERE p.id in (:selected)")
+    List<Task> findByIds(@Param("selected") List<Long> selected);
     List<Task> findByBelongsTo(User user);
     Page<Task> findByBelongsTo(User user, Pageable pageable);
 

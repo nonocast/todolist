@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 public class TaskForm extends FormBase {
     private Long id = 0L;
 
-    @Size(max=200, message="内容最多200字")
+    @Size(min=1, max=200, message="内容最多200字")
     private String content;
 
     private Task.TaskStatus status = Task.TaskStatus.OPEN;

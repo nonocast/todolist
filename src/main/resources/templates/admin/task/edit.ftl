@@ -9,7 +9,7 @@
 	<h2>${(form.op_create())?then("创建任务", "修改任务信息")}</h2>
 </section>
 
-<form action="/admin/tasks${(form.op_create())?then("", "/"+form.id)}" method="post">
+<form action="/admin/tasks${(form.op_create())?then("/create", "/"+form.id)}" method="post">
 <#--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
     <@spring.formHiddenInput "form.op" />
 
@@ -91,7 +91,7 @@
 					<div class="item-title col-md-3">内容</div>
 					<div class="col-md-9" style="padding-right:0px;">
 						<div class="form-group form-inline ${spring.status.error?then("has-error", "")}">
-							<textarea name="${spring.status.expression}" class="form-control" style="width:100%;max-width:100%;" rows="3">${spring.status.value?default("")} </textarea>
+							<textarea name="${spring.status.expression}" class="form-control" style="width:100%;max-width:100%;" rows="3">${spring.status.value?default("")}</textarea>
 							<span class="help-block"><@spring.showErrors "" /></span>
 						</div>
 					</div>

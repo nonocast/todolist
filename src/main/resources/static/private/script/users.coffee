@@ -1,4 +1,16 @@
 $ ->
+	updateOpPanelState = ->
+		$("#op-panel").toggleClass 'hidden', $(".data-table td .item-selected:checked").length == 0
+
+	$(".data-table th .item-selected").change ->
+		value = $(".data-table th .item-selected").is ':checked'
+		$(".data-table td .item-selected").prop 'checked', value
+		updateOpPanelState()
+
+	$(".data-table td .item-selected").change ->
+		updateOpPanelState()
+
+
 	p = {}
 	[p.all, p.user, p.admin] = ($(each) for each in $('#role-panel button'))
 	role = if $.app.params.has 'role' then $.app.params.get('role') else 'all'

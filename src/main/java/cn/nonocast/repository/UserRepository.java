@@ -4,14 +4,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import cn.nonocast.model.User;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 @Transactional
 public interface UserRepository extends JpaRepository<User, Long> {
+    @Query("SELECT p FROM User p WHERE p.id in (:selected)")
+    List<User> findByIds(@Param("selected") List<Long> selected);
+
     User findByEmail(String email);
 
     User findByName(String name);
@@ -31,9 +37,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT p FROM User p WHERE LOWER(p.email)=LOWER(:q) or LOWER(name)=LOWER(:q)")
     User findByEmailOrName(@Param("q") String q);
-
-//    Page<User> findByNameIgnoreCaseContaining(String q, Pageable pageable);
-
-//    @Query("SELECT p FROM User p WHERE p.role = :role AND (p.email LIKE %:q% OR p.name LIKE %:q%)")
-//    Page<User> findByRole(@Param("role") User.Role role, @Param("q") String q, Pageable p);
 }

@@ -7,9 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.method.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.*;
 import org.springframework.validation.Errors;
@@ -18,10 +16,13 @@ import org.springframework.ui.Model;
 import cn.nonocast.repository.*;
 import cn.nonocast.model.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller("adminUserController")
 @RequestMapping("/admin/users")
@@ -73,7 +74,7 @@ public class UserController {
         return "admin/user/edit";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("form") UserForm form, Errors errors, Model model, RedirectAttributes redirectAttributes) {
         if(form.getPassword().length() < 6) {
             errors.rejectValue("password", "Size", "密码不少于6个字符");
@@ -129,5 +130,13 @@ public class UserController {
         }
 
         return "redirect:/admin/users?q=" + user.getName();
+    }
+
+    @RequestMapping(value="/delete", method=RequestMethod.POST)
+    public String delete(HttpServletRequest request) {
+        List<Long> ids = Stream.of(request.getParameterValues("selected")).map(Long::valueOf).collect(Collectors.toList());
+        List<User> users = userRepository.findByIds(ids);
+        userRepository.delete(users);
+        return "redirect:/admin/users";
     }
 }

@@ -22,3 +22,5 @@ window.page = (index) -> $.app.params.set('page', index).go()
 $ ->
 	menu()
 	sidebar()
+
+$(document).on "keypress", "form", (event) -> return event.keyCode != 13

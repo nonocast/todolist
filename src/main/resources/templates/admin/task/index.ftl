@@ -9,9 +9,15 @@
 	<h2>任务列表</h2>
 </section>
 
+<form method="post">
 <section style="margin:0 14px 0 16px;">
 	<div class="row">
 		<div class="col-md-8">
+            <div id="op-panel" class="btn-group hidden" role="group" aria-label="..." style="margin-right:5px">
+                <button type="submit" formaction="/admin/tasks/delete" class="btn btn-warning btn-sm">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> 删除
+                </button>
+            </div>
 			<div id="sort-panel" class="btn-group" role="group" aria-label="...">
 				<button type="button" class="btn btn-default btn-sm">编号</button>
 				<button type="button" class="btn btn-default btn-sm">创建时间</button>
@@ -36,6 +42,7 @@
 		<table class="table table-striped">
 			<thead>
 			<tr>
+                <th style="width:30px"><input class="item-selected" type="checkbox"></th>
 				<th class="visible-sm visible-md visible-lg">编号</th>
                 <th class="visible-lg">类型</th>
                 <th class="visible-lg">优先级</th>
@@ -49,6 +56,7 @@
 			<tbody>
           <#list page.content as task>
           <tr>
+	          <td><input class="item-selected" name="selected" type="checkbox" value="${task.id}"></td>
 	          <td class="visible-sm visible-md visible-lg">${task.id}</td>
 	          <td class="visible-lg">${task.category}</td>
 	          <td class="visible-lg">${task.priority}</td>
@@ -65,4 +73,5 @@
 </section>
 <@pagination.section page />
 </div>
+</form>
 </@view>

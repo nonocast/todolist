@@ -1,4 +1,16 @@
 $ ->
+	updateOpPanelState = ->
+		$("#op-panel").toggleClass 'hidden', $(".data-table td .item-selected:checked").length == 0
+
+	$(".data-table th .item-selected").change ->
+		value = $(".data-table th .item-selected").is ':checked'
+		$(".data-table td .item-selected").prop 'checked', value
+		updateOpPanelState()
+
+	$(".data-table td .item-selected").change ->
+		updateOpPanelState()
+
+
 	q = {}
 	[q.id, q.createdAt] = ($(each) for each in $('#sort-panel button'))
 	sort = if $.app.params.has 'sort' then $.app.params.get('sort') else 'id'

@@ -8,18 +8,19 @@ import cn.nonocast.repository.*;
 import cn.nonocast.form.*;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import cn.nonocast.model.*;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.*;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller("adminTaskController")
 @RequestMapping("/admin/tasks")
@@ -77,7 +78,7 @@ public class TaskController {
         return "admin/task/edit";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("form") TaskForm form, Errors errors) {
         if (errors.hasErrors()) {
             return "admin/task/edit";
@@ -116,5 +117,13 @@ public class TaskController {
         }
 
         return "redirect:/admin/tasks?q=id:" + task.getId();
+    }
+
+    @RequestMapping(value="/delete", method=RequestMethod.POST)
+    public Object delete(HttpServletRequest request) {
+        List<Long> ids = Stream.of(request.getParameterValues("selected")).map(Long::valueOf).collect(Collectors.toList());
+        List<Task> tasks = taskRepository.findByIds(ids);
+        taskRepository.delete(tasks);
+        return "redirect:/admin/tasks";
     }
 }

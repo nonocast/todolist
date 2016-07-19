@@ -9,7 +9,7 @@
 	<h2>${(form.op_create())?then("创建用户", "修改用户信息")}</h2>
 </section>
 
-<form action="/admin/users${(form.op_create())?then("", "/"+form.id?default(0))}" method="post">
+<form action="/admin/users${(form.op_create())?then("/create", "/"+form.id?default(0))}" method="post">
 <#--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
     <@spring.formHiddenInput "form.op" />
 
