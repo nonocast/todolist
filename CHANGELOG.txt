@@ -3,8 +3,8 @@ vagrant init debian/jessie64
 vagrant up
 
 database env:
-todo unzip -q todoapp-xxx-SNAPSHOT.jar db/schema.sql
-todo unzip -q todoapp-xxx-SNAPSHOT.jar db/rebuild.sh
+todo unzip -qo todoapp db/schema.sql
+todo unzip -qo todoapp db/rebuild.sh
 
 update service:
 ssh nonocast.cn -t todolist-update
@@ -19,11 +19,15 @@ x. null or size (validator annotation)
 5. cacheable - redis
 6. highcharts
 7. querydsl
-8. createdAt,desc
 9. fontawesome
 10. task: 需要支持@who, #tag#
 
 master
+
+v0.1.38
+1. fix $.app.params 解析,需要decodeUrlComponent
+2. 支持sort=createdAt,desc
+
 
 v0.1.37
 1. search: add clear button

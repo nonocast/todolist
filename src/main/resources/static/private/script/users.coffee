@@ -10,7 +10,7 @@ $ ->
 	q = {}
 	[q.id, q.name, q.createdAt] = ($(each) for each in $('#sort-panel button'))
 	sort = if $.app.params.has 'sort' then $.app.params.get('sort') else 'id'
-	q[sort].addClass 'active'
+	q[sort.replace(/,.*$/, "")].addClass 'active'
 	q.id.click -> $.app.params.remove('page').remove('sort').go()
 	q.name.click -> $.app.params.remove('page').set('sort', 'name').go()
 	q.createdAt.click -> $.app.params.remove('page').set('sort', 'createdAt').go()

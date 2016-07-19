@@ -14,7 +14,6 @@
 		<div class="col-md-8">
 			<div id="sort-panel" class="btn-group" role="group" aria-label="...">
 				<button type="button" class="btn btn-default btn-sm">编号</button>
-				<button type="button" class="btn btn-default btn-sm">名称</button>
 				<button type="button" class="btn btn-default btn-sm">创建时间</button>
 			</div>
 		</div>

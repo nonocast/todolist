@@ -13,7 +13,7 @@ class RequestParams
 
 		for each in query.split '&'
 			q = each.split '='
-			@params[q[0]] = q[1]
+			@params[q[0]] = decodeURIComponent q[1]
 
 	has: (key) -> key of @params && @params[key].length > 0
 

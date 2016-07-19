@@ -15,8 +15,6 @@ sidebar = ->
 
 	items = {}
 	['console', 'users', 'create_user', 'tasks', 'create_task'].forEach (x, i) -> items[x] = p[i]
-	console.log $.page
-	console.log items[$.page]
 	$(items[$.app.page]).addClass('act')
 
 window.page = (index) -> $.app.params.set('page', index).go()
