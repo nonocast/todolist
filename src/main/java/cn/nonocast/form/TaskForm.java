@@ -1,8 +1,9 @@
 package cn.nonocast.form;
 
-import cn.nonocast.model.Task;
+import cn.nonocast.model.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class TaskForm extends FormBase {
@@ -14,6 +15,7 @@ public class TaskForm extends FormBase {
     private Task.TaskStatus status = Task.TaskStatus.OPEN;
     private Task.TaskCategory category = Task.TaskCategory.DAILY;
     private Task.TaskPriority priority = Task.TaskPriority.NORMAL;
+
     private String belongsTo;
 
     public Long getId() {
@@ -58,6 +60,10 @@ public class TaskForm extends FormBase {
 
     public String getBelongsTo() {
         return belongsTo;
+    }
+
+    public void setBelongsTo(String belongsTo) {
+        this.belongsTo = belongsTo;
     }
 
     public void pull(Task task) {

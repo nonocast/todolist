@@ -10,7 +10,7 @@ update service:
 ssh nonocast.cn -t todolist-update
 
 todolist
-x. task: 选择用户
+1. react
 x. 已激活 & 管理员 checkbox (like gogs)
 x. null or size (validator annotation)
 1. restful api
@@ -22,6 +22,9 @@ x. null or size (validator annotation)
 10. task: 需要支持@who, #tag#
 
 master
+
+v0.1.40
+1. task: 选择用户
 
 v0.1.39
 1. 增加delete user & task

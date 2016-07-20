@@ -34,8 +34,9 @@
 					<div class="item-title col-md-3">创建人</div>
 					<div class="col-md-9">
 						<div class="form-group form-inline ${spring.status.error?then("has-error", "")}">
-							<input readonly type="text" name="${spring.status.expression}" class="form-control" value="${spring.status.value?default("")}">
-							<button class="btn btn-default">选择...</button>
+							<input type="text" name="${spring.status.expression}" class="form-control" value="${spring.status.value?default("")}">
+                            <span class="help-block"><@spring.showErrors "" /></span>
+							<#--<button class="btn btn-default">选择...</button>-->
 						</div>
 					</div>
 				</div>

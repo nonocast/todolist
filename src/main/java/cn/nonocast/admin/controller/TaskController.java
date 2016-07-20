@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import cn.nonocast.model.*;
+import org.springframework.security.access.method.P;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -107,12 +108,25 @@ public class TaskController {
         }
 
         Task task = null;
+        User newBelongsTo = null;
         try {
             task = taskRepository.getOne(id);
+
+            if (!task.getBelongsTo().getEmail().equals(form.getBelongsTo())) {
+                newBelongsTo = userRepository.findByEmail(form.getBelongsTo());
+                if(newBelongsTo == null) {
+                    errors.rejectValue("belongsTo", "NullPointerException", "请输入正确的邮箱地址或名称");
+                    return "admin/task/edit";
+                }
+
+                task.setBelongsTo(newBelongsTo);
+                task.setBelongsToName(newBelongsTo.getName());
+            }
+
             form.push(task);
-            task.setBelongsToName(task.getBelongsTo().getName());
             taskRepository.save(task);
         } catch (DataAccessException ex) {
+            errors.rejectValue("error", "DataAccesException", ex.getMessage());
             return "admin/task/edit";
         }
 
