@@ -20,6 +20,9 @@ todolist
 
 master
 
+v0.2.1
+1. first react page
+
 v0.2.0
 1. null or size (validator annotation)
 @Pattern(regexp="(^$|.{6,20})")
