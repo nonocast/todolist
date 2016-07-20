@@ -88,7 +88,11 @@ public class TaskController {
         Task task = null;
         try {
             task = new Task();
-            User user = userRepository.findOne(1L);
+            User user = userRepository.findByEmail(form.getBelongsTo());
+            if(user == null) {
+                errors.rejectValue("belongsTo", "NullPointerException", "请输入正确的邮箱地址或名称");
+                return "admin/task/edit";
+            }
             task.setBelongsTo(user);
             task.setBelongsToName(user.getName());
             taskRepository.save(form.push(task));

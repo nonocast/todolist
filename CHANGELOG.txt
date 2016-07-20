@@ -11,17 +11,18 @@ ssh nonocast.cn -t todolist-update
 
 todolist
 1. react
-x. 已激活 & 管理员 checkbox (like gogs)
-x. null or size (validator annotation)
-1. restful api
-4. refactor exception
-5. cacheable - redis
-6. highcharts
-7. querydsl
-9. fontawesome
-10. task: 需要支持@who, #tag#
+2. restful api
+3. cacheable - redis
+4. highcharts
+5. querydsl
+6. fontawesome
+7. task: 需要支持@who, #tag#
 
 master
+
+v0.2.0
+1. null or size (validator annotation)
+@Pattern(regexp="(^$|.{6,20})")
 
 v0.1.40
 1. task: 选择用户

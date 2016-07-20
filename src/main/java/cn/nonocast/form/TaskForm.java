@@ -16,7 +16,9 @@ public class TaskForm extends FormBase {
     private Task.TaskCategory category = Task.TaskCategory.DAILY;
     private Task.TaskPriority priority = Task.TaskPriority.NORMAL;
 
-    private String belongsTo;
+    @NotNull
+    @Size(min=1, message="请输入邮箱地址")
+    private String belongsTo = "";
 
     public Long getId() {
         return id;

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class UserForm extends FormBase {
@@ -19,6 +20,8 @@ public class UserForm extends FormBase {
     private String name;
     private String wechatid;
     private String avatar;
+
+    @Pattern(regexp="(^$|.{6,20})", message="手机长度应在6-20个字符之间")
     private String mobile;
     private String location;
     private User.Role role = User.Role.USER;
