@@ -35,7 +35,7 @@ CREATE TABLE task (
   # 1: The Weekly/Monthly Project List (short-term 30 days)
   # 2: The Master Goal List (long-term, 90-180 days)
   category INTEGER NOT NULL DEFAULT 0,
-  content VARCHAR (200) NOT NULL DEFAULT "",
+  key VARCHAR (200) NOT NULL DEFAULT "",
   # 3: highest
   # 2: higher
   # 1: normal
@@ -55,23 +55,23 @@ INSERT INTO user (email, name, password, role) VALUES("naodaixiaoxiao@qq.com", "
 SET @user = (select id from user where email='naodaixiaoxiao@qq.com');
 SET @name = (select name from user where email='naodaixiaoxiao@qq.com');
 
-INSERT INTO task (belongs_to, belongs_to_name, status, category, content) VALUES(@user, @name, 0, 0, "naodaixiaoxiao task 1");
-INSERT INTO task (belongs_to, belongs_to_name, status, category, content) VALUES(@user, @name, 0, 0, "naodaixiaoxiao task 2");
-INSERT INTO task (belongs_to, belongs_to_name, status, category, content) VALUES(@user, @name, 0, 0, "naodaixiaoxiao task 3");
+INSERT INTO task (belongs_to, belongs_to_name, status, category, key) VALUES(@user, @name, 0, 0, "naodaixiaoxiao task 1");
+INSERT INTO task (belongs_to, belongs_to_name, status, category, key) VALUES(@user, @name, 0, 0, "naodaixiaoxiao task 2");
+INSERT INTO task (belongs_to, belongs_to_name, status, category, key) VALUES(@user, @name, 0, 0, "naodaixiaoxiao task 3");
 
 SET @user = (select id from user where email='nonocast@gmail.com');
 SET @name = (select name from user where email='nonocast@gmail.com');
 
-INSERT INTO task (belongs_to, belongs_to_name, status, category, content) VALUES(@user, @name, 0, 0, "上周我们面试实习生,清华的、剑桥的全被我们刷下来了");
-INSERT INTO task (belongs_to, belongs_to_name, status, category, content) VALUES(@user, @name, 0, 0, "只留下一个没上过大学的.");
-INSERT INTO task (belongs_to, belongs_to_name, status, category, content) VALUES(@user, @name, 0, 0, "因为她夸我长的好看.");
-INSERT INTO task (belongs_to, belongs_to_name, status, category, content) VALUES(@user, @name, 0, 0, "如今这个社会敢说实话的人已经不多了.");
-INSERT INTO task (belongs_to, belongs_to_name, status, category, content) VALUES(@user, @name, 0, 0, "好吧,上面是我意淫.");
-INSERT INTO task (belongs_to, belongs_to_name, status, category, content) VALUES(@user, @name, 0, 0, "她根本没夸我好看.");
-INSERT INTO task (belongs_to, belongs_to_name, status, category, content) VALUES(@user, @name, 0, 0, "我问了她连个问题.");
+INSERT INTO task (belongs_to, belongs_to_name, status, category, key) VALUES(@user, @name, 0, 0, "上周我们面试实习生,清华的、剑桥的全被我们刷下来了");
+INSERT INTO task (belongs_to, belongs_to_name, status, category, key) VALUES(@user, @name, 0, 0, "只留下一个没上过大学的.");
+INSERT INTO task (belongs_to, belongs_to_name, status, category, key) VALUES(@user, @name, 0, 0, "因为她夸我长的好看.");
+INSERT INTO task (belongs_to, belongs_to_name, status, category, key) VALUES(@user, @name, 0, 0, "如今这个社会敢说实话的人已经不多了.");
+INSERT INTO task (belongs_to, belongs_to_name, status, category, key) VALUES(@user, @name, 0, 0, "好吧,上面是我意淫.");
+INSERT INTO task (belongs_to, belongs_to_name, status, category, key) VALUES(@user, @name, 0, 0, "她根本没夸我好看.");
+INSERT INTO task (belongs_to, belongs_to_name, status, category, key) VALUES(@user, @name, 0, 0, "我问了她连个问题.");
 
-INSERT INTO task (belongs_to, belongs_to_name, status, category, content) VALUES(@user, @name, 0, 0, "<h1>TEST HTML</h1>");
-INSERT INTO task (belongs_to, belongs_to_name, status, category, content) VALUES(@user, @name, 0, 0, "<script>alert('test javascript');</script>");
+INSERT INTO task (belongs_to, belongs_to_name, status, category, key) VALUES(@user, @name, 0, 0, "<h1>TEST HTML</h1>");
+INSERT INTO task (belongs_to, belongs_to_name, status, category, key) VALUES(@user, @name, 0, 0, "<script>alert('test javascript');</script>");
 
 
 DELIMITER ;;
@@ -107,8 +107,8 @@ CREATE PROCEDURE create_tasks(count INTEGER)
 
     SET @i = 1;
     WHILE @i < count+1 DO
-      SET @content = concat("task item ", @i);
-      INSERT INTO task (belongs_to, belongs_to_name, status, category, content) VALUES(@user, @name, 0, 0, @content);
+      SET @key = concat("task item ", @i);
+      INSERT INTO task (belongs_to, belongs_to_name, status, category, key) VALUES(@user, @name, 0, 0, @key);
 
       SET @i = @i + 1;
     END WHILE;

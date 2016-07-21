@@ -7,8 +7,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,18 +40,33 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Order(1)
     public static class AdminWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
         protected void configure(HttpSecurity http) throws Exception {
-            http.antMatcher("/admin/**")
+            http.csrf().disable()
+	            .antMatcher("/admin/**")
                 .authorizeRequests()
                 .antMatchers("/admin/login").permitAll()
                 .anyRequest().hasRole("ADMIN").and()
                 .formLogin().loginPage("/admin/login").defaultSuccessUrl("/admin/console").and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true).and()
-                .csrf().disable();
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true);
         }
     }
 
+	@Configuration
+	@Order(2)
+	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+		protected void configure(HttpSecurity http) throws Exception {
+			http.csrf().disable()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+				.antMatcher("/api/**")
+				.authorizeRequests()
+				.antMatchers("/api/token").permitAll()
+				.anyRequest().authenticated().and()
+				.exceptionHandling()
+				.authenticationEntryPoint(new ApiAuthenticationEntryPoint());
+		}
+	}
+
     @Configuration
-    @Order(2)
+    @Order(3)
     public static class UserWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
         @SuppressWarnings("SpringJavaAutowiringInspection")
         @Autowired

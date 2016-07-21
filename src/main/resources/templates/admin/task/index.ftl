@@ -72,6 +72,5 @@
 	</div>
 </section>
 <@pagination.section page />
-</div>
 </form>
 </@view>

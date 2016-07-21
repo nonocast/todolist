@@ -10,8 +10,8 @@ update service:
 ssh nonocast.cn -t todolist-update
 
 todolist
-1. react
-2. restful api
+1. todolist homepage
+2. restful api / token
 3. cacheable - redis
 4. highcharts
 5. querydsl
@@ -19,6 +19,9 @@ todolist
 7. task: 需要支持@who, #tag#
 
 master
+
+v0.2.2
+1. api token supported
 
 v0.2.1
 1. first react page
@@ -150,13 +153,13 @@ v0.1.14
     private ApplicationContext appContext;
 4. 将wechat.json配置放在/etc/todolist/下,读取外部文件进行配置
     Path p = Paths.get(path, "wechat.json");
-    String content = new String(Files.readAllBytes(p));
+    String key = new String(Files.readAllBytes(p));
 5. 解析外部json
     @Autowired
     private ObjectMapper objectMapper;
 
     TypeReference<HashMap<String, String>> typeRef = new TypeReference<HashMap<String, String>>() {};
-    Map<String,String> settings = objectMapper.readValue(content, typeRef);
+    Map<String,String> settings = objectMapper.readValue(key, typeRef);
 6. 增加DBA, 配置数据库, --不合适取消了.
     java -cp build/libs/todoapp-0.1.13-SNAPSHOT.jar cn.nonocast.DBA
 

@@ -2,7 +2,7 @@
 <#import "/lib/auth.ftl" as auth>
 <#import "/lib/pagination.ftl" as pagination>
 
-<#macro view title="admin" sidebar="console" header="">
+<#macro view title="todolist" sidebar="daily" header="">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,15 +24,15 @@
 		$.app = $.app or {}
 		$.app.page = '${sidebar}'
 	</script>
-	<script type="text/coffeescript" src="/private/script/admin.coffee"></script>
-    ${header}
+	<script type="text/coffeescript" src="/public/script/user.coffee"></script>
+${header}
 </head>
 <body>
 <div class="navbar navbar-default navbar-custom">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#">TODOLIST APPLICATION CONSOLE</a>
-    <#--<a class="navbar-brand" href="#">Todolist Application Console</a>-->
+			<a class="navbar-brand" href="#">TODOLIST</a>
+		<#--<a class="navbar-brand" href="#">Todolist Application Console</a>-->
 		</div>
 		<div class="navbar-right visible-sm visible-md visible-lg">
 			<ul class="nav navbar-nav">
@@ -54,19 +54,16 @@
 	<!-- Sidebar -->
 	<div id="sidebar-wrapper">
 		<ul class="sidebar-nav">
-			<li><a href="/admin/console">控制台</a></li>
-			<li><a href="/admin/users">用户管理</a></li>
-			<li><a href="/admin/users/create">新建用户</a></li>
-			<li><a href="/admin/tasks">任务管理</a></li>
-			<li><a href="/admin/tasks/create">新建任务</a></li>
-			<li><a href="/admin/tokens">API登录凭证</a></li>
+			<li><a href="#">长期目标</a></li>
+			<li><a href="#">近期目标</a></li>
+			<li><a href="#">今日待办事项</a></li>
 		</ul>
 	</div>
 	<!-- /#sidebar-wrapper -->
 	<!-- Page Content -->
 	<div id="page-content-wrapper">
 		<a href="#menu-toggle" id="menu-toggle" class="sidebar-menu"><i class="fa fa-angle-double-left"></i></a>
-        <#nested>
+		<#nested>
 	</div>
 	<!-- /#page-key-wrapper -->
 </div>

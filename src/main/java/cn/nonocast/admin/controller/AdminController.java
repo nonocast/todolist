@@ -1,8 +1,11 @@
 package cn.nonocast.admin.controller;
 
+import cn.nonocast.service.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("adminController")
@@ -10,13 +13,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
     private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
-    @RequestMapping("/login")
+	@Autowired
+	private TokenService tokenService;
+
+    @RequestMapping("login")
     public String login() {
         return "admin/login";
     }
 
-    @RequestMapping(value = {"", "/console"})
+    @RequestMapping(value = {"", "console"})
     public String console() {
         return "admin/console";
     }
+
+	@RequestMapping("tokens")
+	public String token(Model model) {
+
+		model.addAttribute("tokens", tokenService.findAll());
+		return "admin/token/index";
+	}
 }

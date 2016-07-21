@@ -4,8 +4,8 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" key="IE=edge">
+	<meta name="viewport" key="width=device-width, initial-scale=1">
 	<title>register</title>
 	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -18,7 +18,7 @@
     </script>
 </head>
 <body>
-<div id="page-content-wrapper">
+<div id="page-key-wrapper">
     <section class="subtitle">
         <h2>注册</h2>
     </section>
