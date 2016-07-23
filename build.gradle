@@ -62,6 +62,21 @@ dependencies {
     testCompile "org.springframework.boot:spring-boot-starter-test"
 }
 
+task webpack(type: Exec) {
+    standardOutput = new ByteArrayOutputStream()
+    commandLine "webpack"
+
+    doLast {
+        String output = standardOutput.toString()
+
+        if(output.readLines().any{line->line.trim().toLowerCase().startsWith("error")}) {
+            throw new GradleException("error in webpack: \n${output}")
+        }
+    }
+}
+
+jar.dependsOn webpack
+
 task publish(dependsOn: build) << {
     ["cp", "build/libs/todoapp-${version}.jar", "../todoapp"].execute()
 }
