@@ -9,6 +9,9 @@ todo unzip -qo todoapp db/rebuild.sh
 update service:
 ssh nonocast.cn -t todolist-update
 
+ts, react, webpack stack:
+webpack -watch
+
 todolist
 1. todolist homepage
 2. restful api
@@ -20,6 +23,8 @@ todolist
 
 master
 
+v0.2.4
+add ts/react/webpack stack
 
 v.0.2.3
 调整结构,为typescript/react作准备

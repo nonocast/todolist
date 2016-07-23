@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "outDir": "./build/tmp/ts",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es5",
+    "jsx": "react"
+  },
+  "files": [
+    "./typings/index.d.ts",
+    "./src/main/ts/components/Hello.tsx",
+    "./src/main/ts/index.tsx"
+  ],
+  "exclude": [
+    "node modules"
+  ]
+}

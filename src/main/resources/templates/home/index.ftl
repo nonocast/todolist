@@ -11,22 +11,7 @@
 	<script src="/webjars/jquery/2.2.4/jquery.js"></script>
 </head>
 <body>
-<h1>${auth.username}</h1>
-<div id="content"></div>
-<script type="text/babel">
-	var CommentBox = React.createClass({
-		render: function() {
-			return (
-				<div className="commentBox">
-					Hello, world! I am a CommentBox.
-				</div>
-			);
-		}
-	});
-	ReactDOM.render(
-		<CommentBox />,
-		document.getElementById('content')
-	);
-</script>
+	<div id="app-container"></div>
+	<script type="text/javascript" src="/public/script/bundle.js"></script>
 </body>
 </html>
