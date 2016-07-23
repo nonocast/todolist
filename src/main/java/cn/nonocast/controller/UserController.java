@@ -1,6 +1,11 @@
 package cn.nonocast.controller;
 
 import cn.nonocast.form.UserForm;
+import cn.nonocast.model.User;
+import cn.nonocast.repository.UserRepository;
+import cn.nonocast.service.TaskService;
+import cn.nonocast.social.Wechat;
+import cn.nonocast.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,23 +15,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
-import org.springframework.stereotype.*;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
-import java.security.Principal;
-import java.util.Map;
-import cn.nonocast.repository.*;
-import cn.nonocast.model.*;
-import cn.nonocast.service.*;
-import cn.nonocast.social.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.Map;
 
 @Controller("userController")
 @RequestMapping("/")
@@ -44,6 +46,9 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private TokenService tokenService;
 
     @Autowired
     private Wechat wechat;
@@ -125,25 +130,12 @@ public class UserController {
         return "user/register_result";
     }
 
-//    @RequestMapping("/logout")
-//    public String logout(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth != null){
-//            rememberMeServices.logout(request, response, auth);
-//            new SecurityContextLogoutHandler().logout(request, response, auth);
-//        }
-//
-//        SecurityContextHolder.getContext().setAuthentication(null);
-//        SecurityContextHolder.clearContext();
-//
-//        return "redirect:/login?logout";
-//    }
-
     @RequestMapping("/home")
     public String home(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("version", this.version);
         model.addAttribute("profile", this.profile);
+	    model.addAttribute("token", tokenService.create(user));
         model.addAttribute("tasks", taskService.findByUser(user));
-        return "user/home";
+        return "home/index";
     }
 }

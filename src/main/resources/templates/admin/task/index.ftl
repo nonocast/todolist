@@ -1,4 +1,4 @@
-<#include "/layout/admin.ftl">
+<#include "/admin/_layout/master.ftl">
 
 <#assign header>
 <script type="text/coffeescript" src="/private/script/tasks.coffee"></script>

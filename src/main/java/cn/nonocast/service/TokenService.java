@@ -30,13 +30,19 @@ public class TokenService {
 		Token token = null;
 		User user = userRepository.findByEmail(email);
 		if(user!=null && passwordEncoder.matches(password, user.getPassword())) {
-			Optional<Token> target = this.findByEmail(email);
-			if(target.isPresent()) {
-				(token = target.get()).invalidate();
-			}else {
-				token = new Token(user);
-				this.tokenMap.put(token.getKey(), token);
-			}
+			token = create(user);
+		}
+		return token;
+	}
+
+	public Token create(User user) {
+		Token token;
+		Optional<Token> target = this.findByEmail(user.getEmail());
+		if(target.isPresent()) {
+			(token = target.get()).invalidate();
+		}else {
+			token = new Token(user);
+			this.tokenMap.put(token.getKey(), token);
 		}
 		return token;
 	}

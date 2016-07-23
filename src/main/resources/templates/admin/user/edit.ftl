@@ -1,4 +1,4 @@
-<#include "/layout/admin.ftl">
+<#include "/admin/_layout/master.ftl">
 
 <#assign header>
 <link rel="stylesheet" type="text/css" href="/public/css/form.css">

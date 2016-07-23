@@ -1,4 +1,4 @@
-<#include "/layout/admin.ftl">
+<#include "/admin/_layout/master.ftl">
 
 <#assign header>
     <script src="/webjars/highcharts/4.2.5/highcharts.js"></script>

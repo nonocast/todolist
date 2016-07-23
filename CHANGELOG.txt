@@ -11,7 +11,7 @@ ssh nonocast.cn -t todolist-update
 
 todolist
 1. todolist homepage
-2. restful api / token
+2. restful api
 3. cacheable - redis
 4. highcharts
 5. querydsl
@@ -19,6 +19,10 @@ todolist
 7. task: 需要支持@who, #tag#
 
 master
+
+
+v.0.2.3
+调整结构,为typescript/react作准备
 
 v0.2.2
 1. api token supported

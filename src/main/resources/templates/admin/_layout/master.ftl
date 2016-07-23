@@ -19,7 +19,6 @@
 	<script src="/webjars/jquery/2.2.4/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="/webjars/coffee-script/1.10.0/coffee-script.min.js"></script>
-	<script type="text/coffeescript" src="/public/script/common.coffee"></script>
 	<script type="text/coffeescript">
 		$.app = $.app or {}
 		$.app.page = '${sidebar}'
