@@ -36,3 +36,6 @@ Icon
 
 # Thumbnails
 ._*
+
+# node
+node_modules/
