@@ -15,6 +15,9 @@ It integrated the following framework and third-party project:
 - Spring Data JPA
 - Mysql
 - Wechat
+- React
+- TypeScript
+- webpack
 
 ## Status
 - developing
