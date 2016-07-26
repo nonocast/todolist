@@ -13,6 +13,10 @@ export class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
 		return(
 			<li>
 				<div className="view">
+					<input
+						className="toggle"
+						type="checkbox"
+					/>
 					<label>
 						{this.props.todo.title}
 					</label>

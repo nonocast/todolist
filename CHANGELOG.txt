@@ -23,6 +23,9 @@ todolist
 
 master
 
+v0.2.6
+apply todolist style
+
 v0.2.5
 增加api/task
 db -> v0.1.7

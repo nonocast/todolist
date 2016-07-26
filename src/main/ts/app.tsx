@@ -23,6 +23,14 @@ class TodoApp extends React.Component<{}, {data: Array<ITodo>}> {
 		});
 	}
 
+	public handleNewTodoKeyDown(event) {
+		if (event.keyCode !== app.constants.ENTER_KEY) {
+			return;
+		}
+
+		event.preventDefault();
+	}
+
 	render() {
 		console.log(this.state);
 		let todoItems = this.state.data.map(function(each) {
@@ -31,9 +39,36 @@ class TodoApp extends React.Component<{}, {data: Array<ITodo>}> {
 			);
 		});
 
+		let main = (
+			<section className="main">
+				<input className="toggle-all" type="checkbox" />
+				<ul className="todo-list">
+					{todoItems}
+				</ul>
+			</section>
+		);
+
+		let footer = (
+			<div className="footer">
+				<span className="todo-count">4 items left</span>
+			</div>
+		);
+
+
 		return(
 			<div>
-				{todoItems}
+				<header className="header">
+					<h1>todos</h1>
+					<input
+						ref="newField"
+						className="new-todo"
+						placeholder="What needs to be done?"
+						onKeyDown={ e => this.handleNewTodoKeyDown(e) }
+						autoFocus={true}
+					/>
+				</header>
+				{main}
+				{footer}
 			</div>
 		);
 	}
