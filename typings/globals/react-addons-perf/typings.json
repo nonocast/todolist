@@ -1,8 +1,0 @@
-{
-  "resolution": "main",
-  "tree": {
-    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/50b9b6c6d571cab9fb0154d2f3456d9a77f55ac8/react/react-addons-perf.d.ts",
-    "raw": "registry:dt/react-addons-perf#15.1.0+20160619031933",
-    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/50b9b6c6d571cab9fb0154d2f3456d9a77f55ac8/react/react-addons-perf.d.ts"
-  }
-}

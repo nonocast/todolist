@@ -22,6 +22,7 @@ todolist
 7. task: 需要支持@who, #tag#
 
 master
+fix edit task
 
 v0.2.6
 apply todolist style
