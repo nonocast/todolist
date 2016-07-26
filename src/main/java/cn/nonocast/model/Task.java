@@ -1,6 +1,9 @@
 package cn.nonocast.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -8,22 +11,33 @@ import java.util.Date;
 @Entity
 @Table(name="task")
 public class Task extends ModelBase {
+	public interface TaskView extends ModelBase.JsonViewBase {};
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="belongs_to")
     private User belongsTo;
 
     private String belongsToName;
 
+//	@JsonView(TaskView.class)
+	@JsonProperty("user")
+	private String belongsToEmail;
+
     @NotNull
+    @JsonView(TaskView.class)
+    @JsonProperty("title")
     private String content;
 
     @Enumerated(EnumType.ORDINAL)
+//    @JsonView(TaskView.class)
     private TaskCategory category;
 
     @Enumerated(EnumType.ORDINAL)
+//    @JsonView(TaskView.class)
     private TaskStatus status;
 
     @Enumerated(EnumType.ORDINAL)
+//    @JsonView(TaskView.class)
     private TaskPriority priority;
 
     private Date closedAt;
@@ -84,7 +98,15 @@ public class Task extends ModelBase {
         this.belongsToName = belongsToName;
     }
 
-    public Task() {
+	public String getBelongsToEmail() {
+		return belongsToEmail;
+	}
+
+	public void setBelongsToEmail(String belongsToEmail) {
+		this.belongsToEmail = belongsToEmail;
+	}
+
+	public Task() {
 
     }
 

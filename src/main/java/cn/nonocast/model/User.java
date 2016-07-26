@@ -1,14 +1,10 @@
 package cn.nonocast.model;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonView;
-import org.hibernate.annotations.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import java.util.*;

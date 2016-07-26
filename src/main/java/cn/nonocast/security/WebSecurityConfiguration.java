@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 @Configuration
@@ -25,6 +27,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new CustomUserService();
     }
 
+	@Bean
+	ApiAuthenticationUserDetailsService apiDetailsService() {
+		return new ApiAuthenticationUserDetailsService();
+	}
+
+	@Bean
+	PreAuthenticatedAuthenticationProvider preAuthenticationProvider() {
+		PreAuthenticatedAuthenticationProvider provider = new PreAuthenticatedAuthenticationProvider();
+		provider.setPreAuthenticatedUserDetailsService(apiDetailsService());
+		return provider;
+	}
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -32,8 +46,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserService())
-            .passwordEncoder(passwordEncoder());
+	    auth.authenticationProvider(preAuthenticationProvider());
+
+        auth.userDetailsService(customUserService()).passwordEncoder(passwordEncoder());
+
     }
 
     @Configuration
@@ -53,7 +69,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Configuration
 	@Order(2)
 	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+		@Autowired
+		private AuthenticationManager authenticationManager;
+
+		@Bean ApiPreAuthenticationFilter preAuthenticationFilter() {
+			ApiPreAuthenticationFilter filter = new ApiPreAuthenticationFilter(authenticationManager);
+			return filter;
+		}
 		protected void configure(HttpSecurity http) throws Exception {
+			http.addFilter(preAuthenticationFilter());
 			http.csrf().disable()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.antMatcher("/api/**")

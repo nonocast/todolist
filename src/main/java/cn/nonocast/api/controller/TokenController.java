@@ -1,4 +1,4 @@
-package cn.nonocast.api;
+package cn.nonocast.api.controller;
 
 import cn.nonocast.service.*;
 import cn.nonocast.model.*;

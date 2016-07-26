@@ -23,6 +23,11 @@ todolist
 
 master
 
+v0.2.5
+增加api/task
+db -> v0.1.7
+增加react skeleton
+
 v0.2.4
 add ts/react/webpack stack
 

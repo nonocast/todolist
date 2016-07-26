@@ -20,6 +20,8 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findByBelongsTo(User user);
     Page<Task> findByBelongsTo(User user, Pageable pageable);
 
+	List<Task> findByBelongsToName(@Param("name") String name);
+
     @Query(value = "SELECT p FROM Task p WHERE LOWER(p.content) LIKE LOWER(concat('%',:q,'%'))")
     Page<Task> findByKeyword(@Param("q") String q, Pageable pageable);
 

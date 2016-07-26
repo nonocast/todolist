@@ -1,5 +1,8 @@
 master
 
+v0.1.7
+task +belongsToEmail
+
 v0.1.6
 task -zindex
 task -topmost

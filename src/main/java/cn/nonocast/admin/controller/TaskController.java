@@ -1,20 +1,22 @@
 package cn.nonocast.admin.controller;
 
+import cn.nonocast.form.TaskForm;
+import cn.nonocast.model.Task;
+import cn.nonocast.model.User;
+import cn.nonocast.repository.TaskRepository;
+import cn.nonocast.repository.UserRepository;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import cn.nonocast.repository.*;
-import cn.nonocast.form.*;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import cn.nonocast.model.*;
-import org.springframework.security.access.method.P;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
@@ -94,6 +96,7 @@ public class TaskController {
                 return "admin/task/edit";
             }
             task.setBelongsTo(user);
+	        task.setBelongsToEmail(user.getEmail());
             task.setBelongsToName(user.getName());
             taskRepository.save(form.push(task));
         } catch (DataAccessException ex) {
