@@ -1,6 +1,9 @@
 package cn.nonocast.security;
 
 import cn.nonocast.repository.UserRepository;
+import cn.nonocast.service.TokenService;
+import cn.nonocast.model.Token;
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,9 +16,19 @@ public class ApiAuthenticationUserDetailsService implements AuthenticationUserDe
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private TokenService tokenService;
+
 	@Override
 	public UserDetails loadUserDetails(PreAuthenticatedAuthenticationToken token) throws UsernameNotFoundException {
 		String principal = (String) token.getPrincipal();
-		return userRepository.findByEmail("nonocast@gmail.com");
+
+		UserDetails result = null;
+		if(!Strings.isNullOrEmpty(principal)) {
+			Token p = tokenService.get(principal);
+			result = userRepository.findOne(p.getId());
+		}
+
+		return result;
 	}
 }

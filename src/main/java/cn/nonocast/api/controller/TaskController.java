@@ -1,13 +1,13 @@
 package cn.nonocast.api.controller;
 
-import cn.nonocast.model.Task;
+import cn.nonocast.model.*;
 import cn.nonocast.repository.TaskRepository;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController("apiTaskController")
@@ -19,7 +19,7 @@ public class TaskController {
 
 	@RequestMapping("")
 	@JsonView(Task.TaskView.class)
-	public List<Task> index(Principal principal) {
-		return taskRepository.findByBelongsToName("李毓洁");
+	public List<Task> index(@AuthenticationPrincipal User user) {
+		return taskRepository.findByBelongsTo(user);
 	}
 }

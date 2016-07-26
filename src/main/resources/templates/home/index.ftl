@@ -11,13 +11,10 @@
 	<script src="/webjars/jquery/2.2.4/jquery.js"></script>
 </head>
 <body>
-	<section class="todoapp"></section>
+	<section class="todoapp" token="${token}"></section>
 	<footer class="info">
 		<p>Double-click to edit a todo</p>
-		<p>
-			Created by
-			<a href="http://github.com/nonocast/">nonocast</a>
-		</p>
+		<p>Created by <a href="http://github.com/nonocast/">nonocast</a></p>
 		<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 	</footer>
 	<script type="text/javascript" src="/public/script/bundle.js"></script>

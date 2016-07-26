@@ -21,11 +21,11 @@
   ],
   "files": [
     "./typings/index.d.ts",
+    "./src/main/ts/app.d.ts",
     "./src/main/ts/misc/constants.ts",
     "./src/main/ts/misc/utils.ts",
-    "./src/main/ts/app.d.ts",
-    "./src/main/ts/app.tsx",
-    "./src/main/ts/components/todoItem.tsx"
+    "./src/main/ts/components/todoItem.tsx",
+    "./src/main/ts/app.tsx"
   ],
   "exclude": [
     "node_modules"

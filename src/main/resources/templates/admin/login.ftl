@@ -8,9 +8,6 @@
 	<link href="/public/css/login.css" rel="stylesheet" media="screen"/>
 	<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.js"></script>
 	<script src="/webjars/coffee-script/1.10.0/coffee-script.min.js"></script>
-	<script type="text/coffeescript" src="/public/script/common.coffee"></script>
-	<script type="text/coffeescript">
-	</script>
 </head>
 <body class="red-bg">
 <div class="container">

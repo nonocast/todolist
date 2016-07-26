@@ -57,9 +57,17 @@ SET @email = "naodaixiaoxiao@qq.com";
 SET @user = (select id from user where email=@email);
 SET @name = (select name from user where email=@email);
 
-INSERT INTO task (belongs_to, belongs_to_name, belongs_to_email, status, category, content) VALUES(@user, @name, @email, 0, 0, "naodaixiaoxiao task 1");
-INSERT INTO task (belongs_to, belongs_to_name, belongs_to_email, status, category, content) VALUES(@user, @name, @email, 0, 0, "naodaixiaoxiao task 2");
-INSERT INTO task (belongs_to, belongs_to_name, belongs_to_email, status, category, content) VALUES(@user, @name, @email, 0, 0, "naodaixiaoxiao task 3");
+INSERT INTO task (belongs_to, belongs_to_name, belongs_to_email, status, category, content) VALUES(@user, @name, @email, 0, 0, "装修房子");
+INSERT INTO task (belongs_to, belongs_to_name, belongs_to_email, status, category, content) VALUES(@user, @name, @email, 0, 0, "购买松下木门");
+INSERT INTO task (belongs_to, belongs_to_name, belongs_to_email, status, category, content) VALUES(@user, @name, @email, 0, 0, "确定阳台装修风格");
+
+
+SET @email = "gexi7n@gmail.com";
+SET @user = (select id from user where email=@email);
+SET @name = (select name from user where email=@email);
+
+INSERT INTO task (belongs_to, belongs_to_name, belongs_to_email, status, category, content) VALUES(@user, @name, @email, 0, 0, "设计todolist web application交互界面");
+INSERT INTO task (belongs_to, belongs_to_name, belongs_to_email, status, category, content) VALUES(@user, @name, @email, 0, 0, "学习TypeScript + React");
 
 SET @email = "nonocast@gmail.com";
 SET @user = (select id from user where email=@email);

@@ -22,7 +22,12 @@ todolist
 7. task: 需要支持@who, #tag#
 
 master
-api token auth
+
+v0.2.8
+1. api token auth
+2. 添加测试数据
+3. user增加到task的链接
+4. 整合react和api/tasks
 
 v0.2.7
 fix task编辑时无法显示form.belongsTo, 把@NotNull去掉就好了

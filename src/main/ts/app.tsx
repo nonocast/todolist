@@ -1,12 +1,22 @@
+/// <reference path="../../../typings/globals/react-global/index.d.ts" />
+/// <reference path="./app.d.ts"/>
+
 import * as $ from "jquery"
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import * as constants from "./misc/constants"
 import { TodoItem } from "./components/todoItem";
 
 class TodoApp extends React.Component<{}, {data: Array<ITodo>}> {
+	token: string;
+
 	constructor(props) {
 		super(props);
-		this.state = { data: new Array<ITodo>() };
+		this.state = {data: new Array<ITodo>()};
+		this.token = $('.todoapp').attr("token");
+		$.ajaxSetup({
+			headers: { 'TOKEN': this.token }
+		});
 	}
 
 	componentDidMount() {
@@ -15,16 +25,16 @@ class TodoApp extends React.Component<{}, {data: Array<ITodo>}> {
 			url: url,
 			dataType: 'json',
 			cache: false,
-			success: function(data) {
+			success: function (data) {
 				this.setState({data: data});
 			}.bind(this),
-			error: function(xhr, status, err) {
+			error: function (xhr, status, err) {
 			}.bind(this)
 		});
 	}
 
 	public handleNewTodoKeyDown(event) {
-		if (event.keyCode !== app.constants.ENTER_KEY) {
+		if (event.keyCode !== constants.ENTER_KEY) {
 			return;
 		}
 
@@ -33,15 +43,15 @@ class TodoApp extends React.Component<{}, {data: Array<ITodo>}> {
 
 	render() {
 		console.log(this.state);
-		let todoItems = this.state.data.map(function(each) {
+		let todoItems = this.state.data.map(function (each) {
 			return (
-				<TodoItem key={each.id} todo={each} />
+				<TodoItem key={each.id} todo={each}/>
 			);
 		});
 
 		let main = (
 			<section className="main">
-				<input className="toggle-all" type="checkbox" />
+				<input className="toggle-all" type="checkbox"/>
 				<ul className="todo-list">
 					{todoItems}
 				</ul>
@@ -55,7 +65,7 @@ class TodoApp extends React.Component<{}, {data: Array<ITodo>}> {
 		);
 
 
-		return(
+		return (
 			<div>
 				<header className="header">
 					<h1>todos</h1>
@@ -78,4 +88,3 @@ ReactDOM.render(
 	<TodoApp />,
 	$('.todoapp').get(0)
 );
-
