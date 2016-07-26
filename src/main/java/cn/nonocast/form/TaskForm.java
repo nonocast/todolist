@@ -1,9 +1,7 @@
 package cn.nonocast.form;
 
-import cn.nonocast.model.*;
-import org.hibernate.validator.constraints.NotEmpty;
+import cn.nonocast.model.Task;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class TaskForm extends FormBase {
@@ -16,9 +14,9 @@ public class TaskForm extends FormBase {
     private Task.TaskCategory category = Task.TaskCategory.DAILY;
     private Task.TaskPriority priority = Task.TaskPriority.NORMAL;
 
-    @NotNull
+//    @NotNull
     @Size(min=1, message="请输入邮箱地址")
-    private String belongsTo = "";
+    private String belongsTo;
 
     public Long getId() {
         return id;
@@ -75,7 +73,7 @@ public class TaskForm extends FormBase {
         this.category = task.getCategory();
         this.status = task.getStatus();
         this.priority = task.getPriority();
-        if(task.getBelongsTo()!=null) {
+        if(task.getBelongsTo() != null) {
             this.belongsTo = task.getBelongsTo().getEmail();
         }
     }

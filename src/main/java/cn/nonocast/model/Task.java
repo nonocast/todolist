@@ -13,7 +13,7 @@ import java.util.Date;
 public class Task extends ModelBase {
 	public interface TaskView extends ModelBase.JsonViewBase {};
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="belongs_to")
     private User belongsTo;
 

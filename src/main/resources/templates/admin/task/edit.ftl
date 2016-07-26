@@ -37,7 +37,6 @@
 							<input type="text" name="${spring.status.expression}" class="form-control"
 							       value="${spring.status.value?default("")}">
 							<span class="help-block"><@spring.showErrors "" /></span>
-						<#--<button class="btn btn-default">选择...</button>-->
 						</div>
 					</div>
 				</div>

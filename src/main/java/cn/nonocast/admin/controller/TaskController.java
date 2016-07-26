@@ -96,7 +96,6 @@ public class TaskController {
                 return "admin/task/edit";
             }
             task.setBelongsTo(user);
-	        task.setBelongsToEmail(user.getEmail());
             task.setBelongsToName(user.getName());
             taskRepository.save(form.push(task));
         } catch (DataAccessException ex) {
