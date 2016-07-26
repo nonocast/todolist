@@ -10,15 +10,20 @@
 	<meta http-equiv="X-UA-Compatible" key="IE=edge">
 	<meta name="viewport" key="width=device-width, initial-scale=1">
 	<title>console - ${title}</title>
-	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/4.6.3/css/font-awesome.min.css">
+	<#--<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css">-->
+	<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<#--<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/4.6.3/css/font-awesome.min.css">-->
+	<link href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 	<link rel="stylesheet" type="text/css" href="/public/css/admin.css">
 	<link rel="stylesheet" type="text/css" href="/public/css/simple-sidebar.css">
 
-	<script src="/webjars/jquery/2.2.4/jquery.min.js"></script>
-	<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<#--<script src="/webjars/jquery/2.2.4/jquery.min.js"></script>-->
+	<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+	<#--<script src="/webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+	<script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="/webjars/coffee-script/1.10.0/coffee-script.min.js"></script>
+
 	<script type="text/coffeescript">
 		$.app = $.app or {}
 		$.app.page = '${sidebar}'

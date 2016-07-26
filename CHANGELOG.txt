@@ -23,6 +23,9 @@ todolist
 
 master
 
+v0.2.11
+webjars改为bootcdn.cn
+
 v0.2.10
 webpack去掉jquery, bundle.js控制在10k以内
 

@@ -3,10 +3,14 @@
 <head>
 	<meta http-equiv="Content-Type" key="text/html; charset=UTF-8"/>
 	<title>Admin Sign in</title>
-	<link href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
-	<link href="/webjars/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet" media="screen"/>
+
+	<#--<link href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen"/>-->
+	<#--<link href="/webjars/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet" media="screen"/>-->
+	<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="/public/css/login.css" rel="stylesheet" media="screen"/>
-	<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.js"></script>
+	<#--<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.js"></script>-->
+	<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 	<script src="/webjars/coffee-script/1.10.0/coffee-script.min.js"></script>
 </head>
 <body class="red-bg">
