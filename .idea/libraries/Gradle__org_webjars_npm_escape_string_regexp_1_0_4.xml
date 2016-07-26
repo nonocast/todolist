@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.webjars.npm:escape-string-regexp:1.0.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.npm/escape-string-regexp/1.0.4/5978e27056007bceabbb49930fce7504645507af/escape-string-regexp-1.0.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.npm/escape-string-regexp/1.0.4/b04f3ee8f5e43fa3b162981b50bb72fe1acabb33/escape-string-regexp-1.0.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

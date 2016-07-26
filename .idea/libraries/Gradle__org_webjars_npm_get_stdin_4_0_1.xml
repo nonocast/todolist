@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.webjars.npm:get-stdin:4.0.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.npm/get-stdin/4.0.1/e05b0b058d8e6c0ba6f689a6bc3d1fcecd092a99/get-stdin-4.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.npm/get-stdin/4.0.1/b04f3ee8f5e43fa3b162981b50bb72fe1acabb33/get-stdin-4.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

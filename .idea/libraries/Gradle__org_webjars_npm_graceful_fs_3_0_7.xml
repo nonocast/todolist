@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.webjars.npm:graceful-fs:3.0.7">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.npm/graceful-fs/3.0.7/9b9d5655d24037684caf4fd9d3be1597503c1e24/graceful-fs-3.0.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.npm/graceful-fs/3.0.7/b04f3ee8f5e43fa3b162981b50bb72fe1acabb33/graceful-fs-3.0.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

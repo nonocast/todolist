@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.webjars.npm:source-map-support:0.2.10">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.npm/source-map-support/0.2.10/c2f761e3ab0a89a7d849ecf424a06283515d00c2/source-map-support-0.2.10.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.npm/source-map-support/0.2.10/b04f3ee8f5e43fa3b162981b50bb72fe1acabb33/source-map-support-0.2.10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

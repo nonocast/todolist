@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.webjars.npm:ansi-regex:2.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.npm/ansi-regex/2.0.0/fc141e5e37acd60a79f14be1b08f2940096505d8/ansi-regex-2.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.npm/ansi-regex/2.0.0/b04f3ee8f5e43fa3b162981b50bb72fe1acabb33/ansi-regex-2.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

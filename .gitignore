@@ -39,3 +39,6 @@ Icon
 
 # node
 node_modules/
+
+# typings
+typings/

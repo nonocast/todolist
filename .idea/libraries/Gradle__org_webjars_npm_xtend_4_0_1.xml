@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.webjars.npm:xtend:4.0.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.npm/xtend/4.0.1/c5989ea06468df5adb0704bfb4f768b3e75bbb66/xtend-4.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.webjars.npm/xtend/4.0.1/b04f3ee8f5e43fa3b162981b50bb72fe1acabb33/xtend-4.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
