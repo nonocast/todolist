@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/6a36f6d5b61602b6c4ad932599097135e80abaf4/react/react-addons-create-fragment.d.ts",
+    "raw": "registry:dt/react-addons-create-fragment#0.14.0+20160709044614",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/6a36f6d5b61602b6c4ad932599097135e80abaf4/react/react-addons-create-fragment.d.ts"
+  }
+}
