@@ -23,6 +23,9 @@ todolist
 
 master
 
+v0.2.9
+bootcdn.cn对react和jquery加速
+
 v0.2.8
 1. api token auth
 2. 添加测试数据
