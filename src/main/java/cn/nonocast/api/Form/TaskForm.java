@@ -1,10 +1,14 @@
 package cn.nonocast.api.form;
 
-import cn.nonocast.base.*;
-import cn.nonocast.model.*;
+import cn.nonocast.base.FormBase;
+import cn.nonocast.model.Task;
+
+import javax.validation.constraints.Size;
 
 public class TaskForm extends FormBase {
 	private Long id = 0L;
+
+	@Size(min=1, max=200, message="内容最多200字")
 	private String content;
 
 	public Long getId() {
@@ -25,7 +29,6 @@ public class TaskForm extends FormBase {
 
 
 	public void pull(Task task) {
-		this.id = task.getId();
 		this.content = task.getContent();
 	}
 

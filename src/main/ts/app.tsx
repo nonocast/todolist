@@ -55,10 +55,11 @@ class TodoApp extends React.Component<{}, {data: Array<ITodo>}> {
 			url: "/api/tasks",
 			dataType: 'json',
 			type: 'POST',
-			data: todo,
+			data: {
+				content: todo.title
+			},
 			success: function(data) {
-				alert("post ok");
-				alert(data)
+
 			}.bind(this),
 			error: function(xhr, status, err) {
 				this.setState({data: snapshot});

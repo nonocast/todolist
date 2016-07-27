@@ -7,12 +7,16 @@ import cn.nonocast.repository.TaskRepository;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController("apiTaskController")
@@ -30,8 +34,13 @@ public class TaskController {
 
 	@RequestMapping(value="", method=RequestMethod.POST)
 	@JsonView(Task.TaskView.class)
-	public Task create(@AuthenticationPrincipal User user, @ModelAttribute TaskForm form) {
+	public ResponseEntity<?> create(@AuthenticationPrincipal User user, @Valid @ModelAttribute TaskForm form, Errors errors) {
 		Task task = null;
+
+		if(errors.hasErrors()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.toString());
+		}
+
 		try {
 			task = new Task();
 			task.setCategory(Task.TaskCategory.DAILY);
@@ -41,9 +50,9 @@ public class TaskController {
 			task.setBelongsToName(user.getName());
 			taskRepository.save(form.push(task));
 		} catch (DataAccessException ex) {
-			return null;
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
 		}
 
-		return task;
+		return ResponseEntity.ok(task);
 	}
 }
