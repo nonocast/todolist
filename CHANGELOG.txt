@@ -13,7 +13,7 @@ ts, react, webpack stack:
 webpack -watch
 
 create task url:
-curl -XPOST http://localhost:8080/api/tasks -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" -H "TOKEN: 3fea6af1349166ea" -d "content=hello-curl"
+curl -XPOST http://localhost:8080/api/tasks -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" -H "Token: 3fea6af1349166ea" -d "content=hello-curl"
 
 todolist
 3. cacheable - redis
@@ -23,6 +23,9 @@ todolist
 7. task: 需要支持@who, #tag#
 
 master
+
+v0.2.16
+fix bugs
 
 v0.2.15
 1. react增加log version

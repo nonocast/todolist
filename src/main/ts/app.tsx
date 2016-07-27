@@ -6,7 +6,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as constants from "./misc/constants"
 import utils from "./misc/utils"
-import { TodoItem } from "./components/todoItem";
+import { TaskItem } from "./components/task";
 
 class TodoApp extends React.Component<AppProps, AppState> {
 	token: string;
@@ -14,12 +14,12 @@ class TodoApp extends React.Component<AppProps, AppState> {
 	constructor(props) {
 		super(props);
 
-		console.log("v0.2.15");
+		console.log("v0.2.16");
 
 		this.state = {tasks: new Array<Task>()};
 		this.token = $('.todoapp').attr("token");
 		$.ajaxSetup({
-			headers: { 'TOKEN': this.token }
+			headers: { 'Token': this.token }
 		});
 	}
 
@@ -92,9 +92,9 @@ class TodoApp extends React.Component<AppProps, AppState> {
 	}
 
 	render() {
-		let todoItems = this.state.tasks.map(function (each) {
+		let taskItems = this.state.tasks.map(function (each) {
 			return (
-				<TodoItem
+				<TaskItem
 					key={each.id}
 					todo={each}
 				  onDestroy={this.destroy.bind(this, each)}
@@ -106,7 +106,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 			<section className="main">
 				<input className="toggle-all" type="checkbox" />
 				<ul className="todo-list">
-					{todoItems}
+					{taskItems}
 				</ul>
 			</section>
 		);

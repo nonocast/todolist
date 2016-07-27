@@ -3,7 +3,7 @@
 
 import * as React from "react";
 
-export class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
+export class TaskItem extends React.Component<ITodoItemProps, ITodoItemState> {
 	constructor(props : ITodoItemProps){
 		super(props);
 		this.state = { };
