@@ -46,4 +46,8 @@
 			}
 			return newObj;
 		}
+
+		public static join(baseurl:string, id:number) {
+			return baseurl.replace(/\/$/,"") + '/' + id.toString().replace(/^\//,"");
+		}
 }

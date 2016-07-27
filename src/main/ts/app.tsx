@@ -8,77 +8,100 @@ import * as constants from "./misc/constants"
 import utils from "./misc/utils"
 import { TodoItem } from "./components/todoItem";
 
-class TodoApp extends React.Component<{}, {data: Array<ITodo>}> {
+class TodoApp extends React.Component<AppProps, AppState> {
 	token: string;
 
 	constructor(props) {
 		super(props);
-		this.state = {data: new Array<ITodo>()};
+		this.state = {tasks: new Array<Task>()};
 		this.token = $('.todoapp').attr("token");
 		$.ajaxSetup({
 			headers: { 'TOKEN': this.token }
 		});
 	}
 
-	componentDidMount() {
-		let url = "/api/tasks";
+	public componentDidMount() {
+		this.sync();
+		setInterval(this.sync.bind(this), 5000);
+	}
+
+	public sync() {
 		$.ajax({
-			url: url,
+			url: this.props.url,
 			dataType: 'json',
 			type: "GET",
 			cache: false,
 			success: function (data) {
-				this.setState({data: data});
+				this.setState({tasks: data});
 			}.bind(this),
 			error: function (xhr, status, err) {
 			}.bind(this)
 		});
 	}
 
-	public handleNewTodoKeyDown(event) {
+	public handleNewTaskKeyDown(event) {
 		if (event.keyCode !== constants.ENTER_KEY) return;
 		event.preventDefault();
 
 		var val = ReactDOM.findDOMNode<HTMLInputElement>(this.refs["newField"]).value.trim();
 		if(val) {
-			this.handleCommentSubmit({ id: new Date().getTime(), title: val});
+			this.create({ id: new Date().getTime(), title: val});
 			ReactDOM.findDOMNode<HTMLInputElement>(this.refs["newField"]).value = "";
 		}
-
 	}
 
-	public handleCommentSubmit(todo: ITodo) {
-		let snapshot = this.state.data;
-		this.setState({data: snapshot.concat(todo)});
+	public create(task: Task) {
+		let snapshot = this.state.tasks;
+		this.setState({tasks: snapshot.concat(task)});
 
 		$.ajax({
-			url: "/api/tasks",
+			url: this.props.url,
 			dataType: 'json',
 			type: 'POST',
 			data: {
-				content: todo.title
+				content: task.title
 			},
-			success: function(data) {
-
+			success: function(data: Task) {
+				this.sync();
 			}.bind(this),
 			error: function(xhr, status, err) {
-				this.setState({data: snapshot});
-				console.error("POST /api/tasks", status, err.toString());
+				this.setState({tasks: snapshot});
+				console.error(this.props.url, status, err.toString());
+			}.bind(this)
+		});
+	}
+
+	public destroy(todo) {
+		let snapshot = this.state.tasks;
+		let result = snapshot.filter((p) => { return todo.id != p.id; });
+		this.setState({tasks: result});
+
+		$.ajax({
+			url: utils.join(this.props.url, todo.id),
+			dataType: 'json',
+			type: 'DELETE',
+			success: function(data) { }.bind(this),
+			error: function(xhr, status, err) {
+				this.setState({tasks: snapshot});
+				console.error(this.props.url, status, err.toString());
 			}.bind(this)
 		});
 	}
 
 	render() {
-		console.log(this.state);
-		let todoItems = this.state.data.map(function (each) {
+		let todoItems = this.state.tasks.map(function (each) {
 			return (
-				<TodoItem key={each.id} todo={each}/>
+				<TodoItem
+					key={each.id}
+					todo={each}
+				  onDestroy={this.destroy.bind(this, each)}
+				/>
 			);
-		});
+		}, this);
 
 		let main = (
 			<section className="main">
-				<input className="toggle-all" type="checkbox"/>
+				<input className="toggle-all" type="checkbox" />
 				<ul className="todo-list">
 					{todoItems}
 				</ul>
@@ -87,7 +110,7 @@ class TodoApp extends React.Component<{}, {data: Array<ITodo>}> {
 
 		let footer = (
 			<div className="footer">
-				<span className="todo-count">4 items left</span>
+				<span className="todo-count">{this.state.tasks.length} items left</span>
 			</div>
 		);
 
@@ -100,7 +123,7 @@ class TodoApp extends React.Component<{}, {data: Array<ITodo>}> {
 						ref="newField"
 						className="new-todo"
 						placeholder="What needs to be done?"
-						onKeyDown={ e => this.handleNewTodoKeyDown(e) }
+						onKeyDown={ e => this.handleNewTaskKeyDown(e) }
 						autoFocus={true}
 					/>
 				</header>
@@ -112,6 +135,6 @@ class TodoApp extends React.Component<{}, {data: Array<ITodo>}> {
 }
 
 ReactDOM.render(
-	<TodoApp />,
+	<TodoApp url="/api/tasks" pollInterval={5000} />,
 	$('.todoapp').get(0)
 );

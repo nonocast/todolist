@@ -1,5 +1,5 @@
 // Defines the interface of the structure of a task
-interface ITodo {
+interface Task {
 	id: number,
 	title: string;
 	//completed: boolean
@@ -8,10 +8,10 @@ interface ITodo {
 // Defines the interface of the properties of the TodoItem component
 interface ITodoItemProps {
 	//key : string,
-	todo : ITodo;
+	todo : Task;
 	//editing? : boolean;
 	//onSave: (val: any) => void;
-	//onDestroy: () => void;
+	onDestroy: () => void;
 	//onEdit: ()  => void;
 	//onCancel: (event : any) => void;
 	//onToggle: () => void;
@@ -25,7 +25,7 @@ interface ITodoItemState {
 // Defines the TodoModel interface
 interface ITodoModel {
 	//key : any;
-	todos : Array<ITodo>;
+	todos : Array<Task>;
 	//onChanges : Array<any>;
 	//subscribe(onChange);
 	//inform();
@@ -46,15 +46,17 @@ interface ITodoFooterProps {
 	count : number;
 }
 
+ */
 
 // Defines the interface of the properties of the App component
-interface IAppProps {
-	model : ITodoModel;
+interface AppProps {
+	url: string;
+	pollInterval: number;
 }
 
 // Defines the interface of the state of the App component
-interface IAppState {
-	editing? : string;
-	nowShowing? : string
+interface AppState {
+	tasks: Array<Task>
+	//editing? : string;
+	//nowShowing? : string
 }
-*/

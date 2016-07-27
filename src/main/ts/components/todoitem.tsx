@@ -15,11 +15,11 @@ export class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
 				<div className="view">
 					<input
 						className="toggle"
-						type="checkbox"
-					/>
+						type="checkbox" />
 					<label>
 						{this.props.todo.title}
 					</label>
+					<button className="destroy" onClick={this.props.onDestroy} />
 				</div>
 			</li>
 		);
