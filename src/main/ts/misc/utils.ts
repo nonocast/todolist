@@ -1,7 +1,4 @@
-namespace app.miscelanious {
-
-	export class Utils {
-
+	export default class Utils {
 		// generates a new Universally unique identify (UUID)
 		// the UUID is used to identify each of the tasks
 		public static uuid() : string {
@@ -49,6 +46,4 @@ namespace app.miscelanious {
 			}
 			return newObj;
 		}
-
-	}
 }

@@ -1,6 +1,6 @@
 package cn.nonocast.admin.controller;
 
-import cn.nonocast.form.TaskForm;
+import cn.nonocast.admin.form.TaskForm;
 import cn.nonocast.model.Task;
 import cn.nonocast.model.User;
 import cn.nonocast.repository.TaskRepository;

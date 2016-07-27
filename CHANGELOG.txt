@@ -13,8 +13,7 @@ ts, react, webpack stack:
 webpack -watch
 
 todolist
-1. todolist homepage
-2. restful api
+1. rest exception
 3. cacheable - redis
 4. highcharts
 5. querydsl
@@ -22,6 +21,10 @@ todolist
 7. task: 需要支持@who, #tag#
 
 master
+
+v0.2.12
+1. react中新建task
+2. add task api
 
 v0.2.11
 webjars改为bootcdn.cn

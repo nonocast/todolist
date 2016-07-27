@@ -5,6 +5,7 @@ import * as $ from "jquery"
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as constants from "./misc/constants"
+import utils from "./misc/utils"
 import { TodoItem } from "./components/todoItem";
 
 class TodoApp extends React.Component<{}, {data: Array<ITodo>}> {
@@ -24,6 +25,7 @@ class TodoApp extends React.Component<{}, {data: Array<ITodo>}> {
 		$.ajax({
 			url: url,
 			dataType: 'json',
+			type: "GET",
 			cache: false,
 			success: function (data) {
 				this.setState({data: data});
@@ -34,11 +36,35 @@ class TodoApp extends React.Component<{}, {data: Array<ITodo>}> {
 	}
 
 	public handleNewTodoKeyDown(event) {
-		if (event.keyCode !== constants.ENTER_KEY) {
-			return;
+		if (event.keyCode !== constants.ENTER_KEY) return;
+		event.preventDefault();
+
+		var val = ReactDOM.findDOMNode<HTMLInputElement>(this.refs["newField"]).value.trim();
+		if(val) {
+			this.handleCommentSubmit({ id: new Date().getTime(), title: val});
+			ReactDOM.findDOMNode<HTMLInputElement>(this.refs["newField"]).value = "";
 		}
 
-		event.preventDefault();
+	}
+
+	public handleCommentSubmit(todo: ITodo) {
+		let snapshot = this.state.data;
+		this.setState({data: snapshot.concat(todo)});
+
+		$.ajax({
+			url: "/api/tasks",
+			dataType: 'json',
+			type: 'POST',
+			data: todo,
+			success: function(data) {
+				alert("post ok");
+				alert(data)
+			}.bind(this),
+			error: function(xhr, status, err) {
+				this.setState({data: snapshot});
+				console.error("POST /api/tasks", status, err.toString());
+			}.bind(this)
+		});
 	}
 
 	render() {

@@ -1,6 +1,6 @@
 package cn.nonocast.controller;
 
-import cn.nonocast.form.UserForm;
+import cn.nonocast.admin.form.UserForm;
 import cn.nonocast.model.User;
 import cn.nonocast.repository.UserRepository;
 import cn.nonocast.social.Wechat;
