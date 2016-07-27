@@ -24,6 +24,9 @@ todolist
 
 master
 
+v0.2.15
+1. react增加log version
+
 v0.2.14
 1. 增加task删除
 

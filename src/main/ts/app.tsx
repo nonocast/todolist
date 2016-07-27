@@ -13,6 +13,9 @@ class TodoApp extends React.Component<AppProps, AppState> {
 
 	constructor(props) {
 		super(props);
+
+		console.log("v0.2.15");
+
 		this.state = {tasks: new Array<Task>()};
 		this.token = $('.todoapp').attr("token");
 		$.ajaxSetup({
