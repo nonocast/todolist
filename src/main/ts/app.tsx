@@ -1,9 +1,6 @@
 /// <reference path="../../../typings/globals/react-global/index.d.ts" />
 /// <reference path="./app.d.ts"/>
 
-import * as $ from "jquery"
-import * as React from "react";
-import * as ReactDOM from "react-dom";
 import * as constants from "./misc/constants"
 import utils from "./misc/utils"
 import { TaskItem } from "./components/task";
@@ -14,7 +11,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 	constructor(props) {
 		super(props);
 
-		console.log("v0.2.16");
+		console.log("v0.2.17");
 
 		this.state = {tasks: new Array<Task>()};
 		this.token = $('.todoapp').attr("token");
@@ -34,11 +31,15 @@ class TodoApp extends React.Component<AppProps, AppState> {
 			dataType: 'json',
 			type: "GET",
 			cache: false,
-			success: function (data) {
+			success: function (data: Array<Task>) {
 				this.setState({tasks: data});
 			}.bind(this),
 			error: function (xhr, status, err) {
-			}.bind(this)
+
+			}.bind(this),
+			statusCode: {
+				401: () => { window.location.href = "/"; }
+			}
 		});
 	}
 
@@ -95,6 +96,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 		let taskItems = this.state.tasks.map(function (each) {
 			return (
 				<TaskItem
+					url={utils.join(this.props.url, each.id)}
 					key={each.id}
 					todo={each}
 				  onDestroy={this.destroy.bind(this, each)}

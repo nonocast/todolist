@@ -6,10 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
 import java.net.URL;
 import java.util.Map;
-import java.util.concurrent.Exchanger;
 
 @Component
 @Scope("prototype")

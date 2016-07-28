@@ -6,7 +6,8 @@ interface Task {
 }
 
 // Defines the interface of the properties of the TodoItem component
-interface ITodoItemProps {
+interface TaskItemProps {
+	url: string;
 	//key : string,
 	todo : Task;
 	//editing? : boolean;
@@ -18,8 +19,9 @@ interface ITodoItemProps {
 }
 
 // Defines the interface of the state of the TodoItem component
-interface ITodoItemState {
-	//editText : string
+interface TaskItemState {
+	editing?: boolean;
+	editText?: string;
 }
 
 // Defines the TodoModel interface

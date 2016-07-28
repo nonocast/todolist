@@ -24,6 +24,11 @@ todolist
 
 master
 
+v0.2.17
+1. react增加task edit
+2. task belongsTo改为LAZY
+3. try-catch ApiAuthenticationUserDetails
+
 v0.2.16
 fix bugs
 

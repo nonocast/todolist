@@ -7,6 +7,8 @@
 	<script src="http://cdn.bootcss.com/react/15.2.1/react.min.js"></script>
 	<script src="http://cdn.bootcss.com/react/15.2.1/react-dom.min.js"></script>
 	<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+	<script src="http://cdn.bootcss.com/classnames/2.2.5/dedupe.min.js"></script>
+	<link rel="shortcut icon" href="public/favicon.ico">
 	<#--<script src="/webjars/react/15.2.1/react.js"></script>-->
 	<#--<script src="/webjars/react/15.2.1/react-dom.js"></script>-->
 	<#--<script src="/webjars/jquery/2.2.4/jquery.js"></script>-->

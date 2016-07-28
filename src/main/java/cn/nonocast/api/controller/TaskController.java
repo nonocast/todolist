@@ -32,7 +32,7 @@ public class TaskController {
 	@RequestMapping(method=RequestMethod.POST)
 	@JsonView(Task.TaskView.class)
 	public ResponseEntity<?> create(@AuthenticationPrincipal User user, @Valid @ModelAttribute TaskForm form, Errors errors) {
-		Task task = null;
+		Task task;
 
 		if(errors.hasErrors()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.toString());
@@ -61,5 +61,25 @@ public class TaskController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
 		}
 		return new ResponseEntity(new EmptyJsonResponse(), HttpStatus.OK);
+	}
+
+	@RequestMapping(value="/{id}", method=RequestMethod.POST)
+	@JsonView(Task.TaskView.class)
+	public ResponseEntity<?> update(@PathVariable("id") Long id, @Valid @ModelAttribute TaskForm form, Errors errors) {
+		Task task;
+
+		if(errors.hasErrors()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors.toString());
+		}
+
+		try {
+			task = taskRepository.findOne(id);
+			taskRepository.save(form.push(task));
+		} catch (DataAccessException ex) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
+		}
+
+		return ResponseEntity.ok(task);
+
 	}
 }

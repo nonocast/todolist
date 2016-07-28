@@ -6,7 +6,8 @@ buildscript {
 		mavenCentral()
 	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath 'mysql:mysql-connector-java:5.1.16'
 	}
 }
 
@@ -58,7 +59,8 @@ dependencies {
     compile 'org.webjars.npm:babel-core:5.8.19'
     compile group: 'com.google.guava', name: 'guava', version: '19.0'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
-    runtime 'mysql:mysql-connector-java'
+    compile group: 'mysql', name: 'mysql-connector-java'
+//    runtime 'mysql:mysql-connector-java'
     testCompile "org.springframework.boot:spring-boot-starter-test"
 }
 

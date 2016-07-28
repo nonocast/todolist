@@ -1,8 +1,8 @@
 package cn.nonocast.security;
 
+import cn.nonocast.model.Token;
 import cn.nonocast.repository.UserRepository;
 import cn.nonocast.service.TokenService;
-import cn.nonocast.model.Token;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
@@ -24,9 +24,14 @@ public class ApiAuthenticationUserDetailsService implements AuthenticationUserDe
 		String principal = (String) token.getPrincipal();
 
 		UserDetails result = null;
+
 		if(!Strings.isNullOrEmpty(principal)) {
-			Token p = tokenService.get(principal);
-			result = userRepository.findOne(p.getId());
+			try {
+				Token p = tokenService.get(principal);
+				result = userRepository.findOne(p.getId());
+			} catch(Exception ex) {
+				throw new UsernameNotFoundException("");
+			}
 		}
 
 		return result;

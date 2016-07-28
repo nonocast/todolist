@@ -1,5 +1,6 @@
 {
   "globalDependencies": {
+    "classnames": "registry:dt/classnames#0.0.0+20160316155526",
     "jquery": "registry:dt/jquery#1.10.0+20160704162008",
     "react": "registry:dt/react#0.14.0+20160720060442",
     "react-addons-create-fragment": "registry:dt/react-addons-create-fragment#0.14.0+20160709044614",
