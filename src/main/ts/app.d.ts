@@ -2,7 +2,10 @@
 interface Task {
 	id: number,
 	title: string;
+	status: string;
 	//completed: boolean
+	isCompleted(): boolean;
+	toJson(): any;
 }
 
 // Defines the interface of the properties of the TodoItem component
@@ -21,6 +24,7 @@ interface TaskItemProps {
 // Defines the interface of the state of the TodoItem component
 interface TaskItemState {
 	editing?: boolean;
+	completed?: boolean;
 	editText?: string;
 }
 

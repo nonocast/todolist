@@ -29,15 +29,15 @@ public class Task extends ModelBase {
     private String content;
 
     @Enumerated(EnumType.ORDINAL)
-//    @JsonView(TaskView.class)
+    @JsonView(TaskView.class)
     private TaskCategory category;
 
     @Enumerated(EnumType.ORDINAL)
-//    @JsonView(TaskView.class)
+    @JsonView(TaskView.class)
     private TaskStatus status;
 
     @Enumerated(EnumType.ORDINAL)
-//    @JsonView(TaskView.class)
+    @JsonView(TaskView.class)
     private TaskPriority priority;
 
     private Date closedAt;

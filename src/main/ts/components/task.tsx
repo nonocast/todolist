@@ -6,7 +6,7 @@ import * as constants from "../misc/constants"
 export class TaskItem extends React.Component<TaskItemProps, TaskItemState> {
 	constructor(props : TaskItemProps){
 		super(props);
-		this.state = {editing: false, editText: this.props.todo.title};
+		this.state = {completed: props.todo.isCompleted(), editing: false, editText: this.props.todo.title};
 	}
 
 	public edit() {
@@ -14,11 +14,13 @@ export class TaskItem extends React.Component<TaskItemProps, TaskItemState> {
 	}
 
 	public onBlur() {
-		this.setState({editing: false});
-		this.update();
+		this.setState({editing: false}, () => {
+			this.props.todo.title = this.state.editText;
+			this.update();
+		});
 	}
 
-	public onChange(event: __React.FormEvent) {
+	public onEditTextChange(event: __React.FormEvent) {
 		var input: any = event.target;
 		this.setState({editText: input.value});
 	}
@@ -31,27 +33,28 @@ export class TaskItem extends React.Component<TaskItemProps, TaskItemState> {
 		}
 	}
 
+	public onStatusChange() {
+		this.setState({completed: !this.state.completed}, ()=> {
+			this.props.todo.status = this.state.completed ? "CLOSE" : "OPEN";
+			this.update();
+		});
+	}
+
 	public update() {
-		let val = this.state.editText;
-		this.props.todo.title = val;
+		let todo = this.props.todo;
 
-		let snapshot = this.props.todo.title;
+		if(todo.title) {
+			console.log(this.props.todo.toJson());
 
-		if(val) {
 			$.ajax({
 				url: this.props.url,
 				dataType: 'json',
 				type: 'POST',
-				data: {
-					content: this.state.editText
-				},
-				success: function (task:Task) {
-					this.props.todo.title = task.title;
-					this.setState({editText: task.title});
+				data: this.props.todo.toJson(),
+				success: function (task) {
+
 				}.bind(this),
 				error: function (xhr, status, err) {
-					this.props.todo.title = snapshot;
-					this.setState({editText: snapshot});
 					console.error(this.props.url, status, err.toString());
 				}.bind(this)
 			});
@@ -64,7 +67,8 @@ export class TaskItem extends React.Component<TaskItemProps, TaskItemState> {
 		return (
 			nextProps.todo !== this.props.todo ||
 			nextState.editing !== this.state.editing ||
-			nextState.editText !== this.state.editText
+			nextState.editText !== this.state.editText ||
+			nextState.completed !== this.state.completed
 		);
 	}
 
@@ -79,13 +83,16 @@ export class TaskItem extends React.Component<TaskItemProps, TaskItemState> {
 	public render() {
 		return(
 			<li className={classNames({
-				completed: false,
+				completed: this.state.completed,
 				editing: this.state.editing
 			})}>
 				<div className="view">
 					<input
+						ref="statusField"
 						className="toggle"
 						type="checkbox"
+						defaultChecked={this.state.completed}
+					  onChange={this.onStatusChange.bind(this)}
 					/>
 					<label onDoubleClick={this.edit.bind(this)}>
 						{this.props.todo.title}
@@ -97,7 +104,7 @@ export class TaskItem extends React.Component<TaskItemProps, TaskItemState> {
 					className="edit"
 					value={this.state.editText}
 					onBlur={this.onBlur.bind(this)}
-				  onChange={this.onChange.bind(this)}
+				  onChange={this.onEditTextChange.bind(this)}
 					onKeyDown={this.onKeyDown.bind(this) }
 				/>
 			</li>

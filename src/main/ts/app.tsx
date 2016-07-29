@@ -4,6 +4,7 @@
 import * as constants from "./misc/constants"
 import utils from "./misc/utils"
 import { TaskItem } from "./components/task";
+import TaskImpl from "./model/task";
 
 class TodoApp extends React.Component<AppProps, AppState> {
 	token: string;
@@ -11,7 +12,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 	constructor(props) {
 		super(props);
 
-		console.log("v0.2.17");
+		console.log("v0.2.18");
 
 		this.state = {tasks: new Array<Task>()};
 		this.token = $('.todoapp').attr("token");
@@ -22,7 +23,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 
 	public componentDidMount() {
 		this.sync();
-		setInterval(this.sync.bind(this), 5000);
+		// setInterval(this.sync.bind(this), 5000);
 	}
 
 	public sync() {
@@ -32,7 +33,8 @@ class TodoApp extends React.Component<AppProps, AppState> {
 			type: "GET",
 			cache: false,
 			success: function (data: Array<Task>) {
-				this.setState({tasks: data});
+				let tasks = data.map(each => { return new TaskImpl(each); }, this);
+				this.setState({tasks: tasks});
 			}.bind(this),
 			error: function (xhr, status, err) {
 
@@ -49,7 +51,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 
 		var val = ReactDOM.findDOMNode<HTMLInputElement>(this.refs["newField"]).value.trim();
 		if(val) {
-			this.create({ id: new Date().getTime(), title: val});
+			this.create(new TaskImpl({ id: new Date().getTime(), title: val, status: "OPEN"}));
 			ReactDOM.findDOMNode<HTMLInputElement>(this.refs["newField"]).value = "";
 		}
 	}

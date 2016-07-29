@@ -16,13 +16,16 @@ create task url:
 curl -XPOST http://localhost:8080/api/tasks -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" -H "Token: 3fea6af1349166ea" -d "content=hello-curl"
 
 todolist
-3. cacheable - redis
-4. highcharts
-5. querydsl
-6. fontawesome
-7. task: 需要支持@who, #tag#
+1. redis support
+2. highcharts
+3. querydsl
+4. task: @who, #tag#
 
 master
+
+v0.2.18
+1. fix setState异步改变this.state,所以需要setState(..., callback);
+2. 增加task status changed
 
 v0.2.17
 1. react增加task edit
