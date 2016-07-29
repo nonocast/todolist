@@ -23,6 +23,9 @@ todolist
 
 master
 
+v0.2.19
+fix task title binding
+
 v0.2.18
 1. fix setState异步改变this.state,所以需要setState(..., callback);
 2. 增加task status changed

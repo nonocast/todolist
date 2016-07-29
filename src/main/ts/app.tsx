@@ -12,7 +12,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 	constructor(props) {
 		super(props);
 
-		console.log("v0.2.18");
+		console.log("v0.2.19");
 
 		this.state = {tasks: new Array<Task>()};
 		this.token = $('.todoapp').attr("token");
@@ -23,7 +23,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 
 	public componentDidMount() {
 		this.sync();
-		// setInterval(this.sync.bind(this), 5000);
+		setInterval(this.sync.bind(this), 5000);
 	}
 
 	public sync() {

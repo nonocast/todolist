@@ -95,7 +95,7 @@ export class TaskItem extends React.Component<TaskItemProps, TaskItemState> {
 					  onChange={this.onStatusChange.bind(this)}
 					/>
 					<label onDoubleClick={this.edit.bind(this)}>
-						{this.props.todo.title}
+						{this.state.editText}
 					</label>
 					<button className="destroy" onClick={this.props.onDestroy} />
 				</div>
