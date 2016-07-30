@@ -12,7 +12,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 	constructor(props) {
 		super(props);
 
-		console.log("v0.2.19");
+		console.log("v0.2.20");
 
 		this.state = {tasks: new Array<Task>()};
 		this.token = $('.todoapp').attr("token");

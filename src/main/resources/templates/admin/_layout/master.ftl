@@ -64,6 +64,7 @@
 			<li><a href="/admin/tasks">任务管理</a></li>
 			<li><a href="/admin/tasks/create">新建任务</a></li>
 			<li><a href="/admin/tokens">API登录凭证</a></li>
+			<li><a href="/admin/backup">备份和还原</a></li>
 		</ul>
 	</div>
 	<!-- /#sidebar-wrapper -->

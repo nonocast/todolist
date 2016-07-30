@@ -53,7 +53,7 @@ public class TaskController {
 		return ResponseEntity.ok(task);
 	}
 
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/{id:[0-9]+}", method=RequestMethod.DELETE)
 	public ResponseEntity delete(@PathVariable("id") Long id) {
 		try {
 			taskRepository.delete(id);
@@ -63,7 +63,7 @@ public class TaskController {
 		return new ResponseEntity(new EmptyJsonResponse(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value="/{id}", method=RequestMethod.POST)
+	@RequestMapping(value="/{id:[0-9]+}", method=RequestMethod.POST)
 	@JsonView(Task.TaskView.class)
 	public ResponseEntity<?> update(@PathVariable("id") Long id, @Valid @ModelAttribute TaskForm form, Errors errors) {
 		Task task;

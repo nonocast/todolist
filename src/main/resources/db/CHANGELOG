@@ -1,3 +1,6 @@
+backup:
+mysqldump todolist > /var/www/todo/data/data-$( date '+%Y-%m-%d_%H-%M-%S' ).sql -u root -p12345678
+
 master
 
 v0.1.7

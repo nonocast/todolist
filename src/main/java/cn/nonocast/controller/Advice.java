@@ -10,7 +10,9 @@ public class Advice {
     @ModelAttribute
     public void addAttributes(Model model) {
         model.addAttribute("shorten", shorten);
+	    model.addAttribute("filesize", filesize);
     }
 
     private ShortenMethod shorten = new ShortenMethod();
+	private FileSizeMethod filesize = new FileSizeMethod();
 }

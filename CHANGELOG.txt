@@ -20,8 +20,13 @@ todolist
 2. highcharts
 3. querydsl
 4. task: @who, #tag#
+6. log in web
 
 master
+
+v0.2.20
+1. database import and export
+2. admin增加backup management
 
 v0.2.19
 fix task title binding
