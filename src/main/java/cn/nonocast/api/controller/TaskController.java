@@ -4,10 +4,9 @@ import cn.nonocast.api.form.TaskForm;
 import cn.nonocast.misc.EmptyJsonResponse;
 import cn.nonocast.model.Task;
 import cn.nonocast.model.User;
-import cn.nonocast.repository.TaskRepository;
+import cn.nonocast.service.TaskService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +20,16 @@ import java.util.List;
 @RestController("apiTaskController")
 @RequestMapping("/api/tasks")
 public class TaskController {
-	@Autowired
-	private TaskRepository taskRepository;
+//	@Autowired
+//	private TaskRepository taskRepository;
 
-	@Cacheable(cacheNames="taskCache", key="'task:'.concat(#user.email)")
+	@Autowired
+	private TaskService taskService;
+
 	@RequestMapping(method=RequestMethod.GET)
 	@JsonView(Task.TaskView.class)
 	public List<Task> index(@AuthenticationPrincipal User user) {
-		return taskRepository.findByBelongsTo(user);
+		return taskService.findByUser(user);
 	}
 
 	@RequestMapping(method=RequestMethod.POST)
@@ -47,7 +48,7 @@ public class TaskController {
 			task.setStatus(Task.TaskStatus.OPEN);
 			task.setBelongsTo(user);
 			task.setBelongsToName(user.getName());
-			taskRepository.save(form.push(task));
+			taskService.save(form.push(task));
 		} catch (DataAccessException ex) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
 		}
@@ -58,7 +59,8 @@ public class TaskController {
 	@RequestMapping(value="/{id:[0-9]+}", method=RequestMethod.DELETE)
 	public ResponseEntity delete(@PathVariable("id") Long id) {
 		try {
-			taskRepository.delete(id);
+			Task task = taskService.findOne(id);
+			taskService.delete(task);
 		} catch (DataAccessException ex) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
 		}
@@ -75,8 +77,8 @@ public class TaskController {
 		}
 
 		try {
-			task = taskRepository.findOne(id);
-			taskRepository.save(form.push(task));
+			task = taskService.findOne(id);
+			taskService.save(form.push(task));
 		} catch (DataAccessException ex) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
 		}

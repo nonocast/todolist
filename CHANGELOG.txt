@@ -24,6 +24,8 @@ todolist
 7. spring session with reids
 
 master
+TODO: add service
+add redis cacheable
 
 v0.2.20
 1. database import and export

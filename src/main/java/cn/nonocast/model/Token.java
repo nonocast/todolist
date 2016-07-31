@@ -2,11 +2,12 @@ package cn.nonocast.model;
 
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 @Component
-public class Token implements Comparable<Token> {
+public class Token implements Comparable<Token>, Serializable {
 	private String key;
 	private Long id;
 	private String email;
@@ -93,5 +94,4 @@ public class Token implements Comparable<Token> {
 	public void invalidate() {
 		this.expiredAt = LocalDateTime.now().plus(1, ChronoUnit.DAYS);
 	}
-
 }
