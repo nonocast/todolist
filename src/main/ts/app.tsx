@@ -23,10 +23,11 @@ class TodoApp extends React.Component<AppProps, AppState> {
 
 	public componentDidMount() {
 		this.sync();
-		setInterval(this.sync.bind(this), 5000);
+		setInterval(this.sync.bind(this), 3000);
 	}
 
 	public sync() {
+		console.log("sync...  "+Date.now())
 		$.ajax({
 			url: this.props.url,
 			dataType: 'json',

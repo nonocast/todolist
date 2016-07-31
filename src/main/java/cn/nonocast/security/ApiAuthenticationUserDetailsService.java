@@ -28,7 +28,7 @@ public class ApiAuthenticationUserDetailsService implements AuthenticationUserDe
 		if(!Strings.isNullOrEmpty(principal)) {
 			try {
 				Token p = tokenService.get(principal);
-				result = userRepository.findOne(p.getId());
+				result = userRepository.findByEmail(p.getEmail());
 			} catch(Exception ex) {
 				throw new UsernameNotFoundException("");
 			}

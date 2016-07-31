@@ -1,10 +1,10 @@
 package cn.nonocast.repository;
 
+import cn.nonocast.model.User;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import cn.nonocast.model.User;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -18,6 +18,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT p FROM User p WHERE p.id in (:selected)")
     List<User> findByIds(@Param("selected") List<Long> selected);
 
+	@Cacheable(cacheNames="userCache", key="'user:'.concat(#p0)")
     User findByEmail(String email);
 
     User findByName(String name);

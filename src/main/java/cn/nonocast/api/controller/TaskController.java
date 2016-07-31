@@ -1,12 +1,13 @@
 package cn.nonocast.api.controller;
 
 import cn.nonocast.api.form.TaskForm;
+import cn.nonocast.misc.EmptyJsonResponse;
 import cn.nonocast.model.Task;
 import cn.nonocast.model.User;
 import cn.nonocast.repository.TaskRepository;
-import cn.nonocast.misc.*;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ public class TaskController {
 	@Autowired
 	private TaskRepository taskRepository;
 
+	@Cacheable(cacheNames="taskCache", key="'task:'.concat(#user.email)")
 	@RequestMapping(method=RequestMethod.GET)
 	@JsonView(Task.TaskView.class)
 	public List<Task> index(@AuthenticationPrincipal User user) {

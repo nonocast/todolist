@@ -21,6 +21,7 @@ todolist
 3. querydsl
 4. task: @who, #tag#
 6. log in web
+7. spring session with reids
 
 master
 
