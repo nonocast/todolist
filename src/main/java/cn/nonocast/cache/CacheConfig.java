@@ -3,17 +3,26 @@ package cn.nonocast.cache;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCache;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.net.UnknownHostException;
+import java.util.Arrays;
 
 @Configuration
 public class CacheConfig {
+	@Bean
+	public CacheManager cacheManager(RedisTemplate<Object, Object> redisTemplate) throws Exception {
+		return new AppCacheManager(redisTemplate, Arrays.asList("token", "tasks", "user"));
+	}
+
 	@Bean
 	public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory factory) throws UnknownHostException {
 		RedisTemplate<Object, Object> template = new RedisTemplate<>();
@@ -29,6 +38,10 @@ public class CacheConfig {
 		template.setKeySerializer(new StringRedisSerializer());
 
 		template.afterPropertiesSet();
+
+		RedisCache p;
+		RedisCacheManager m;
+
 		return template;
 	}
 }

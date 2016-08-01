@@ -1,7 +1,6 @@
 package cn.nonocast;
 
 import cn.nonocast.repository.TaskRepository;
-import cn.nonocast.repository.UserRepository;
 import cn.nonocast.service.BackupService;
 import cn.nonocast.social.WechatLoader;
 import org.slf4j.Logger;
@@ -15,12 +14,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.annotation.Resource;
+import cn.nonocast.cache.*;
 
 @Controller
 @EnableCaching
@@ -49,11 +46,9 @@ public class TodolistApplication implements ApplicationRunner {
 	@Autowired
 	private RedisTemplate<Object, Object> redisTemplate;
 
-	@Resource(name="redisTemplate")
-	private ValueOperations<Object, Object> valOps;
 
 	@Autowired
-	private UserRepository userRepository;
+	private HelloService helloService;
 
 	@Autowired
 	private TaskRepository taskRepository;
@@ -72,13 +67,12 @@ public class TodolistApplication implements ApplicationRunner {
 	    backupService.sync();
         wechatLoader.load(wechatPath);
 
+	    helloService.findHello(1L);
+	    helloService.findHello(1L);
+	    Hello p = helloService.findHello(1L);
+	    logger.info(p.getName());
 
-//	    cn.nonocast.cache.User p = new cn.nonocast.cache.User(1L, "nonocast", "nonocast@gmail.com", "123456");
-
-//	    User p = userRepository.findByEmail("nonocast@gmail.com");
-//	    valOps.set("user:"+p.getId(), p);
-//
-//	    Task t = taskRepository.findOne(1L);
-//	    valOps.set("task:"+t.getId(), t);
+	    World q = helloService.findWorld(1L);
+	    logger.info(q.getName());
     }
 }
