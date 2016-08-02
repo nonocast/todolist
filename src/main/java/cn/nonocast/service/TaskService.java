@@ -17,19 +17,19 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-	@Cacheable(cacheNames="tasks", key="'task:'.concat(#user.email)")
+	@Cacheable(cacheNames="tasks", key="#user.email")
     public List<Task> findByUser(User user) {
         List<Task> result;
         result = taskRepository.findByBelongsTo(user);
         return result;
     }
 
-	@CacheEvict(cacheNames="tasks", key="'task:'.concat(#task.belongsTo.email)")
+	@CacheEvict(cacheNames="tasks", key="#task.belongsTo.email")
 	public Task save(Task task) {
 		return taskRepository.save(task);
 	}
 
-	@CacheEvict(cacheNames="tasks", key="'task:'.concat(#task.belongsTo.email)")
+	@CacheEvict(cacheNames="tasks", key="#task.belongsTo.email")
 	public void delete(Task task) {
 		taskRepository.delete(task);
 	}

@@ -16,17 +16,18 @@ create task url:
 curl -XPOST http://localhost:8080/api/tasks -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" -H "Token: 3fea6af1349166ea" -d "content=hello-curl"
 
 todolist
-1. redis support
 2. highcharts
-3. querydsl
 4. task: @who, #tag#
-6. log in web
+6. logfile in web
 7. spring session with reids
 8. unit test
 
 master
-通过扩展RedisCacheManger实现根据cacheName控制new RedisCache参数
-add redis cacheable
+
+v0.2.21
+1. 通过扩展RedisCacheManger实现根据cacheName控制new RedisCache参数
+2. add redis cacheable
+3. 重构controller-service-repository, 控制层次, 制作cache
 
 v0.2.20
 1. database import and export

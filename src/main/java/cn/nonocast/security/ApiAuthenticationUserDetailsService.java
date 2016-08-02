@@ -29,7 +29,7 @@ public class ApiAuthenticationUserDetailsService implements AuthenticationUserDe
 
 		UserDetails result = null;
 		if(!Strings.isNullOrEmpty(principal)) {
-			logger.info(principal);
+			logger.debug(principal);
 			String[] slices = principal.split(":");
 			String email = slices[0];
 			String secret = slices[1];

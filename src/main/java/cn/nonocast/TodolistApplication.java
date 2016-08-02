@@ -14,6 +14,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.DispatcherServlet;
 
 @Controller
 @EnableCaching
@@ -47,5 +48,7 @@ public class TodolistApplication implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
 	    backupService.sync();
         wechatLoader.load(wechatPath);
+
+	    DispatcherServlet p;
     }
 }

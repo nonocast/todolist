@@ -30,7 +30,7 @@ public class UserService {
 		return userRepository.findOne(id);
 	}
 
-	@Cacheable(cacheNames="user", key="'user:'.concat(#p0)")
+	@Cacheable(cacheNames="user", key="#p0")
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
@@ -67,7 +67,7 @@ public class UserService {
 		return userRepository.findByEmailOrName(q);
 	}
 
-	@CachePut(cacheNames="user", key="'user:'.concat(#user.email)")
+	@CachePut(cacheNames="user", key="#user.email")
 	public User save(User user) {
 		return userRepository.save(user);
 	}
@@ -76,7 +76,7 @@ public class UserService {
 		return userRepository.exists(id);
 	}
 
-	@CacheEvict(cacheNames="user", key="'user:'.concat(#user.email)")
+	@CacheEvict(cacheNames="user", key="#user.email")
 	public void delete(User user) {
 		userRepository.delete(user);
 	}
