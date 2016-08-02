@@ -20,7 +20,7 @@ import java.util.Arrays;
 public class CacheConfig {
 	@Bean
 	public CacheManager cacheManager(RedisTemplate<Object, Object> redisTemplate) throws Exception {
-		return new AppCacheManager(redisTemplate, Arrays.asList("token", "tasks", "user"));
+		return new AppCacheManager(redisTemplate, Arrays.asList("tasks", "user"));
 	}
 
 	@Bean
@@ -30,6 +30,7 @@ public class CacheConfig {
 
 		Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.findAndRegisterModules();
 		mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
 		mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
 		jackson2JsonRedisSerializer.setObjectMapper(mapper);

@@ -2,7 +2,7 @@ package cn.nonocast.controller;
 
 import cn.nonocast.admin.form.UserForm;
 import cn.nonocast.model.User;
-import cn.nonocast.repository.UserRepository;
+import cn.nonocast.service.*;
 import cn.nonocast.social.Wechat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,8 +32,8 @@ import java.util.Map;
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserService userService;
 
     @Autowired
     private TokenBasedRememberMeServices rememberMeServices;
@@ -69,7 +69,7 @@ public class UserController {
         model.addAttribute("unionid", unionid);
         model.addAttribute("code", code);
 
-        User target = userRepository.findByWechatid(unionid);
+        User target = userService.findByWechatid(unionid);
         if(target != null) {
             // existed
             Authentication auth = new UsernamePasswordAuthenticationToken(target, null, target.getAuthorities());
@@ -105,7 +105,7 @@ public class UserController {
         }
 
         User user = new User(form.getEmail(), form.getName(), passwordEncoder.encode(form.getPassword()));
-        userRepository.save(user);
+        userService.save(user);
         redirectAttributes.addFlashAttribute("user", user);
         return "redirect:/register/result";
     }

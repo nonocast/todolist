@@ -1,6 +1,8 @@
 package cn.nonocast.admin.controller;
 
 import cn.nonocast.admin.form.UserForm;
+import cn.nonocast.model.User;
+import cn.nonocast.service.UserService;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,13 +11,12 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
-import cn.nonocast.repository.*;
-import cn.nonocast.model.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
@@ -29,8 +30,8 @@ import java.util.stream.Stream;
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserService userService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -47,17 +48,17 @@ public class UserController {
             Matcher m = searchIdPattern.matcher(q);
             if(m.matches()) {
                 String ret = m.group(1);
-                page = userRepository.findByKeyword(Long.valueOf(ret), pageable);
+                page = userService.findByKeyword(Long.valueOf(ret), pageable);
             }else {
-                page = userRepository.findByKeyword(q, pageable);
+                page = userService.findByKeyword(q, pageable);
             }
         } else if (!Strings.isNullOrEmpty(role)) {
             User.Role r = User.Role.valueOf(role.toUpperCase());
             if (r != null) {
-                page = userRepository.findByRole(r, pageable);
+                page = userService.findByRole(r, pageable);
             }
         } else {
-            page = userRepository.findAll(pageable);
+            page = userService.findAll(pageable);
         }
         model.addAttribute("page", page);
         return "admin/user/index";
@@ -70,7 +71,7 @@ public class UserController {
 
     @RequestMapping("/{id:[0-9]+}/edit")
     public String edit(@PathVariable Long id, @Valid @ModelAttribute("form") UserForm form, Errors errors) {
-        form.pull(userRepository.findOne(id));
+        form.pull(userService.findOne(id));
         return "admin/user/edit";
     }
 
@@ -80,7 +81,7 @@ public class UserController {
             errors.rejectValue("password", "Size", "密码不少于6个字符");
         }
 
-        if(userRepository.existsByEmail(form.getEmail())) {
+        if(userService.existsByEmail(form.getEmail())) {
             errors.rejectValue("email", "Duplication", "邮箱地址已被使用");
         }
 
@@ -91,7 +92,7 @@ public class UserController {
         User user = null;
         try {
             user = new User();
-            userRepository.save(form.push(user, passwordEncoder));
+            userService.save(form.push(user, passwordEncoder));
         } catch (DataAccessException ex) {
             return "admin/user/edit";
         }
@@ -114,17 +115,17 @@ public class UserController {
 
         User user = null;
         try {
-            user = userRepository.getOne(id);
+            user = userService.findOne(id);
 
             if(!user.getEmail().equals(form.getEmail())) {
-                if (userRepository.existsByEmail(form.getEmail())) {
+                if (userService.existsByEmail(form.getEmail())) {
                     errors.rejectValue("email", "Duplication", "邮箱地址已被使用");
                     return "admin/user/edit";
                 }
             }
 
             form.push(user, passwordEncoder);
-            userRepository.save(user);
+            userService.save(user);
         } catch (DataAccessException ex) {
             return "admin/user/edit";
         }
@@ -135,8 +136,8 @@ public class UserController {
     @RequestMapping(value="/delete", method=RequestMethod.POST)
     public String delete(HttpServletRequest request) {
         List<Long> ids = Stream.of(request.getParameterValues("selected")).map(Long::valueOf).collect(Collectors.toList());
-        List<User> users = userRepository.findByIds(ids);
-        userRepository.delete(users);
+        List<User> users = userService.findByIds(ids);
+        userService.delete(users);
         return "redirect:/admin/users";
     }
 }

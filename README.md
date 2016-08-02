@@ -18,6 +18,7 @@ It integrated the following framework and third-party project:
 - React
 - TypeScript
 - webpack
+- Redis
 
 ## Status
 - developing

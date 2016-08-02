@@ -8,6 +8,7 @@ import TaskImpl from "./model/task";
 
 class TodoApp extends React.Component<AppProps, AppState> {
 	token: string;
+	from: string;
 
 	constructor(props) {
 		super(props);
@@ -16,8 +17,9 @@ class TodoApp extends React.Component<AppProps, AppState> {
 
 		this.state = {tasks: new Array<Task>()};
 		this.token = $('.todoapp').attr("token");
+		this.from = $('.todoapp').attr("from");
 		$.ajaxSetup({
-			headers: { 'Token': this.token }
+			headers: { 'Token': this.token, 'From': this.from }
 		});
 	}
 
@@ -41,7 +43,9 @@ class TodoApp extends React.Component<AppProps, AppState> {
 
 			}.bind(this),
 			statusCode: {
-				401: () => { window.location.href = "/"; }
+				401: () => {
+					// window.location.href = "/";
+				}
 			}
 		});
 	}

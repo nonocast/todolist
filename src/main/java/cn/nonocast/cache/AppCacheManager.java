@@ -23,9 +23,9 @@ public class AppCacheManager extends RedisCacheManager {
 
 	@Override
 	protected RedisCache createCache(String cacheName) {
-		if(cacheName.equals("token")) {
-			return new RedisCache(cacheName, "token:".getBytes(), this.ops, 24*60*60);
-		}
+//		if(cacheName.equals("token")) {
+//			return new RedisCache(cacheName, "token:".getBytes(), this.ops, 24*60*60);
+//		}
 
 		return super.createCache(cacheName);
 	}

@@ -22,6 +22,7 @@ todolist
 4. task: @who, #tag#
 6. log in web
 7. spring session with reids
+8. unit test
 
 master
 通过扩展RedisCacheManger实现根据cacheName控制new RedisCache参数

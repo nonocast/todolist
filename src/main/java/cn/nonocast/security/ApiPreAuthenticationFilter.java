@@ -16,8 +16,15 @@ public class ApiPreAuthenticationFilter extends AbstractPreAuthenticatedProcessi
 
 	@Override
 	protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
-//		logger.debug("TOKEN: " + request.getHeader("TOKEN"));
-		return request.getHeader("Token");
+		String from = request.getHeader("From");
+		String token = request.getHeader("Token");
+
+		String result = null;
+		if(from != null && token != null) {
+			result = request.getHeader("From") + ":" + request.getHeader("Token");
+		}
+
+		return result;
 	}
 
 	@Override

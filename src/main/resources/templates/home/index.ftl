@@ -1,3 +1,5 @@
+<#import "/lib/auth.ftl" as auth>
+
 <!doctype html>
 <html>
 <head>
@@ -14,7 +16,7 @@
 	<#--<script src="/webjars/jquery/2.2.4/jquery.js"></script>-->
 </head>
 <body>
-	<section class="todoapp" token="${token}"></section>
+	<section class="todoapp" token="${token}" from="${auth.username}"></section>
 	<footer class="info">
 		<p>Double-click to edit a todo</p>
 		<p>Created by <a href="http://github.com/nonocast/">nonocast</a></p>

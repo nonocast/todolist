@@ -3,8 +3,7 @@ package cn.nonocast.admin.controller;
 import cn.nonocast.admin.form.TaskForm;
 import cn.nonocast.model.Task;
 import cn.nonocast.model.User;
-import cn.nonocast.repository.TaskRepository;
-import cn.nonocast.repository.UserRepository;
+import cn.nonocast.service.*;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,11 +29,11 @@ import java.util.stream.Stream;
 public class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
 
-    @Autowired
-    private TaskRepository taskRepository;
+	@Autowired
+	private TaskService taskService;
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserService userService;
 
     private Pattern searchIdPattern  = Pattern.compile("^id\\s*:\\s*(\\d+)$", Pattern.CASE_INSENSITIVE);
     private Pattern searchBelongsToPattern  = Pattern.compile("^belongs\\s*:\\s*(.+)$", Pattern.CASE_INSENSITIVE);
@@ -48,23 +47,23 @@ public class TaskController {
             Matcher m1 = searchIdPattern.matcher(q);
             if(m1.matches()) {
                 String ret = m1.group(1);
-                page = taskRepository.findByKeyword(Long.valueOf(ret), pageable);
+                page = taskService.findByKeyword(Long.valueOf(ret), pageable);
             }
 
             Matcher m2 = searchBelongsToPattern.matcher(q);
             if(m2.matches()) {
                 String ret = m2.group(1);
-                User user = userRepository.findByEmailOrName(ret);
+                User user = userService.findByEmailOrName(ret);
                 if(user != null) {
-                    page = taskRepository.findByBelongsTo(user, pageable);
+                    page = taskService.findByUser(user, pageable);
                 }
             }
 
             if(page == null) {
-                page = taskRepository.findByKeyword(q, pageable);
+                page = taskService.findByKeyword(q, pageable);
             }
         } else {
-            page = taskRepository.findAll(pageable);
+            page = taskService.findAll(pageable);
         }
         model.addAttribute("page", page);
         return "admin/task/index";
@@ -77,7 +76,7 @@ public class TaskController {
 
     @RequestMapping("/{id:[0-9]+}/edit")
     public String edit(@PathVariable Long id, @Valid @ModelAttribute("form") TaskForm form, Errors errors) {
-        form.pull(taskRepository.findOne(id));
+        form.pull(taskService.findOne(id));
         return "admin/task/edit";
     }
 
@@ -90,14 +89,14 @@ public class TaskController {
         Task task = null;
         try {
             task = new Task();
-            User user = userRepository.findByEmail(form.getBelongsTo());
+            User user = userService.findByEmail(form.getBelongsTo());
             if(user == null) {
                 errors.rejectValue("belongsTo", "NullPointerException", "请输入正确的邮箱地址或名称");
                 return "admin/task/edit";
             }
             task.setBelongsTo(user);
             task.setBelongsToName(user.getName());
-            taskRepository.save(form.push(task));
+            taskService.save(form.push(task));
         } catch (DataAccessException ex) {
             errors.rejectValue("error", "DataAccessException", ex.getMessage());
             return "admin/task/edit";
@@ -116,10 +115,10 @@ public class TaskController {
         Task task = null;
         User newBelongsTo = null;
         try {
-            task = taskRepository.getOne(id);
+            task = taskService.findOne(id);
 
             if (!task.getBelongsTo().getEmail().equals(form.getBelongsTo())) {
-                newBelongsTo = userRepository.findByEmail(form.getBelongsTo());
+                newBelongsTo = userService.findByEmail(form.getBelongsTo());
                 if(newBelongsTo == null) {
                     errors.rejectValue("belongsTo", "NullPointerException", "请输入正确的邮箱地址或名称");
                     return "admin/task/edit";
@@ -130,7 +129,7 @@ public class TaskController {
             }
 
             form.push(task);
-            taskRepository.save(task);
+            taskService.save(task);
         } catch (DataAccessException ex) {
             errors.rejectValue("error", "DataAccesException", ex.getMessage());
             return "admin/task/edit";
@@ -142,8 +141,8 @@ public class TaskController {
     @RequestMapping(value="/delete", method=RequestMethod.POST)
     public Object delete(HttpServletRequest request) {
         List<Long> ids = Stream.of(request.getParameterValues("selected")).map(Long::valueOf).collect(Collectors.toList());
-        List<Task> tasks = taskRepository.findByIds(ids);
-        taskRepository.delete(tasks);
+        List<Task> tasks = taskService.findByIds(ids);
+        taskService.delete(tasks);
         return "redirect:/admin/tasks";
     }
 }

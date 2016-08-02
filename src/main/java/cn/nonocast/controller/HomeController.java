@@ -2,7 +2,7 @@ package cn.nonocast.controller;
 
 import cn.nonocast.model.User;
 import cn.nonocast.service.TaskService;
-import cn.nonocast.service.TokenService;
+import cn.nonocast.service.AccessTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@Autowired
-	private TokenService tokenService;
+	private AccessTokenService accessTokenService;
 
 	@Autowired
 	private TaskService taskService;
@@ -33,7 +33,7 @@ public class HomeController {
 	public String home(@AuthenticationPrincipal User user, Model model) {
 		model.addAttribute("version", this.version);
 		model.addAttribute("profile", this.profile);
-		model.addAttribute("token", tokenService.create(user));
+		model.addAttribute("token", accessTokenService.get(user).getSecret());
 		model.addAttribute("tasks", taskService.findByUser(user));
 		return "home/index";
 	}
