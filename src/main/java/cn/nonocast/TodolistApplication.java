@@ -10,14 +10,13 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.DispatcherServlet;
 
 @Controller
-@EnableCaching
+//@EnableCaching
 @SpringBootApplication
 public class TodolistApplication implements ApplicationRunner {
     private static final Logger logger = LoggerFactory.getLogger(TodolistApplication.class);

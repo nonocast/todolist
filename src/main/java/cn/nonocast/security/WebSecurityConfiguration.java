@@ -118,13 +118,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.authorizeRequests()
+            http.csrf().disable()
+	            .authorizeRequests()
                 .antMatchers("/", "/error", "/register", "/register/**", "/wechat/**").permitAll()
                 .anyRequest().authenticated().and()
                 .formLogin().loginPage("/login").defaultSuccessUrl("/home").failureHandler(authenticationFailureHandler()).permitAll().and()
                 .rememberMe().rememberMeServices(rememberMeServices()).tokenValiditySeconds(2419200).key("hell0w0r1d").and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true).and()
-                .csrf().disable();
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true);
         }
     }
 }
