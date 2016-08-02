@@ -3,6 +3,9 @@ package cn.nonocast.service;
 import cn.nonocast.model.User;
 import cn.nonocast.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,6 +30,7 @@ public class UserService {
 		return userRepository.findOne(id);
 	}
 
+	@Cacheable(cacheNames="user", key="'user:'.concat(#p0)")
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
@@ -63,6 +67,7 @@ public class UserService {
 		return userRepository.findByEmailOrName(q);
 	}
 
+	@CachePut(cacheNames="user", key="'user:'.concat(#user.email)")
 	public User save(User user) {
 		return userRepository.save(user);
 	}
@@ -71,14 +76,12 @@ public class UserService {
 		return userRepository.exists(id);
 	}
 
-	public void delete(Long id) {
-		userRepository.delete(id);
-	}
-
+	@CacheEvict(cacheNames="user", key="'user:'.concat(#user.email)")
 	public void delete(User user) {
 		userRepository.delete(user);
 	}
 
+	@CacheEvict(cacheNames="user", allEntries=true)
 	public void delete(Iterable<User> users) {
 		userRepository.delete(users);
 	}
