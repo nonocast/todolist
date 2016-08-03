@@ -24,6 +24,9 @@ todolist
 
 master
 
+v0.2.22
+fix User.role加上JsonView进行序列化, 否则无法访问/admin
+
 v0.2.21
 1. 通过扩展RedisCacheManger实现根据cacheName控制new RedisCache参数
 2. add redis cacheable

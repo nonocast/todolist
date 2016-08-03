@@ -39,6 +39,7 @@ public class User extends ModelBase implements UserDetails {
     private Set<Task> tasks = new HashSet<>();
 
     @Enumerated(EnumType.ORDINAL)
+    @JsonView(WithoutPasswordView.class)
     private Role role = Role.USER;
 
     public Set<Task> getTasks() {
