@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//	@Cacheable(cacheNames="userCache", key="'user:'.concat(#p0)")
 @Service
 public class UserService {
     @Autowired

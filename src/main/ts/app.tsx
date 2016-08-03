@@ -130,7 +130,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 		return (
 			<div>
 				<header className="header">
-					<h1>todos</h1>
+					<h1>待办事项</h1>
 					<input
 						ref="newField"
 						className="new-todo"
