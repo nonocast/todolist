@@ -13,7 +13,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 	constructor(props) {
 		super(props);
 
-		console.log("v0.2.22");
+		console.log("v0.2.23");
 
 		this.state = {tasks: new Array<Task>()};
 		this.token = $('.todoapp').attr("token");
@@ -134,7 +134,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 					<input
 						ref="newField"
 						className="new-todo"
-						placeholder="What needs to be done?"
+						placeholder="新增待办事项，按回车键保存..."
 						onKeyDown={ e => this.handleNewTaskKeyDown(e) }
 						autoFocus={true}
 					/>

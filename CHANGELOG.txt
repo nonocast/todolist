@@ -21,8 +21,12 @@ todolist
 6. logfile in web
 7. spring session with reids
 8. unit test
+1. en-us/zh-cn
 
 master
+
+v0.2.23
+1. apply Ge UI
 
 v0.2.22
 fix User.role加上JsonView进行序列化, 否则无法访问/admin
