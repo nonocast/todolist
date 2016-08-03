@@ -35,6 +35,9 @@ public class HomeController {
 		model.addAttribute("profile", this.profile);
 		model.addAttribute("token", accessTokenService.get(user).getSecret());
 		model.addAttribute("tasks", taskService.findByUser(user));
+		model.addAttribute("username", user.getName());
+		model.addAttribute("avatar", user.getAvatar());
+
 		return "home/index";
 	}
 }

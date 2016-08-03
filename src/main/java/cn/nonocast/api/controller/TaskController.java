@@ -6,6 +6,8 @@ import cn.nonocast.model.Task;
 import cn.nonocast.model.User;
 import cn.nonocast.service.TaskService;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -20,13 +22,18 @@ import java.util.List;
 @RestController("apiTaskController")
 @RequestMapping("/api/tasks")
 public class TaskController {
+	private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
+
 	@Autowired
 	private TaskService taskService;
 
-	@RequestMapping(method=RequestMethod.GET)
 	@JsonView(Task.TaskView.class)
-	public List<Task> index(@AuthenticationPrincipal User user) {
-		return taskService.findByUser(user);
+	@RequestMapping(method=RequestMethod.GET)
+	public List<Task> index(
+		@AuthenticationPrincipal User user,
+		@RequestParam(value = "status", required=false, defaultValue="OPEN") Task.TaskStatus status) {
+		logger.info("filter: " + status);
+		return taskService.findByUserAndStatus(user, status);
 	}
 
 	@RequestMapping(method=RequestMethod.POST)

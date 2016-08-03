@@ -25,6 +25,7 @@ module.exports = {
 		"react": "React",
 		"react-dom": "ReactDOM",
 		"jquery": "$",
-		"classnames": "classNames"
+		"classnames": "classNames",
+		"monent": "monent"
 	}
 };

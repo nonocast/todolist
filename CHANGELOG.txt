@@ -24,6 +24,14 @@ todolist
 1. en-us/zh-cn
 
 master
+TODO: 分类数量统计
+TODO: findTaskByStatus Cacheable
+
+v0.2.25
+frontend: 增加task分类界面
+
+v0.2.24
+momentjs typing files: typings install --save --global dt~moment dt~moment-node
 
 v0.2.23
 1. apply Ge UI

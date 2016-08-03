@@ -6,6 +6,8 @@ import cn.nonocast.model.Task;
 import javax.validation.constraints.Size;
 
 public class TaskForm extends FormBase {
+	private Long id;
+
     @Size(min=1, max=200, message="内容最多200字")
     private String content;
 
@@ -17,7 +19,15 @@ public class TaskForm extends FormBase {
     @Size(min=1, message="请输入邮箱地址")
     private String belongsTo;
 
-    public String getContent() {
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getContent() {
         return content;
     }
 
@@ -59,6 +69,7 @@ public class TaskForm extends FormBase {
 
     public void pull(Task task) {
         this.op = "edit";
+	    this.id = task.getId();
         this.content = task.getContent();
         this.category = task.getCategory();
         this.status = task.getStatus();

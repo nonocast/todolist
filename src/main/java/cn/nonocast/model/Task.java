@@ -116,8 +116,8 @@ public class Task extends ModelBase {
     }
 
     public enum TaskCategory {
-        DAILY("当日目标"),          // 0
-        SHORTTERM("短期目标"),      // 1
+        DAILY("今日事项"),          // 0
+        SHORTTERM("近期目标"),      // 1
         LONGTERM("长期目标");       // 2
 
         private String name;

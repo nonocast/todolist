@@ -24,6 +24,11 @@ public class TaskService {
         return result;
     }
 
+
+	public List<Task> findByUserAndStatus(User user, Task.TaskStatus status) {
+		return taskRepository.findByBelongsToAndStatus(user, status);
+	}
+
 	@CacheEvict(cacheNames="tasks", key="#task.belongsTo.email")
 	public Task save(Task task) {
 		return taskRepository.save(task);
@@ -58,8 +63,8 @@ public class TaskService {
 		return taskRepository.findByIds(ids);
 	}
 
-	@CacheEvict(cacheNames="tasks", allEntries=true)
+	@CacheEvict(cacheNames = "tasks", allEntries = true)
 	public void delete(List<Task> tasks) {
-		taskRepository.delete(tasks);
+
 	}
 }

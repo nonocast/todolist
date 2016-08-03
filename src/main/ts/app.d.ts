@@ -3,6 +3,7 @@ interface Task {
 	id: number,
 	title: string;
 	status: string;
+	category: string;
 	//completed: boolean
 	isCompleted(): boolean;
 	toJson(): any;
@@ -62,7 +63,9 @@ interface AppProps {
 
 // Defines the interface of the state of the App component
 interface AppState {
-	tasks: Array<Task>
+	tasks?: Array<Task>;
+	filter?: string;
+	filterName?: string;
 	//editing? : string;
 	//nowShowing? : string
 }

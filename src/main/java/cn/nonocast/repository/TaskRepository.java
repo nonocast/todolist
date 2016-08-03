@@ -26,4 +26,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Query(value = "SELECT p FROM Task p WHERE p.id=:q")
     Page<Task> findByKeyword(@Param("q") Long q, Pageable pageable);
+
+
+	List<Task> findByBelongsToAndStatus(User user, Task.TaskStatus status);
 }
