@@ -13,6 +13,8 @@ public class TaskForm extends FormBase {
 
 	private Task.TaskStatus status = Task.TaskStatus.OPEN;
 
+	private Task.TaskCategory category = Task.TaskCategory.DAILY;
+
 	public Long getId() {
 		return id;
 	}
@@ -37,15 +39,25 @@ public class TaskForm extends FormBase {
 		this.status = status;
 	}
 
+	public Task.TaskCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(Task.TaskCategory category) {
+		this.category = category;
+	}
+
 	public void pull(Task task) {
 		this.id = task.getId();
 		this.content = task.getContent();
 		this.status = task.getStatus();
+		this.category = task.getCategory();
 	}
 
 	public Task push(Task task) {
 		task.setContent(this.content);
 		task.setStatus(this.status);
+		task.setCategory(this.category);
 		return task;
 	}
 }
