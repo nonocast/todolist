@@ -1,5 +1,6 @@
 package cn.nonocast.service;
 
+import cn.nonocast.api.vm.TaskSummary;
 import cn.nonocast.model.Task;
 import cn.nonocast.model.User;
 import cn.nonocast.repository.TaskRepository;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +19,11 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-	@Cacheable(cacheNames="tasks", key="#user.email")
     public List<Task> findByUser(User user) {
         List<Task> result;
         result = taskRepository.findByBelongsTo(user);
         return result;
     }
-
-
-	public List<Task> findByUserAndStatus(User user, Task.TaskStatus status) {
-		return taskRepository.findByBelongsToAndStatus(user, status);
-	}
 
 	@CacheEvict(cacheNames="tasks", key="#task.belongsTo.email")
 	public Task save(Task task) {
@@ -65,6 +61,23 @@ public class TaskService {
 
 	@CacheEvict(cacheNames = "tasks", allEntries = true)
 	public void delete(List<Task> tasks) {
+		taskRepository.delete(tasks);
+	}
 
+	public Page<Task> findByStatus(User user, Task.TaskStatus status, Pageable pageable) {
+		return taskRepository.findByBelongsToAndStatus(user, status, pageable);
+	}
+
+	@Cacheable(cacheNames="tasks", key="#user.email")
+	public TaskSummary findSummary(User user) {
+		TaskSummary summary = new TaskSummary();
+		summary.setUser(user);
+		summary.setActive(taskRepository.findByBelongsToAndStatus(user, Task.TaskStatus.OPEN));
+
+		Page<Task> completed = taskRepository.findByBelongsToAndStatus(user, Task.TaskStatus.CLOSE, new PageRequest(0, 20));
+		List<Task> p = completed.getContent();
+		summary.setCompleted(p);
+		summary.setCompletedCount(completed.getTotalElements());
+		return summary;
 	}
 }

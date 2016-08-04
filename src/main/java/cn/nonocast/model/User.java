@@ -1,5 +1,6 @@
 package cn.nonocast.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -35,6 +36,7 @@ public class User extends ModelBase implements UserDetails {
     @JsonView(WithoutPasswordView.class)
     private Boolean enabled = true;
 
+	@JsonIgnore
     @OneToMany(mappedBy = "belongsTo", orphanRemoval = true)
     private Set<Task> tasks = new HashSet<>();
 

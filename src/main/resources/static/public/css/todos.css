@@ -156,7 +156,7 @@ label {
 }
 
 .todoapp input::-webkit-input-placeholder {
-    font-style: italic;
+    /*font-style: italic;*/
     font-weight: 300;
     color: #e6e6e6;
 }
@@ -310,6 +310,13 @@ label[for='toggle-all'] {
     display: block;
     line-height: 1.2;
     transition: color 0.4s;
+}
+
+.todo-list li label span {
+    /*color: #d9d9d9;*/
+    color: #ccc;
+    float: right;
+    font-weight: normal;
 }
 
 .todo-list li.completed label {

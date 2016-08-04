@@ -24,8 +24,11 @@ todolist
 1. en-us/zh-cn
 
 master
-TODO: 分类数量统计
-TODO: findTaskByStatus Cacheable
+TODO: closedAt
+
+v0.2.26
+find taskSummary
+完成react page第一个版本
 
 v0.2.25
 frontend: 增加task分类界面

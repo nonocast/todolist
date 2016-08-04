@@ -4,7 +4,8 @@ interface Task {
 	title: string;
 	status: string;
 	category: string;
-	//completed: boolean
+	createdAt?: Date;
+	closedAt?: Date;
 	isCompleted(): boolean;
 	toJson(): any;
 }
@@ -63,9 +64,14 @@ interface AppProps {
 
 // Defines the interface of the state of the App component
 interface AppState {
-	tasks?: Array<Task>;
-	filter?: string;
-	filterName?: string;
-	//editing? : string;
-	//nowShowing? : string
+	username?: string;
+	email?: string;
+	avatar?: string;
+	dailyTasks?: Array<Task>;
+	shortTasks?: Array<Task>;
+	longTasks?: Array<Task>;
+	completedTasks?: Array<Task>;
+	selected?: string;
+	selectedTitle?: string;
+	completedCount?: number;
 }

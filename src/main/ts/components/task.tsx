@@ -95,7 +95,7 @@ export class TaskItem extends React.Component<TaskItemProps, TaskItemState> {
 					  onChange={this.onStatusChange.bind(this)}
 					/>
 					<label onDoubleClick={this.edit.bind(this)}>
-						{this.state.editText}
+						{this.state.editText}<span>{moment(this.props.todo.createdAt).fromNow()}</span>
 					</label>
 					<button className="destroy" onClick={this.props.onDestroy} />
 				</div>

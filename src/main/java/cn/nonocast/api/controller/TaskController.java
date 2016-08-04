@@ -1,6 +1,7 @@
 package cn.nonocast.api.controller;
 
 import cn.nonocast.api.form.TaskForm;
+import cn.nonocast.api.vm.TaskSummary;
 import cn.nonocast.misc.EmptyJsonResponse;
 import cn.nonocast.model.Task;
 import cn.nonocast.model.User;
@@ -17,7 +18,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController("apiTaskController")
 @RequestMapping("/api/tasks")
@@ -27,13 +27,9 @@ public class TaskController {
 	@Autowired
 	private TaskService taskService;
 
-	@JsonView(Task.TaskView.class)
 	@RequestMapping(method=RequestMethod.GET)
-	public List<Task> index(
-		@AuthenticationPrincipal User user,
-		@RequestParam(value = "status", required=false, defaultValue="OPEN") Task.TaskStatus status) {
-		logger.info("filter: " + status);
-		return taskService.findByUserAndStatus(user, status);
+	public TaskSummary index(@AuthenticationPrincipal User user) {
+		return taskService.findSummary(user);
 	}
 
 	@RequestMapping(method=RequestMethod.POST)
@@ -47,11 +43,10 @@ public class TaskController {
 
 		try {
 			task = new Task();
-			task.setCategory(Task.TaskCategory.DAILY);
 			task.setPriority(Task.TaskPriority.NORMAL);
-			task.setStatus(Task.TaskStatus.OPEN);
 			task.setBelongsTo(user);
 			task.setBelongsToName(user.getName());
+			task.setBelongsToEmail(user.getEmail());
 			taskService.save(form.push(task));
 		} catch (DataAccessException ex) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);

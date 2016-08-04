@@ -1,6 +1,7 @@
 package cn.nonocast.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -13,6 +14,7 @@ import java.util.Date;
 public class Task extends ModelBase {
 	public interface TaskView extends ModelBase.JsonViewBase {};
 
+	@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="belongs_to")
     private User belongsTo;
@@ -28,16 +30,16 @@ public class Task extends ModelBase {
     @JsonProperty("title")
     private String content;
 
+	@JsonView(TaskView.class)
     @Enumerated(EnumType.ORDINAL)
-    @JsonView(TaskView.class)
     private TaskCategory category;
 
+	@JsonView(TaskView.class)
     @Enumerated(EnumType.ORDINAL)
-    @JsonView(TaskView.class)
     private TaskStatus status;
 
+	@JsonView(TaskView.class)
     @Enumerated(EnumType.ORDINAL)
-    @JsonView(TaskView.class)
     private TaskPriority priority;
 
     private Date closedAt;

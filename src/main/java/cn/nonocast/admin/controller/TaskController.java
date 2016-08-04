@@ -126,6 +126,7 @@ public class TaskController {
 
                 task.setBelongsTo(newBelongsTo);
                 task.setBelongsToName(newBelongsTo.getName());
+	            task.setBelongsToEmail(newBelongsTo.getEmail());
             }
 
             form.push(task);

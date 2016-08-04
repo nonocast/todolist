@@ -1,12 +1,12 @@
 package cn.nonocast.model;
 
+import cn.nonocast.misc.PrePersistUtil;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import cn.nonocast.misc.*;
 
 @MappedSuperclass
 public abstract class ModelBase implements Comparable<ModelBase>, Serializable {
@@ -18,9 +18,11 @@ public abstract class ModelBase implements Comparable<ModelBase>, Serializable {
     @JsonView(JsonViewBase.class)
     private Long id;
 
+	@JsonView(JsonViewBase.class)
     @Column(nullable = false)
     private Date createdAt;
 
+	@JsonView(JsonViewBase.class)
     @Column(nullable = false)
     private Date updatedAt;
 

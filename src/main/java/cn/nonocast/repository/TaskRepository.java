@@ -29,4 +29,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
 
 	List<Task> findByBelongsToAndStatus(User user, Task.TaskStatus status);
+	Page<Task> findByBelongsToAndStatus(User user, Task.TaskStatus status, Pageable pageable);
 }
