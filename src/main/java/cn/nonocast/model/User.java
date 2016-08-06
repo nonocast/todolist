@@ -126,6 +126,7 @@ public class User extends ModelBase implements UserDetails {
         this.enabled = enabled;
     }
 
+	@JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> result = new ArrayList<>();
@@ -139,16 +140,19 @@ public class User extends ModelBase implements UserDetails {
         return this.email;
     }
 
+	@JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+	@JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+	@JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
