@@ -16,15 +16,21 @@ create task url:
 curl -XPOST http://localhost:8080/api/tasks -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" -H "Token: 3fea6af1349166ea" -d "content=hello-curl"
 
 todolist
-2. highcharts
-4. task: @who, #tag#
-6. logfile in web
-7. spring session with reids
-8. unit test
-1. en-us/zh-cn
+1. nginx https
+2. spring session with reids
+3. application logfile in web
+4. en-us/zh-cn
+5. unit test
+6. task: @who, #tag#
+7. highcharts
 
 master
 TODO: closedAt
+api/token return 500 expected 401
+
+v0.2.27
+fix api/Tasks belongsToName is null
+task按时间逆序排列
 
 v0.2.26
 find taskSummary

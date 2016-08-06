@@ -26,6 +26,7 @@ It integrated the following framework and third-party project:
 ## Contribution
 - Hui Cao (nonocast@gmail.com)
 - Xiaodong Ge (gexi7n@gmail.com)
+- Changjun Feng (waitwone@gmail.com)
 
 ## Changelog
 Details changes for each release are documented in the [release notes](https://github.com/nonocast/todolist/blob/master/CHANGELOG.txt).

@@ -72,7 +72,7 @@ public class TaskService {
 	public TaskSummary findSummary(User user) {
 		TaskSummary summary = new TaskSummary();
 		summary.setUser(user);
-		summary.setActive(taskRepository.findByBelongsToAndStatus(user, Task.TaskStatus.OPEN));
+		summary.setActive(taskRepository.findByBelongsToAndStatusOrderByCreatedAtDesc(user, Task.TaskStatus.OPEN));
 
 		Page<Task> completed = taskRepository.findByBelongsToAndStatus(user, Task.TaskStatus.CLOSE, new PageRequest(0, 20));
 		List<Task> p = completed.getContent();

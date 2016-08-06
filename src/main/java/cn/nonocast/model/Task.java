@@ -19,6 +19,7 @@ public class Task extends ModelBase {
     @JoinColumn(name="belongs_to")
     private User belongsTo;
 
+	@JsonIgnore
     private String belongsToName;
 
 //	@JsonView(TaskView.class)

@@ -17,7 +17,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 	constructor(props) {
 		super(props);
 
-		console.log("v0.2.26");
+		console.log("v0.2.27");
 
 		moment.locale('zh-cn');
 		this.state = {

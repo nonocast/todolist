@@ -28,6 +28,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     Page<Task> findByKeyword(@Param("q") Long q, Pageable pageable);
 
 
-	List<Task> findByBelongsToAndStatus(User user, Task.TaskStatus status);
+	List<Task> findByBelongsToAndStatusOrderByCreatedAtDesc(User user, Task.TaskStatus status);
 	Page<Task> findByBelongsToAndStatus(User user, Task.TaskStatus status, Pageable pageable);
 }
