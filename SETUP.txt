@@ -1,5 +1,13 @@
 开发环境配置
 
+Vagrant
+==================================
+正在制作
+system env:
+vagrant init debian/jessie64
+vagrant up
+
+
 Windows
 ==================================
 1. Java 8

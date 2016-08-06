@@ -2,7 +2,6 @@ package cn.nonocast.repository;
 
 import cn.nonocast.model.Task;
 import cn.nonocast.model.User;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,5 +28,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
 
 	List<Task> findByBelongsToAndStatusOrderByCreatedAtDesc(User user, Task.TaskStatus status);
-	Page<Task> findByBelongsToAndStatus(User user, Task.TaskStatus status, Pageable pageable);
+	Page<Task> findByBelongsToAndStatusOrderByCreatedAtDesc(User user, Task.TaskStatus status, Pageable pageable);
 }

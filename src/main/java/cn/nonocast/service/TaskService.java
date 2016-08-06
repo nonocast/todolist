@@ -64,19 +64,14 @@ public class TaskService {
 		taskRepository.delete(tasks);
 	}
 
-	public Page<Task> findByStatus(User user, Task.TaskStatus status, Pageable pageable) {
-		return taskRepository.findByBelongsToAndStatus(user, status, pageable);
-	}
-
 	@Cacheable(cacheNames="tasks", key="#user.email")
 	public TaskSummary findSummary(User user) {
 		TaskSummary summary = new TaskSummary();
 		summary.setUser(user);
 		summary.setActive(taskRepository.findByBelongsToAndStatusOrderByCreatedAtDesc(user, Task.TaskStatus.OPEN));
 
-		Page<Task> completed = taskRepository.findByBelongsToAndStatus(user, Task.TaskStatus.CLOSE, new PageRequest(0, 20));
-		List<Task> p = completed.getContent();
-		summary.setCompleted(p);
+		Page<Task> completed = taskRepository.findByBelongsToAndStatusOrderByCreatedAtDesc(user, Task.TaskStatus.CLOSE, new PageRequest(0, 20));
+		summary.setCompleted(completed.getContent());
 		summary.setCompletedCount(completed.getTotalElements());
 		return summary;
 	}
