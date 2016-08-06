@@ -1,15 +1,14 @@
 package cn.nonocast.api.vm;
 
 import cn.nonocast.model.Task;
-import cn.nonocast.model.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.List;
 
 public class TaskSummary {
-	@JsonView(User.WithoutPasswordView.class)
-	private User user;
+	@JsonProperty
+	private UserSummary user;
 
 	@JsonView(Task.TaskView.class)
 	private List<Task> active;
@@ -20,11 +19,11 @@ public class TaskSummary {
 	@JsonProperty
 	private long completedCount;
 
-	public User getUser() {
+	public UserSummary getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserSummary user) {
 		this.user = user;
 	}
 

@@ -1,6 +1,7 @@
 package cn.nonocast.service;
 
 import cn.nonocast.api.vm.TaskSummary;
+import cn.nonocast.api.vm.UserSummary;
 import cn.nonocast.model.Task;
 import cn.nonocast.model.User;
 import cn.nonocast.repository.TaskRepository;
@@ -67,7 +68,7 @@ public class TaskService {
 	@Cacheable(cacheNames="tasks", key="#user.email")
 	public TaskSummary findSummary(User user) {
 		TaskSummary summary = new TaskSummary();
-		summary.setUser(user);
+		summary.setUser(new UserSummary(user));
 		summary.setActive(taskRepository.findByBelongsToAndStatusOrderByCreatedAtDesc(user, Task.TaskStatus.OPEN));
 
 		Page<Task> completed = taskRepository.findByBelongsToAndStatusOrderByCreatedAtDesc(user, Task.TaskStatus.CLOSE, new PageRequest(0, 20));

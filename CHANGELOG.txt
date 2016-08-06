@@ -25,6 +25,9 @@ master
 TODO: closedAt
 api/token return 500 expected 401
 
+v0.2.31
+fix bug: add UserSummary(APIViewModel) to protected User(Model)
+
 v0.2.30
 hide user password in TaskSummary.User
 
