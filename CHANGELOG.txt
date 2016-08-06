@@ -23,10 +23,15 @@ todolist
 5. unit test
 6. task: @who, #tag#
 7. highcharts
+8. 用户登录注册
+9. 用户信息修改
 
 master
 TODO: closedAt
 api/token return 500 expected 401
+
+v0.2.28
+completed按创建时间逆序排列
 
 v0.2.27
 fix api/Tasks belongsToName is null
