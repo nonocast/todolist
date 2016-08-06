@@ -11,13 +11,11 @@ declare var Router : any;
 class TodoApp extends React.Component<AppProps, AppState> {
 	token: string;
 	from: string;
-	//username: string;
-	//avatar: string;
 
 	constructor(props) {
 		super(props);
 
-		console.log("v0.2.27");
+		console.log("v0.2.28");
 
 		moment.locale('zh-cn');
 		this.state = {
