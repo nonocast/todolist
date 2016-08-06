@@ -27,6 +27,7 @@ public class User extends ModelBase implements UserDetails {
     private String mobile;
     @JsonView(WithoutPasswordView.class)
     private String location;
+	@JsonIgnore
     @JsonView(WithPasswordView.class)
     private String password;
     @JsonView(WithoutPasswordView.class)
@@ -108,6 +109,7 @@ public class User extends ModelBase implements UserDetails {
         this.role = role;
     }
 
+	@JsonIgnore
     @Override
     public String getPassword() {
         return password;

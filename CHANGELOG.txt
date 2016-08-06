@@ -16,6 +16,7 @@ todolist
 7. highcharts
 8. 用户登录注册
 9. 用户信息修改
+10. JsonView/JsonProperty - TaskSummary/User
 
 bug
 gradle/webpack在windows下失败
@@ -23,6 +24,9 @@ gradle/webpack在windows下失败
 master
 TODO: closedAt
 api/token return 500 expected 401
+
+v0.2.30
+hide user password in TaskSummary.User
 
 v0.2.29
 fix User json property
