@@ -15,25 +15,24 @@ import java.util.*;
 
 @Entity
 public class User extends ModelBase implements UserDetails {
-    public interface WithoutPasswordView extends ModelBase.JsonViewBase {};
-    public interface WithPasswordView extends WithoutPasswordView {};
+    public interface WithPasswordView extends API {};
 
     @NotNull
-    @JsonView(WithoutPasswordView.class)
+    @JsonView(API.class)
     private String email;
-    @JsonView(WithoutPasswordView.class)
+    @JsonView(API.class)
     private String name;
-    @JsonView(WithoutPasswordView.class)
+	@JsonView(API.class)
     private String mobile;
-    @JsonView(WithoutPasswordView.class)
+	@JsonView(API.class)
     private String location;
     @JsonView(WithPasswordView.class)
     private String password;
-    @JsonView(WithoutPasswordView.class)
+	@JsonView(API.class)
     private String wechatid;
-    @JsonView(WithoutPasswordView.class)
+	@JsonView(API.class)
     private String avatar;
-    @JsonView(WithoutPasswordView.class)
+	@JsonView(API.class)
     private Boolean enabled = true;
 
 	@JsonIgnore
@@ -41,7 +40,7 @@ public class User extends ModelBase implements UserDetails {
     private Set<Task> tasks = new HashSet<>();
 
     @Enumerated(EnumType.ORDINAL)
-    @JsonView(WithoutPasswordView.class)
+    @JsonView(API.class)
     private Role role = Role.USER;
 
     public Set<Task> getTasks() {

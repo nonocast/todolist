@@ -69,7 +69,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 			type: "GET",
 			cache: false,
 			success: function (data) {
-				// console.log(data);
+				 console.log(data);
 
 				this.setState({username: data.user.name, email: data.user.email})
 				this.setState({avatar: data.user.avatar == "" ? "/public/misc/user-10308319.png" : data.user.avatar});
@@ -239,6 +239,6 @@ class TodoApp extends React.Component<AppProps, AppState> {
 }
 
 ReactDOM.render(
-	<TodoApp url="/api/tasks" pollInterval={3000} />,
+	<TodoApp url="/api/tasks" pollInterval={5000} />,
 	$('.todoapp').get(0)
 );

@@ -1,22 +1,22 @@
 package cn.nonocast.api.vm;
 
+import cn.nonocast.model.ModelBase;
 import cn.nonocast.model.Task;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.List;
 
 public class TaskSummary {
-	@JsonProperty
+	@JsonView(ModelBase.API.class)
 	private UserSummary user;
 
-	@JsonView(Task.TaskView.class)
+	@JsonView(ModelBase.API.class)
 	private List<Task> active;
 
-	@JsonView(Task.TaskView.class)
+	@JsonView(ModelBase.API.class)
 	private List<Task> completed;
 
-	@JsonProperty
+	@JsonView(ModelBase.API.class)
 	private long completedCount;
 
 	public UserSummary getUser() {

@@ -16,14 +16,15 @@ todolist
 7. highcharts
 8. 用户登录注册
 9. 用户信息修改
-10. JsonView/JsonProperty - TaskSummary/User
 
 bug
 gradle/webpack在windows下失败
 
 master
 TODO: closedAt
-api/token return 500 expected 401
+
+v0.2.32
+1. fix 增加@JsonView(ModelBase.API.class)一致json输出, 暂时未能解决redis deserialize Page, 所以还是采用User/TaskSummary+List
 
 v0.2.31
 fix bug: add UserSummary(APIViewModel) to protected User(Model)

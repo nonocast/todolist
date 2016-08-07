@@ -1,22 +1,23 @@
 package cn.nonocast.api.vm;
 
+import cn.nonocast.model.ModelBase;
 import cn.nonocast.model.User;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 
 public class UserSummary {
-	@JsonProperty
+	@JsonView(ModelBase.API.class)
 	private Long id;
-	@JsonProperty
+	@JsonView(ModelBase.API.class)
 	private String email;
-	@JsonProperty
+	@JsonView(ModelBase.API.class)
 	private String name;
-	@JsonProperty
+	@JsonView(ModelBase.API.class)
 	private String avatar;
-	@JsonProperty
+	@JsonView(ModelBase.API.class)
 	private String location;
-	@JsonProperty
+	@JsonView(ModelBase.API.class)
 	private String mobile;
-	@JsonProperty
+	@JsonView(ModelBase.API.class)
 	private String wechatid;
 
 	public Long getId() {

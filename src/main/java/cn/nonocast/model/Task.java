@@ -12,8 +12,6 @@ import java.util.Date;
 @Entity
 @Table(name="task")
 public class Task extends ModelBase {
-	public interface TaskView extends ModelBase.JsonViewBase {};
-
 	@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="belongs_to")
@@ -22,27 +20,29 @@ public class Task extends ModelBase {
 	@JsonIgnore
     private String belongsToName;
 
-//	@JsonView(TaskView.class)
+	@JsonView(API.class)
 	@JsonProperty("user")
 	private String belongsToEmail;
 
     @NotNull
-    @JsonView(TaskView.class)
+    @JsonView(API.class)
     @JsonProperty("title")
     private String content;
 
-	@JsonView(TaskView.class)
+	@JsonView(API.class)
     @Enumerated(EnumType.ORDINAL)
     private TaskCategory category;
 
-	@JsonView(TaskView.class)
+	@JsonView(API.class)
     @Enumerated(EnumType.ORDINAL)
     private TaskStatus status;
 
-	@JsonView(TaskView.class)
+	@JsonView(API.class)
     @Enumerated(EnumType.ORDINAL)
     private TaskPriority priority;
 
+
+	@JsonView(API.class)
     private Date closedAt;
 
     public User getBelongsTo() {

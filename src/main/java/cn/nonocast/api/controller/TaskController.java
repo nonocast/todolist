@@ -17,6 +17,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import cn.nonocast.model.*;
 import javax.validation.Valid;
 
 @RestController("apiTaskController")
@@ -32,8 +33,8 @@ public class TaskController {
 		return taskService.findSummary(user);
 	}
 
+	@JsonView(ModelBase.API.class)
 	@RequestMapping(method=RequestMethod.POST)
-	@JsonView(Task.TaskView.class)
 	public ResponseEntity<?> create(@AuthenticationPrincipal User user, @Valid @ModelAttribute TaskForm form, Errors errors) {
 		Task task;
 
@@ -66,8 +67,8 @@ public class TaskController {
 		return new ResponseEntity(new EmptyJsonResponse(), HttpStatus.OK);
 	}
 
+	@JsonView(ModelBase.API.class)
 	@RequestMapping(value="/{id:[0-9]+}", method=RequestMethod.POST)
-	@JsonView(Task.TaskView.class)
 	public ResponseEntity<?> update(@PathVariable("id") Long id, @Valid @ModelAttribute TaskForm form, Errors errors) {
 		Task task;
 
