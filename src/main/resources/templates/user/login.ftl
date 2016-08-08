@@ -6,16 +6,13 @@
 <head>
 	<meta http-equiv="Content-Type" key="text/html; charset=UTF-8"/>
 	<title>login</title>
-	<#--<link href="/webjars/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen"/>-->
-	<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	<#--<link href="/webjars/bootstrap/3.3.6/css/bootstrap-theme.min.css" rel="stylesheet" media="screen"/>-->
-	<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
 
 	<link href="/public/css/login.css" rel="stylesheet" media="screen"/>
 
-	<#--<script src="/webjars/jquery/2.2.4/jquery.js"></script>-->
-	<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-
+	<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+	<!-- cdn的coffeescript用了require, 有点问题 -->
 	<script src="/webjars/coffee-script/1.10.0/coffee-script.min.js"></script>
 </head>
 <body class="blue-bg">
