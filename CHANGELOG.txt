@@ -7,7 +7,6 @@ webpack -watch
 
 
 todolist
-1. nginx https
 2. spring session with reids
 3. application logfile in web
 4. en-us/zh-cn
@@ -22,6 +21,11 @@ gradle/webpack在windows下失败
 
 master
 TODO: closedAt
+
+v0.2.33
+migrate to https
+1. add nginx.conf
+2. cdn //
 
 v0.2.32
 1. fix 增加@JsonView(ModelBase.API.class)一致json输出, 暂时未能解决redis deserialize Page, 所以还是采用User/TaskSummary+List
