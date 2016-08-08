@@ -71,7 +71,7 @@ public class TaskService {
 		summary.setUser(new UserSummary(user));
 		summary.setActive(taskRepository.findByBelongsToAndStatusOrderByCreatedAtDesc(user, Task.TaskStatus.OPEN));
 
-		Page<Task> completed = taskRepository.findByBelongsToAndStatusOrderByCreatedAtDesc(user, Task.TaskStatus.CLOSE, new PageRequest(0, 20));
+		Page<Task> completed = taskRepository.findByBelongsToAndStatusOrderByCreatedAtDesc(user, Task.TaskStatus.CLOSE, new PageRequest(0, 10));
 		summary.setCompleted(completed.getContent());
 		summary.setCompletedCount(completed.getTotalElements());
 		return summary;
