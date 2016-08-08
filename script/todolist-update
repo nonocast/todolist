@@ -4,3 +4,4 @@ git pull
 gradle publish
 sudo systemctl daemon-reload
 sudo service todolist restart
+redis-cli flushall
