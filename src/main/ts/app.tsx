@@ -23,6 +23,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 			shortTasks: new Array<Task>(),
 			longTasks: new Array<Task>(),
 			completedTasks: new Array<Task>(),
+			completedPage: 1
 		};
 
 		this.token = $('.todoapp').attr("token");
@@ -78,7 +79,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 				this.setState({dailyTasks: data.active.filter(each => { return each.category === "DAILY" }).map(each => { return new TaskImpl(each); } )});
 				this.setState({shortTasks: data.active.filter(each => { return each.category === "SHORTTERM" }).map(each => { return new TaskImpl(each); } )});
 				this.setState({longTasks: data.active.filter(each => { return each.category === "LONGTERM" }).map(each => { return new TaskImpl(each); } )});
-				this.setState({completedTasks: data.completed.map(each =>{ return new TaskImpl(each); } )});
+				//this.setState({completedTasks: data.completed.map(each =>{ return new TaskImpl(each); } )});
 			}.bind(this),
 			error: function (xhr, status, err) {
 
@@ -89,6 +90,28 @@ class TodoApp extends React.Component<AppProps, AppState> {
 				}
 			}
 		});
+	}
+
+	public getMoreCompleted() {
+		let page = this.state.completedPage;
+		let url = `${this.props.url}/completed?page=${page}`;
+		console.log(url);
+
+		$.ajax({
+			url: url,
+			dataType: 'json',
+			type: "GET",
+			cache: false,
+			success: function (data) {
+				console.log(data);
+				this.setState({completedPage: page+1});
+				var completed = this.state.completedTasks;
+				completed = completed.concat(data.map(each => { return new TaskImpl(each); }));
+				this.setState({completedTasks: completed});
+				//this.setState({completedTasks: data.completed.map(each =>{ return new TaskImpl(each); } )});
+			}.bind(this),
+			error: function (xhr, status, err) { }.bind(this)
+			});
 	}
 
 	public handleNewTaskKeyDown(event) {
@@ -182,7 +205,9 @@ class TodoApp extends React.Component<AppProps, AppState> {
 
 		let footer = (
 			<div className="footer">
-				{this.state.selected === "completed" && this.state.completedTasks.length < this.state.completedCount ? <label>more</label> : null}
+				{this.state.selected === "completed" && this.state.completedTasks.length < this.state.completedCount ?
+					<button className="btn btn-default" type="submit" onClick={this.getMoreCompleted.bind(this)}>更多完成事项</button>
+					: null}
 			</div>
 		);
 

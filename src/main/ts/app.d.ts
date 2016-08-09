@@ -74,4 +74,5 @@ interface AppState {
 	selected?: string;
 	selectedTitle?: string;
 	completedCount?: number;
+	completedPage?: number;
 }

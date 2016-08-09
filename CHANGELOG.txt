@@ -22,6 +22,9 @@ gradle/webpack在windows下失败
 master
 TODO: closedAt
 
+v0.2.36
+more completed tasks by page
+
 v0.2.35
 fix login CDN auto
 

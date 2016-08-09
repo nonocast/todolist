@@ -76,4 +76,8 @@ public class TaskService {
 		summary.setCompletedCount(completed.getTotalElements());
 		return summary;
 	}
+
+	public List<Task> findCompleted(User user, Pageable pageable) {
+		return taskRepository.findByBelongsToAndStatusOrderByCreatedAtDesc(user, Task.TaskStatus.CLOSE, pageable).getContent();
+	}
 }
