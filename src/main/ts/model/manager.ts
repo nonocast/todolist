@@ -1,21 +1,32 @@
 /// <reference path="../app.d.ts"/>
 import utils from "../misc/utils"
+import TaskImpl from "../model/task";
 
 export default class TaskManagerImpl implements TaskManager {
 	changed: () => void;
 	tasks: Array<Task>;
 	completedCount: number;
+
+	// private
 	lastTimer: number;
+	lastCompletedPage: number;
+	maxCompletedPage: number;
+	pagesize = 10;
+
 
 	constructor() {
 		this.tasks = new Array<Task>();
 		this.completedCount = -1;
+		this.lastCompletedPage = 1;
 	}
 
 	public sync(tasks: Array<Task>, completedCount: number) {
 		this.tasks = tasks;
 		this.tasks.forEach(p => {p.statusChanged = this.onCompletedChanged.bind(this); });
 		this.completedCount = completedCount;
+		this.lastCompletedPage = 1;
+		this.maxCompletedPage = Math.floor((this.completedCount + this.pagesize - 1) / this.pagesize);
+		console.log("max page: " + this.maxCompletedPage);
 	}
 
 	private onCompletedChanged(task: Task) {
@@ -97,6 +108,30 @@ export default class TaskManagerImpl implements TaskManager {
 		});
 
 		this.invalidate();
+	}
+
+	public getMoreCompleted() {
+		let url = `/api/tasks/completed?page=${this.lastCompletedPage+1}`;
+		console.log(url);
+
+		$.ajax({
+			url: url,
+			dataType: 'json',
+			type: "GET",
+			cache: false,
+			success: function (data) {
+				let tasks = data.map(each => { return new TaskImpl(each); });
+				tasks.forEach(p => {p.statusChanged = this.onCompletedChanged.bind(this); });
+				this.tasks = this.tasks.concat(tasks);
+				this.lastCompletedPage += 1;
+				this.invalidate();
+			}.bind(this),
+			error: function (xhr, status, err) { }.bind(this)
+		});
+	}
+
+	public hasMoreCompletedPage() : boolean {
+		return this.lastCompletedPage < this.maxCompletedPage;
 	}
 
 	private invalidate() {

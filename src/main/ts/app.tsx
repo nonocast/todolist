@@ -17,7 +17,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 	constructor(props) {
 		super(props);
 
-		console.log("branch: feature-refactor-frontend: 001");
+		console.log("v0.2.38-SNAPSHOT");
 
 		this.initState();
 		this.initMoment();
@@ -152,6 +152,9 @@ class TodoApp extends React.Component<AppProps, AppState> {
 
 		let footer = (
 			<div className="footer">
+				{this.state.selected === "completed" && mgr.hasMoreCompletedPage() ?
+				<button className="btn btn-default" type="submit" onClick={mgr.getMoreCompleted.bind(mgr)}>更多完成事项</button>
+					: null}
 			</div>
 		);
 
@@ -172,7 +175,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 			</div>
 		);
 
-		let taskItems = this.props.manager.filter(this.state.selected).map(function (each) {
+		let taskItems = mgr.filter(this.state.selected).map(function (each) {
 			return (
 				<TaskItem
 					url={utils.join(this.props.url, each.id)}

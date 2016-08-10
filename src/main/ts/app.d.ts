@@ -24,6 +24,9 @@ interface TaskManager {
 	count(category: string) : number;
 	create(task: Task);
 	delete(task:Task);
+
+	getMoreCompleted();
+	hasMoreCompletedPage(): boolean;
 }
 
 // Defines the interface of the properties of the TodoItem component

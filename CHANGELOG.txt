@@ -22,6 +22,9 @@ gradle/webpack在windows下失败
 master
 TODO: closedAt
 
+v0.2.38
+完成前端重构,增加completed获取
+
 v0.2.37
 重构frontend react, 通过TaskManager完成协调工作
 

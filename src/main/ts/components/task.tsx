@@ -102,7 +102,7 @@ export class TaskItem extends React.Component<TaskItemProps, TaskItemState> {
 					className="edit"
 					value={this.state.editText}
 					onBlur={this.onBlur.bind(this)}
-				  onChange={this.onEditTextChange.bind(this)}
+					onChange={this.onEditTextChange.bind(this)}
 					onKeyDown={this.onKeyDown.bind(this) }
 				/>
 			</li>

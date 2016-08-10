@@ -191,9 +191,9 @@ label {
     position: relative;
     margin: 0;
     width: 100%;
-    font-size: 18px;
+    font-size: 14px;
     font-family: inherit;
-    font-weight: inherit;
+    font-weight: bold;
     line-height: 1.4em;
     border: 0;
     color: inherit;
@@ -267,10 +267,14 @@ label[for='toggle-all'] {
 
 .todo-list li.editing .edit {
     display: block;
-    width: 506px;
-    padding: 12px 16px;
+    font-size: 14px;
+    padding: 15px 60px 15px 15px;
+    line-height: 1.2;
     margin: 0 0 0 43px;
+    width: 88%;
+    width: calc(100% - 53px);
 }
+
 
 .todo-list li.editing .view {
     display: none;
