@@ -5,61 +5,79 @@ import * as constants from "./misc/constants"
 import utils from "./misc/utils"
 import { TaskItem } from "./components/task";
 import TaskImpl from "./model/task";
+import TaskManagerImpl from "./model/manager";
 
-declare var Router : any;
+declare var Router :any;
 
 class TodoApp extends React.Component<AppProps, AppState> {
 	token: string;
 	from: string;
+	pageTitleMap: { [key:string]:string; } = {};
 
 	constructor(props) {
 		super(props);
 
-		console.log("v0.2.28");
+		console.log("branch: feature-refactor-frontend: 001");
 
+		this.initState();
+		this.initMoment();
+		this.initPageTitleMap();
+		this.initManager();
+		this.setupAjax();
+	}
+
+	private initState() {
+		this.state = { selected: "DAILY" };
+	}
+
+	private initRouter() {
+		let setState = this.setState;
+		let router = Router({
+			'/': [setState.bind(this, { selected: "DAILY" }), this.focusNewField.bind(this)],
+			'/short': [setState.bind(this, { selected: "SHORTTERM" }), this.focusNewField.bind(this)],
+			'/long': [setState.bind(this, { selected: "LONGTERM" }), this.focusNewField.bind(this)],
+			'/completed': setState.bind(this, { selected: "completed" })
+		});
+
+		router.init('/');
+	}
+
+	private initMoment() {
 		moment.locale('zh-cn');
-		this.state = {
-			dailyTasks: new Array<Task>(),
-			shortTasks: new Array<Task>(),
-			longTasks: new Array<Task>(),
-			completedTasks: new Array<Task>(),
-			completedPage: 1
-		};
+	}
 
+	private initManager() {
+		this.props.manager.changed = () => {
+			this.forceUpdate();
+		}
+	}
+
+	private initPageTitleMap() {
+		this.pageTitleMap["DAILY"] = "今日事项";
+		this.pageTitleMap["SHORTTERM"] = "近期目标";
+		this.pageTitleMap["LONGTERM"] = "长期目标";
+		this.pageTitleMap["completed"] = "完成事项";
+	}
+
+	private setupAjax() {
 		this.token = $('.todoapp').attr("token");
 		this.from = $('.todoapp').attr("from");
-
 
 		$.ajaxSetup({
 			headers: { 'Token': this.token, 'From': this.from }
 		});
 	}
 
+	private getPageTitle() {
+		return this.pageTitleMap[this.state.selected];
+	}
+
 	public componentDidMount() {
 		this.initRouter();
-
 		this.sync();
 		if(this.props.pollInterval > 0) {
 			setInterval(this.sync.bind(this), this.props.pollInterval);
 		}
-	}
-
-	private focusNewField() {
-		var node = ReactDOM.findDOMNode<HTMLInputElement>(this.refs["newField"]);
-		node.focus();
-		node.setSelectionRange(node.value.length, node.value.length);
-	}
-
-	private initRouter() {
-		let setState = this.setState;
-		let router = Router({
-			'/': [setState.bind(this, { selected: "DAILY", selectedTitle: "今日事项" }), this.focusNewField.bind(this)],
-			'/short': [setState.bind(this, { selected: "SHORTTERM", selectedTitle: "近期目标" }), this.focusNewField.bind(this)],
-			'/long': [setState.bind(this, { selected: "LONGTERM", selectedTitle: "长期目标" }), this.focusNewField.bind(this)],
-			'/completed': setState.bind(this, { selected: "completed", selectedTitle: "已完成" })
-		});
-
-		router.init('/');
 	}
 
 	public sync() {
@@ -70,48 +88,24 @@ class TodoApp extends React.Component<AppProps, AppState> {
 			type: "GET",
 			cache: false,
 			success: function (data) {
-				 console.log(data);
-
 				this.setState({username: data.user.name, email: data.user.email})
 				this.setState({avatar: data.user.avatar == "" ? "/public/misc/user-10308319.png" : data.user.avatar});
 
-				this.setState({completedCount: data.completedCount});
-				this.setState({dailyTasks: data.active.filter(each => { return each.category === "DAILY" }).map(each => { return new TaskImpl(each); } )});
-				this.setState({shortTasks: data.active.filter(each => { return each.category === "SHORTTERM" }).map(each => { return new TaskImpl(each); } )});
-				this.setState({longTasks: data.active.filter(each => { return each.category === "LONGTERM" }).map(each => { return new TaskImpl(each); } )});
-				//this.setState({completedTasks: data.completed.map(each =>{ return new TaskImpl(each); } )});
+				let tasks = data.active.concat(data.completed);
+				this.props.manager.sync(tasks.map(each=>{return new TaskImpl(each)}), data.completedCount);
+				this.forceUpdate();
 			}.bind(this),
-			error: function (xhr, status, err) {
-
-			}.bind(this),
-			statusCode: {
-				401: () => {
-					// window.location.href = "/";
-				}
-			}
+			error: function (xhr, status, err) { console.error(this.props.url, status, err.toString()); }.bind(this),
+			statusCode: { 401: () => { console.log("401"); } }
 		});
 	}
 
-	public getMoreCompleted() {
-		let page = this.state.completedPage;
-		let url = `${this.props.url}/completed?page=${page}`;
-		console.log(url);
-
-		$.ajax({
-			url: url,
-			dataType: 'json',
-			type: "GET",
-			cache: false,
-			success: function (data) {
-				console.log(data);
-				this.setState({completedPage: page+1});
-				var completed = this.state.completedTasks;
-				completed = completed.concat(data.map(each => { return new TaskImpl(each); }));
-				this.setState({completedTasks: completed});
-				//this.setState({completedTasks: data.completed.map(each =>{ return new TaskImpl(each); } )});
-			}.bind(this),
-			error: function (xhr, status, err) { }.bind(this)
-			});
+	private focusNewField() {
+		var node = ReactDOM.findDOMNode<HTMLInputElement>(this.refs["newField"]);
+		if(node != null) {
+			node.focus();
+			node.setSelectionRange(node.value.length, node.value.length);
+		}
 	}
 
 	public handleNewTaskKeyDown(event) {
@@ -126,67 +120,19 @@ class TodoApp extends React.Component<AppProps, AppState> {
 	}
 
 	public create(task: Task) {
-		let snapshot = this.getCurrentTasks();
-
-		$.ajax({
-			url: this.props.url,
-			dataType: 'json',
-			type: 'POST',
-			data: {
-				content: task.title,
-				category: task.category
-			},
-			success: function(data: Task) {
-				this.sync();
-			}.bind(this),
-			error: function(xhr, status, err) {
-				this.setState({tasks: snapshot});
-				console.error(this.props.url, status, err.toString());
-			}.bind(this)
-		});
+		this.props.manager.create(task);
 	}
 
-
-	private getCurrentTasks() {
-		let tasks = new Array<Task>();
-		switch (this.state.selected) {
-			case "DAILY":
-				tasks = this.state.dailyTasks;
-				break;
-			case "SHORTTERM":
-				tasks = this.state.shortTasks;
-				break;
-			case "LONGTERM":
-				tasks = this.state.longTasks;
-				break;
-			case "completed":
-				tasks = this.state.completedTasks;
-				break;
-		}
-		return tasks;
-	}
-
-	public destroy(todo) {
-		let snapshot = this.getCurrentTasks();
-		let result = snapshot.filter((p) => { return todo.id != p.id; });
-
-		$.ajax({
-			url: utils.join(this.props.url, todo.id),
-			dataType: 'json',
-			type: 'DELETE',
-			success: function(data) {
-				this.sync();
-			}.bind(this),
-			error: function(xhr, status, err) {
-				this.setState({tasks: snapshot});
-				console.error(this.props.url, status, err.toString());
-			}.bind(this)
-		});
+	public destroy(task: Task) {
+		this.props.manager.delete(task);
 	}
 
 	render() {
+		console.log("render: "+Date.now());
+
 		let cx = classNames;
 		let selected = this.state.selected;
+		let mgr = this.props.manager;
 
 		let sidebar = (
 			<div className="nav-menu">
@@ -195,26 +141,24 @@ class TodoApp extends React.Component<AppProps, AppState> {
 						<img src={this.state.avatar} alt="avatar" className="img-responsive img-circle img-avatar center-block" />
 						<a className="avatar-name" href="#" title="user">{this.state.username}<span className="caret"></span></a>
 					</li>
-					<li className={cx({active: selected === "DAILY"})}><a href="#/" title="today" className="menu-text">今日<span className="badge pull-right red-color">{this.state.dailyTasks.length}</span></a></li>
-					<li className={cx({active: selected === "SHORTTERM"})}><a href="#/short" title="mid-term" className="menu-text">近期<span className="badge pull-right blue-color">{this.state.shortTasks.length}</span></a></li>
-					<li className={cx({active: selected === "LONGTERM"})}><a href="#/long" title="long-term" className="menu-text">长期<span className="badge pull-right green-color">{this.state.longTasks.length}</span></a></li>
-					<li className={cx({active: selected === "completed"})}><a href="#/completed" title="long-term" className="menu-text">已完成<span className="badge pull-right gray-color">{this.state.completedCount}</span></a></li>
+
+					<li className={cx({active: selected === "DAILY"})}><a href="#/" title="today" className="menu-text">今日<span className="badge pull-right red-color">{mgr.count("DAILY")}</span></a></li>
+					<li className={cx({active: selected === "SHORTTERM"})}><a href="#/short" title="mid-term" className="menu-text">近期<span className="badge pull-right blue-color">{mgr.count("SHORTTERM")}</span></a></li>
+					<li className={cx({active: selected === "LONGTERM"})}><a href="#/long" title="long-term" className="menu-text">长期<span className="badge pull-right green-color">{mgr.count("LONGTERM")}</span></a></li>
+					<li className={cx({active: selected === "completed"})}><a href="#/completed" title="long-term" className="menu-text">已完成<span className="badge pull-right gray-color">{mgr.completedCount}</span></a></li>
 				</ul>
 			</div>
 		);
 
 		let footer = (
 			<div className="footer">
-				{this.state.selected === "completed" && this.state.completedTasks.length < this.state.completedCount ?
-					<button className="btn btn-default" type="submit" onClick={this.getMoreCompleted.bind(this)}>更多完成事项</button>
-					: null}
 			</div>
 		);
 
 		let header = (
 			<div>
 				<header className="header">
-					<h2>{this.state.selectedTitle}<small>{moment().format('YYYY年M月D日 dddd LT')}</small></h2>
+					<h2>{this.getPageTitle()}<small>{moment().format('YYYY年M月D日 dddd LT')}</small></h2>
 
 					{this.state.selected === "completed" ? null :
 						<input
@@ -228,7 +172,7 @@ class TodoApp extends React.Component<AppProps, AppState> {
 			</div>
 		);
 
-		let taskItems = this.getCurrentTasks().map(function (each) {
+		let taskItems = this.props.manager.filter(this.state.selected).map(function (each) {
 			return (
 				<TaskItem
 					url={utils.join(this.props.url, each.id)}
@@ -264,6 +208,6 @@ class TodoApp extends React.Component<AppProps, AppState> {
 }
 
 ReactDOM.render(
-	<TodoApp url="/api/tasks" pollInterval={5000} />,
+	<TodoApp manager={new TaskManagerImpl()} url="/api/tasks" pollInterval={5*60*1000} />,
 	$('.todoapp').get(0)
 );

@@ -35,7 +35,7 @@ export class TaskItem extends React.Component<TaskItemProps, TaskItemState> {
 
 	public onStatusChange() {
 		this.setState({completed: !this.state.completed}, ()=> {
-			this.props.todo.status = this.state.completed ? "CLOSE" : "OPEN";
+			this.props.todo.setStatus(this.state.completed ? "CLOSE" : "OPEN");
 			this.update();
 		});
 	}
@@ -44,8 +44,6 @@ export class TaskItem extends React.Component<TaskItemProps, TaskItemState> {
 		let todo = this.props.todo;
 
 		if(todo.title) {
-			console.log(this.props.todo.toJson());
-
 			$.ajax({
 				url: this.props.url,
 				dataType: 'json',
